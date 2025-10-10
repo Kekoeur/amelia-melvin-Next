@@ -35,22 +35,21 @@ async function getPageData(slug: string) {
   }
 }
 
-export default async function DynamicPage({ params }: { params: { slug?: string[] } }) {
-  const paramsslug = params.slug;
-  const slug = paramsslug ? paramsslug.join("/") : "acceuil"
-  const props =  await getPageData(slug);
-  const page: PageData = props?.pageProps;
-  const nav = props?.navProps;
-  const navMenu: NavigationProps = {current: slug, ...nav}
-  
+export default async function DynamicPage(props: { params: { slug?: string[] } }) {
+  const paramsslug = props.params.slug;
+  const slug = paramsslug ? paramsslug.join("/") : "acceuil";
+  const result = await getPageData(slug);
+  const page: PageData = result?.pageProps;
+  const nav = result?.navProps;
+  const navMenu: NavigationProps = { current: slug, ...nav };
 
   if (!page) {
-    notFound(); // Next.js affiche la page 404
+    notFound();
   }
 
   return (
     <div>
-      <HamburgerMenuPage {... (navMenu as NavigationProps)} />
+      <HamburgerMenuPage {...(navMenu as NavigationProps)} />
       {page.Sections?.map((element, index) => (
         <SectionRenderer key={index} section={element} />
       ))}
