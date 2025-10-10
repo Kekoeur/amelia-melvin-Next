@@ -1,6 +1,6 @@
 "use client";
 import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
-import { NavigationItem, NavigationProps } from "@/types/pages";
+import { NavigationProps } from "@/types/pages";
 import { getFullRoute, buildNavigationTree } from "@/utils/navigationUtils";
 
 /* Types génériques pour éviter la répétition */

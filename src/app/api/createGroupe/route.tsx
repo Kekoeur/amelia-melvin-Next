@@ -38,7 +38,7 @@ console.log(JSON.stringify({ query: print(CREATE_INVITE), variables }))
     const result = JSON.parse(text);
     return NextResponse.json({ success: true, result });
   } catch (e) {
-    return NextResponse.json({ success: false, error: "Invalid JSON returned", raw: text });
+    return NextResponse.json({ success: false, error: `Invalid JSON returned ${e}`, raw: text });
   }
 
 }

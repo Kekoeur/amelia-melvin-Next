@@ -1,6 +1,6 @@
 import { initializeApollo } from "@/utils/apolloClient";
 import { GET_NAVIGATION, GET_PAGE_DATA } from "@/graphql/queries";
-import { NavigationItem, NavigationProps, PageProps } from "@/types/pages";
+import { NavigationItem, NavigationProps } from "@/types/pages";
 import SectionRenderer from "@/utils/renderComponent";
 import { PageData } from "@/types/api";
 import { HamburgerMenuPage } from "@/components/Navigation/NavigationMenu";

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Invite, Personne } from "@/types/api";
 import { formatGroupInvite, getMomentsFromQuand, normalize } from "@/utils/formatters";
 
-const MOMENTS = ["Matin", "Midi", "Soir", "Retour"] as const;
+type Moment = "Matin" | "Midi" | "Soir" | "Retour";
 
 export default function InviteInfo({ invites }: { invites: Invite[] }) {
   const [search, setSearch] = useState("");
@@ -32,7 +32,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
     }, {} as Record<string, Invite[]>);
   }, [filteredInvites]);
 
-  const handlePresenceChange = (index: number, moment: typeof MOMENTS[number], checked: boolean) => {
+  const handlePresenceChange = (index: number, moment: Moment, checked: boolean) => {
     if (!editedInvite) return;
 
     const person = editedInvite.Qui[index];
@@ -130,7 +130,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
 
     const updatedQui = editedInvite.Qui.filter((_, i) => i !== index);
 
-    const cleanMoment = (moment: typeof MOMENTS[number]) =>
+    const cleanMoment = (moment: Moment) =>
       (editedInvite[moment] ?? []).filter(p => p.Prenom !== personToRemove.Prenom);
 
     setEditedInvite({

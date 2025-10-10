@@ -1,5 +1,5 @@
 import React from "react";
-import { ListInvites, Invite, Personne, Moment } from "@/types/api"; // adapte le chemin si besoin
+import { ListInvites, Personne, Moment } from "@/types/api"; // adapte le chemin si besoin
 
 const PresenceList: React.FC<ListInvites> = ({ invites }) => {
   const getPeopleByMoment = (moment: Moment): Personne[] => {
