@@ -36,7 +36,7 @@ async function getPageData(slug: string) {
 }
 
 export default async function DynamicPage({ params }: { params: { slug?: string[] } }) {
-  const paramsslug = await params.slug
+  const paramsslug = params.slug;
   const slug = paramsslug ? paramsslug.join("/") : "acceuil"
   const props =  await getPageData(slug);
   const page: PageData = props?.pageProps;
