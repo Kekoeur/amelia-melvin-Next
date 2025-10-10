@@ -35,9 +35,12 @@ async function getPageData(slug: string) {
   }
 }
 
-export default async function DynamicPage(props: { params: { slug?: string[] } }) {
-  const paramsslug = props.params.slug;
+export default async function DynamicPage(props: { params: Promise<{ slug?: string[] }> }) {
+  // Await params pour Next.js 15
+  const params = await props.params;
+  const paramsslug = params.slug;
   const slug = paramsslug ? paramsslug.join("/") : "acceuil";
+  
   const result = await getPageData(slug);
   const page: PageData = result?.pageProps;
   const nav = result?.navProps;
