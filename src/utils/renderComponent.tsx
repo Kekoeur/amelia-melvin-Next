@@ -2,15 +2,13 @@
 import React from "react";
 import { Section } from "@/types/api";
 
-// Minimal interface for PaintWorklet
-interface PaintWorklet {
-  addModule(url: string): void;
-}
-
 // Extend the global CSS type to include paintWorklet
 declare global {
   interface CSSPaintWorklet {
     addModule(url: string): void;
+  }
+  interface CSSWithPaintWorklet {
+    [key: string]: unknown;
   }
 }
 
@@ -20,7 +18,8 @@ interface SectionRendererProps {
 
 const SectionRenderer: React.FC<SectionRendererProps> = ({ section }) => {
     React.useEffect(() => {
-        const paintWorklet = (window.CSS && (window.CSS as any)["paintWorklet"]) as CSSPaintWorklet | undefined;
+        const cssObj = window.CSS as CSSWithPaintWorklet;
+        const paintWorklet = cssObj && (cssObj["paintWorklet"] as CSSPaintWorklet | undefined);
         paintWorklet?.addModule("/js/squircle.min.js");
       }, []);
     
