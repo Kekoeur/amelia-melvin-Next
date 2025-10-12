@@ -364,7 +364,6 @@ export const GET_INVITES = gql`
             Qui {
                 Nom
                 Prenom
-                id
             }
             Quand
             Allergies
@@ -374,17 +373,14 @@ export const GET_INVITES = gql`
             Matin {
                 Nom
                 Prenom
-                id
             }
             Midi {
                 Nom
                 Prenom
-                id
             }
             Soir {
                 Nom
                 Prenom
-                id
             }
             Retour {
                 Nom
