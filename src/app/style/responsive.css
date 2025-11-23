@@ -1,0 +1,272 @@
+/* ========== MOBILE (<768px) ========== */
+@media (max-width: 767px) {
+  /* === Containers & Sections === */
+  .presentation-section-container,
+  .section-date-container,
+  .infos-lieu-container,
+  .titre-text-container {
+    padding: var(--section-padding-mobile);
+  }
+  
+  .titre-text-container {
+    min-height: auto;
+  }
+  
+  /* === Cards === */
+  .glass-card,
+  .titre-text-card {
+    padding: var(--card-padding-mobile);
+    border-radius: var(--radius-xl);
+  }
+  
+  .allergie-card,
+  .personne-card {
+    padding: var(--spacing-lg);
+  }
+  
+  .personne-group {
+    padding: var(--card-padding-mobile);
+  }
+  
+  .lieu-map-card {
+    padding: var(--spacing-lg);
+  }
+  
+  .event-content {
+    padding: var(--spacing-lg);
+  }
+  
+  /* === Titres === */
+  .glass-card-title,
+  .presentation-main-title,
+  .heading-fallback-title {
+    font-size: var(--font-heading-mobile);
+  }
+  
+  .allergies-title,
+  .event-title,
+  .personne-nom {
+    font-size: 1.25rem;
+  }
+  
+  .section-date-title,
+  .personne-group-titre {
+    font-size: var(--font-title-mobile);
+  }
+  
+  .infos-lieu-title {
+    font-size: var(--font-heading-mobile);
+  }
+  
+  .titre-text-title {
+    font-size: 1.75rem;
+  }
+  
+  /* === Sous-titres === */
+  .presentation-subtitle {
+    font-size: var(--font-subtitle-mobile);
+  }
+  
+  .heading-fallback-subtitle {
+    font-size: var(--font-md);
+  }
+  
+  .titre-text-description {
+    font-size: var(--font-base);
+  }
+  
+  /* === Icônes === */
+  .personne-group-emoji,
+  .date-icon,
+  .lieu-icon,
+  .titre-text-icon {
+    font-size: var(--font-icon-mobile);
+  }
+  
+  .titre-text-icon {
+    font-size: 2.5rem;
+  }
+  
+  /* === Layouts flex/grid === */
+  .step-navigation,
+  .contact-card {
+    flex-direction: column;
+  }
+  
+  .meteo-details,
+  .contact-list,
+  .personnes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .personnes-grid {
+    gap: var(--spacing-xl);
+  }
+  
+  /* === Badges & Éléments spéciaux === */
+  .date-badge {
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .allergie-checkbox-label {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  /* === Boutons === */
+  .glass-button,
+  .contact-button-wrapper {
+    width: 100%;
+  }
+  
+  .map-link-button {
+    padding: 0.875rem var(--spacing-xl);
+    font-size: 0.9rem;
+  }
+  
+  /* === Timeline mobile === */
+  .events-timeline::before,
+  .event-timeline-dot {
+    left: 30px;
+  }
+  
+  .event-card-wrapper {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  .event-card--left,
+  .event-card--right {
+    justify-content: flex-start;
+  }
+  
+  .event-card--left .event-card,
+  .event-card--right .event-card {
+    margin-left: 60px;
+    margin-right: 0;
+    max-width: calc(100% - 60px);
+  }
+  
+  .event-image-wrapper {
+    height: var(--event-image-height-mobile);
+  }
+  
+  /* === Headers spéciaux === */
+  .titre-text-header {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-md);
+  }
+  
+  .titre-text-content {
+    padding: var(--spacing-lg);
+  }
+  
+  /* === Heading Section === */
+  .heading-section {
+    height: var(--header-height-mobile);
+  }
+
+  .heading-title-wrapper {
+    bottom: 100px;
+    padding: 0 var(--spacing-lg);
+  }
+
+  .heading-title-svg {
+    max-width: 100%;
+  }
+
+  .heading-title-text {
+    font-size: 40px;
+  }
+
+  .heading-navigation-wrapper {
+    height: var(--nav-height-mobile);
+  }
+
+  .heading-navigation-wrapper .nav-links {
+    display: none;
+  }
+
+  .heading-navigation-wrapper .hamburger-button {
+    display: block;
+  }
+
+  .heading-section-fallback {
+    padding: var(--section-padding-mobile);
+    min-height: 300px;
+  }
+
+  .personne-profile-badge {
+    top: -20px;
+    right: 15px;
+    width: 90px;
+    height: 90px;
+  }
+  
+  .profile-image-foreground {
+    transform: scale(1.05);
+  }
+}
+
+/* ========== TABLET (768px - 1023px) ========== */
+@media (min-width: 768px) {
+  .contact-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .personnes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .event-card--left .event-card,
+  .event-card--right .event-card {
+    max-width: 450px;
+  }
+  
+  .titre-text-title {
+    font-size: var(--font-heading-mobile);
+  }
+  
+  .titre-text-icon {
+    font-size: 3rem;
+  }
+  
+  .heading-title-text {
+    font-size: 50px;
+  }
+
+  .heading-navigation-wrapper .nav-link {
+    min-width: 100px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 0.9rem;
+  }
+
+  .heading-fallback-title {
+    font-size: 2.5rem;
+  }
+
+  .personne-profile-badge {
+    top: -25px;
+    right: 18px;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .profile-image-foreground {
+    transform: scale(1.06);
+  }
+}
+
+/* ========== DESKTOP (>=1024px) ========== */
+@media (min-width: 1024px) {
+  .contact-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .heading-navigation-wrapper .hamburger-button {
+    display: none;
+  }
+}
