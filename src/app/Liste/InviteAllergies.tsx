@@ -9,7 +9,7 @@ const InviteAllergies: React.FC<ListInvites> = ({ invites }) => {
       {invites.map(i => {
         if(i.Reponse && i.Allergies && i.Allergies !="") {
             return (
-                <div key={i.id}>
+                <div key={i.documentId}>
                     <h2 className="text-xl font-semibold mb-2">Allergie(s) pour {formatGroupInvite(i.Qui)}</h2>
                     <p style={{ whiteSpace: 'pre-line' }}>{i.Allergies}</p>
                 </div>

@@ -86,7 +86,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
   const handleSave = async () => {
     if (editedInvite && selectedInvite) {
       const payload = {
-        id: editedInvite.id,
+        id: editedInvite.documentId,
         Quand: editedInvite.Quand,
         Reponse: editedInvite.Reponse,
         Qui: editedInvite.Qui,
@@ -105,7 +105,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
       closeModal();
       setLocalInvites((prev) =>
         prev.map((invite) =>
-          invite.id === selectedInvite.id ? { ...invite, ...editedInvite } : invite
+          invite.documentId === selectedInvite.documentId ? { ...invite, ...editedInvite } : invite
         )
       );
     }
@@ -158,7 +158,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
       <button
         onClick={() => {
           const newInvite: Invite = {
-            id: `new-${Date.now()}`,
+            documentId: `new-${Date.now()}`,
             Qui: [{ Nom: "", Prenom: "", id: Date.now() }],
             Quand: "Journee",
             Allergies: "",
@@ -189,7 +189,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
             </p>
 
             {group.map((invite) => (
-              <div key={invite.id} className="border p-3 rounded mb-3 bg-gray-50">
+              <div key={invite.documentId} className="border p-3 rounded mb-3 bg-gray-50">
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="font-medium">

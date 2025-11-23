@@ -95,3 +95,13 @@ export function isEmptyParagraph(paragraphs: Paragraph[]): boolean {
   );
 }
 
+export function transformDateToString(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { weekday:'long', year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleDateString('fr-FR', options);
+}
+
+export function transformDateToHourString(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+  console.log('Transforming date to hour string:', date.toLocaleTimeString('fr-FR', options));
+  return date.toLocaleTimeString('fr-FR', options);
+}

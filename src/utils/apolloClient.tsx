@@ -5,7 +5,10 @@ const createApolloClient = () => {
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
       uri: process.env.NEXT_PUBLIC_GRAPHQL_API || "https://api.melvin-et-amelia.fr/graphql",
-      credentials: "same-origin",
+      credentials: "include", // Change ici
+      fetchOptions: {
+        mode: 'cors',
+      },
     }),
     cache: new InMemoryCache(),
   });
