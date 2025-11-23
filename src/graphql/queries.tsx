@@ -1,332 +1,161 @@
 import { gql } from "@apollo/client";
 
 export const GET_PAGE_DATA = gql`
-    query GetPageDate($documentId: ID!) {
+    # Fragment pour les listes (Surnom et Lien)
+    fragment ListeFields on ComponentTypeListeString {
+        id
+        Elt
+    }
+
+    fragment ListContactFields on ComponentTypeListContact {
+        id
+        Titre
+        Desc
+        Contact {
+            ...ContactFields
+        }
+    }
+
+    # Fragment pour les images
+    fragment ImageFields on ComponentMediaImageMedia {
+        id
+        ImgTitle
+        ImgAlt
+        Image {
+            url
+        }
+    }
+
+    # Fragment pour une personne (Mariés, Témoins, etc.)
+    fragment PersonneFields on ComponentPresentationPresentation {
+        id
+        Personne
+        ListeSurnom {
+            ...ListeFields
+        }
+        ListLien {
+            ...ListeFields
+        }
+        Presentation
+        Profession
+        ProfilPicture {
+            ...ImageFields
+        }
+        Type
+    }
+
+    # Fragment pour un événement dans la section Histoire
+    fragment EventFields on ComponentPresentationDateHistoire {
+        id
+        Titre
+        Lieu
+        Image {
+            ...ImageFields
+        }
+        Desc
+        Date
+    }
+
+    fragment ContactFields on ComponentTypeContact {
+        id
+        Nom
+        NumTel
+    }
+
+    query GetPageData($documentId: ID!) {
         page(documentId: $documentId) {
+            documentId
             Nom
-            Sections {
-                __typename
-                ... on ComponentHeadingSummaryAnimated {
-                    Title
-                    Summary {
-                        AnimatedTitle : Title {
-                            TextBefore
-                            TypingElt {
-                                Element
-                                }
-                            TextAfter
-                            DelayAnimation
-                        }
-                        Summary
+            Slug
+            Section {
+                ... on ComponentSectionFormInvite {
+                    id
+                    Titre
+                    DisplayInput {
+                        id
+                        Question
+                        InputType
                     }
-                    Button {
-                        Text
-                        RedirUrl
-                        Type
-                    }
+                }
+                
+                ... on ComponentSectionHeading {
+                    id
                     Image {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
+                        ...ImageFields
                     }
-                    AnimatedType : Type
-                }
-                ... on ComponentHeadingSummaryBasic {
-                    Title
-                    Summary {
-                        BasicTitle:Title
-                        Summary
-                    }
-                    Button {
-                        Text
-                        RedirUrl
-                        Type
-                    }
-                    Image {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
-                    }
-                    BasicType : Type
-                }
-                ... on ComponentSectionBasicSection {
-                    Title
-                    Content {
-                        Title
-                        Summary
+                    Logo {
+                        ...ImageFields
                     }
                 }
-                ... on ComponentSectionCarrousel {
-                    Element {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
+                
+                ... on ComponentSectionPresentation {
+                    id
+                    TitreMaries
+                    Maries {
+                        ...PersonneFields
+                    }
+                    TitreTemoin
+                    Temoins {
+                        ...PersonneFields
+                    }
+                    TitreHonneur
+                    Honneur {
+                        ...PersonneFields
+                    }
+                    TitreMaitreTemps
+                    MaitreTemps {
+                        ...PersonneFields
                     }
                 }
-                ... on ComponentSectionDisplayBtn {
-                    Title
-                    Button {
-                        Text
-                        RedirUrl
-                        Type
+
+                ... on ComponentSectionHistoire {
+                    id
+                    Titre
+                    Event {
+                        ...EventFields
                     }
                 }
-                ... on ComponentSectionDisplayForm {
-                    Title
-                    Text
-                    Form {
-                        InputElt {
-                            Name
-                            Placeholder {
-                                Icon {
-                                    ImgTitle
-                                    Image {
-                                        url
-                                        previewUrl
-                                        formats
-                                        height
-                                        width
-                                        name
-                                        size
-                                    }
-                                    ImgAlt
-                                }
-                                Text
-                            }
-                            Size
-                            Type
-                            DataName
-                        }
-                        FormButton {
-                            Text
-                            RedirUrl
-                            Type
-                        }
+
+                ... on ComponentSectionSectionDate {
+                    id
+                    Date
+                    event {
+                        ...EventFields
                     }
                 }
-                ... on ComponentSectionDisplayFramedImage {
-                    Title
-                    Element {
-                        Image {
-                            ImgTitle
-                            Image {
-                                url
-                                previewUrl
-                                formats
-                                height
-                                width
-                                name
-                                size
-                            }
-                            ImgAlt
-                        }
-                        Text
-                        RedirUrl
-                    }
-                    FramedType {
-                        Type
-                    }
+
+                ... on ComponentSectionTitreText {
+                    id
+                    Titre
+                    Desc
                 }
-                ... on ComponentSectionDisplayGallery {
-                    Element {
-                        Image {
-                            ImgTitle
-                            Image {
-                                url
-                                previewUrl
-                                formats
-                                height
-                                width
-                                name
-                                size
-                            }
-                            ImgAlt
-                        }
-                        Size
-                    }
-                }
-                ... on ComponentSectionFramedBetweenImage {
-                    LeftImage {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
-                    }
-                    UniqueFramedText: FramedText {
-                        Title
-                        Text
-                    }
-                    RightImage {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
-                    }
-                    FramedType {
-                        Type
-                    }
-                }
-                ... on ComponentSectionImageBetweenFramed {
-                    LeftFramed {
-                        Title
-                        Text
-                    }
-                    Image {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
-                    }
-                    RightFramed {
-                        Title
-                        Text
-                    }
-                    FramedType {
-                        Type
-                    }
-                }
-                ... on ComponentSectionSectionLocation {
-                    Title
+
+                ... on ComponentInfosLieu {
+                    id
+                    Latitude
+                    Longitude
+                    Titre
                     Plan {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
-                    }
-                    AddressTitle
-                    Address
-                    RedirGPS {
-                        Image {
-                            ImgTitle
-                            Image {
-                                url
-                                previewUrl
-                                formats
-                                height
-                                width
-                                name
-                                size
-                            }
-                            ImgAlt
-                        }
-                        RedirUrl
-                    }
-                    ScheduleTitle
-                    Schedule
-                    LocationImg {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
+                        ...ImageFields
                     }
                 }
-                ... on ComponentSectionSideSummary {
-                    Title
-                    Summary {
-                        Title
-                        Summary
-                    }
-                    SideImage {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
-                    }
-                    SideSummaryType : Type
-                }
-                ... on ComponentSectionSectionWithFramedText {
-                    Title
-                    MultipleFramedText: FramedText {
-                        Title
-                        Text
-                    }
-                    FramedType {
-                        Type
+
+                ... on ComponentInfosTrajet {
+                    id
+                    Titre
+                    url
+                    Logo {
+                        ...ImageFields  
                     }
                 }
-                ... on ComponentDividerImageDivider {
-                    Image {
-                        ImgTitle
-                        Image {
-                            url
-                            previewUrl
-                            formats
-                            height
-                            width
-                            name
-                            size
-                        }
-                        ImgAlt
+
+                ... on ComponentInfosContact {
+                    id
+                    Titre
+                    Desc
+                    Contact {
+                        ...ListContactFields
                     }
-                }
-                ... on ComponentDividerLineDivider {
-                    LineColor
                 }
             }
         }
@@ -360,36 +189,34 @@ export const GET_NAVIGATION = gql`
 export const GET_INVITES = gql`
     query GetInvite {
         invites {
-            id: documentId
+            documentId
+            Reponse
+            Quand
             Qui {
                 Nom
                 Prenom
-                id
             }
-            Quand
-            Allergies
-            Message
-            Reponse
-            createdAt
             Matin {
                 Nom
                 Prenom
-                id
             }
             Midi {
                 Nom
                 Prenom
-                id
             }
             Soir {
                 Nom
                 Prenom
-                id
             }
             Retour {
                 Nom
                 Prenom
             }
+            Message
+            Allergies
+            createdAt
+            updatedAt
+            publishedAt
         }
     }
 `
@@ -397,7 +224,11 @@ export const GET_INVITES = gql`
 export const GET_ALLERGENES = gql`
     query GetAllergenes {
         allergenes {
+            documentId
             Nom
+            createdAt
+            updatedAt
+            publishedAt
         }
     }
 `

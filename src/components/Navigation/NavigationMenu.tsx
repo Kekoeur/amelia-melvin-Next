@@ -1,47 +1,93 @@
 "use client";
-import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationProps } from "@/types/pages";
 import { getFullRoute, buildNavigationTree } from "@/utils/navigationUtils";
+import Image from "next/image";
 
-/* Types génériques pour éviter la répétition */
-interface HamburgerMenuProps {
-  children: ReactNode;
-  bgColor: string;
-  textColor: string;
+/* ==================== THEME CONFIG ==================== */
+const THEME = {
+  colors: {
+    primary: "var(--rose)",
+    secondary: "var(--jaune-pale)",
+    hover: "var(--rose)",
+    hoverText: "var(--jaune-pale)",
+    border: "var(--rose)",
+    background: "var(--jaune-pale)",
+  },
+  logo: {
+    size: 96,
+    borderWidth: 2,
+  },
+  breakpoint: 590,
+} as const;
+
+/* ==================== TYPES ==================== */
+interface HamburgerMenuPageProps extends NavigationProps {
+  logo?: {
+    url?: string;
+    alt: string;
+    title: string;
+  };
 }
 
-interface HamburgerMenuBrandProps {
-  children: ReactNode;
-  href: string;
+interface NavItemType {
+  path: string;
+  title: string;
+  children?: NavItemType[];
 }
 
-interface HamburgerMenuTogglerProps {
-  toggle: () => void;
-}
-
-interface HamburgerMenuCollapseProps {
-  children: ReactNode;
+/* ==================== ICON TOGGLE (SVG) ==================== */
+interface IconToggleProps {
   open: boolean;
+  onClick?: () => void;
+  size?: number; // px
 }
 
-interface HamburgerMenuItemProps {
-  children: ReactNode;
+function IconToggle({ open, onClick, size = 28 }: IconToggleProps) {
+  const s = size;
+  return (
+    <button
+      type="button"
+      aria-label={open ? "Fermer" : "Ouvrir"}
+      onClick={onClick}
+      className="p-1 w-8 h-8 relative flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-10"
+      style={{ width: s, height: s, color: THEME.colors.primary }}
+    >
+      {/* Close-ish icon (shown when open) */}
+      <svg
+        viewBox="0 0 24 24"
+        width={s}
+        height={s}
+        className={`absolute transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        aria-hidden={!open}
+        focusable="false"
+      >
+        <path d="M6 6 L18 18 M18 6 L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </svg>
+
+      {/* Menu / equivalent icon (shown when closed) */}
+      <svg
+        viewBox="0 0 24 24"
+        width={s}
+        height={s}
+        className={`absolute transition-opacity duration-200 ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+        aria-hidden={open}
+        focusable="false"
+      >
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </svg>
+    </button>
+  );
 }
 
-interface HamburgerMenuLinkProps {
-  children: ReactNode;
-  href: string;
-}
-
-export const HamburgerMenuPage: React.FC<NavigationProps> = (navprops) => {
+/* ==================== MAIN COMPONENT ==================== */
+export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...navprops }) => {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const structuredNav = buildNavigationTree(navprops.renderNavigation || []);
 
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkScreenSize = () => setIsMobile(window.innerWidth < THEME.breakpoint);
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
@@ -49,119 +95,163 @@ export const HamburgerMenuPage: React.FC<NavigationProps> = (navprops) => {
 
   const toggle = () => setOpen((prev) => !prev);
 
-  return (
-    <HamburgerMenu bgColor="bg-indigo-900" textColor="text-white">
-      <HamburgerMenuBrand href="/">
-        <svg height="25" width="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 153.6">
-          <linearGradient id="a" x1="-2.778%" y1="32%" y2="67.556%">
-            <stop offset="0" stopColor="#2298bd" />
-            <stop offset="1" stopColor="#0ed7b5" />
-          </linearGradient>
-          <path
-            d="M128 0C93.867 0 72.533 17.067 64 51.2 76.8 34.133 91.733 27.733 108.8 32c9.737 2.434 16.697 9.499 24.401 17.318C145.751 62.057 160.275 76.8 192 76.8c34.133 0 55.467-17.067 64-51.2-12.8 17.067-27.733 23.467-44.8 19.2-9.737-2.434-16.697-9.499-24.401-17.318C174.249 14.743 159.725 0 128 0zM64 76.8C29.867 76.8 8.533 93.867 0 128c12.8-17.067 27.733-23.467 44.8-19.2 9.737 2.434 16.697 9.499 24.401 17.318C81.751 138.857 96.275 153.6 128 153.6c34.133 0 55.467-17.067 64-51.2-12.8 17.067-27.733 23.467-44.8 19.2-9.737-2.434-16.697-9.499-24.401-17.318C110.249 91.543 95.725 76.8 64 76.8z"
-            fill="url(#a)"
-          />
-        </svg>
-      </HamburgerMenuBrand>
+  const midPoint = Math.ceil(structuredNav.length / 2);
+  const leftItems = structuredNav.slice(0, midPoint);
+  const rightItems = structuredNav.slice(midPoint);
 
-      {isMobile ? (
-        <>
-          <HamburgerMenuToggler toggle={toggle} />
-          <HamburgerMenuCollapse open={open}>
-            <HamburgerMenuNav>
-              {structuredNav.map((item) => (
-                <HamburgerMenuItem key={item.path}>
-                  <HamburgerMenuLink href={'/'+getFullRoute(item)}>
-                    {item.title}
-                  </HamburgerMenuLink>
-                  {/* Sous-menu */}
-                  {item.children && item.children.length > 0 && (
-                    <ul className="pl-4">
-                      {item.children.map((child) => (
-                        <li key={child.path}>
-                          <HamburgerMenuLink href={'/'+getFullRoute(child)}>
-                            {child.title}
-                          </HamburgerMenuLink>
-                        </li>
-                      ))}
-                    </ul>
+  return (
+    <nav
+      className="font-light shadow border-t border-b"
+      style={{
+        backgroundColor: THEME.colors.background,
+        color: THEME.colors.primary,
+        borderColor: THEME.colors.border,
+      }}
+    >
+      <div className="container mx-auto px-4">
+        {isMobile ? (
+          // ==================== MOBILE MENU ====================
+          <>
+            <div className="relative flex items-center justify-end py-2">
+              <div className="absolute left-1/2 -translate-x-1/2 -top-4 z-50">
+                <a
+                  href="/"
+                  className="block rounded-full bg-white shadow-2xl overflow-hidden hover:scale-110 transition-transform duration-300"
+                  style={{
+                    width: `${THEME.logo.size}px`,
+                    height: `${THEME.logo.size}px`,
+                    border: `${THEME.logo.borderWidth}px solid ${THEME.colors.border}`,
+                  }}
+                >
+                  {logo?.url ? (
+                    <Image
+                      src={logo.url}
+                      alt={logo.alt}
+                      width={THEME.logo.size}
+                      height={THEME.logo.size}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-200 to-pink-400">
+                      <span className="text-2xl font-bold text-white">Logo</span>
+                    </div>
                   )}
-                </HamburgerMenuItem>
+                </a>
+              </div>
+
+              {/* SVG Toggle Button */}
+              <IconToggle open={open} onClick={toggle} size={32} />
+            </div>
+
+            {/* Menu en position absolute pour overlay */}
+            <div
+              className="absolute left-0 right-0 top-full transition-all duration-300 ease-in-out overflow-hidden shadow-lg z-25"
+              style={{
+                backgroundColor: THEME.colors.background,
+                ...(open
+                  ? { maxHeight: "500px", opacity: 1, visibility: "visible" }
+                  : { maxHeight: 0, opacity: 0, visibility: "hidden" }),
+              }}
+            >
+              <nav className="py-4">
+                {structuredNav.map((item) => (
+                  <div key={item.path} className="mb-2">
+                    <a
+                      href={'/' + getFullRoute(item)}
+                      className="block px-4 py-2 rounded-lg transition-all duration-300 hover:bg-[var(--rose)] hover:text-[var(--jaune-pale)] hover:translate-x-1"
+                      style={{ color: THEME.colors.primary }}
+                    >
+                      {item.title}
+                    </a>
+                    {item.children && item.children.length > 0 && (
+                      <div className="pl-6 mt-1 space-y-1">
+                        {item.children.map((child) => (
+                          <a
+                            key={child.path}
+                            href={'/' + getFullRoute(child)}
+                            className="block px-3 py-1 text-sm rounded transition-colors hover:bg-[var(--rose)] hover:text-[var(--jaune-pale)]"
+                            style={{ color: THEME.colors.primary }}
+                          >
+                            {child.title}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+            </div>
+          </>
+        ) : (
+          // ==================== DESKTOP MENU ====================
+          <div className="flex items-center justify-center gap-25 relative">
+            {/* Left Navigation */}
+            <nav className="flex gap-4">
+              {leftItems.map((item) => (
+                <div key={item.path} className="relative group">
+                  <a href={'/' + getFullRoute(item)} className="nav-link" style={{ color: THEME.colors.primary }}>
+                    {item.title}
+                  </a>
+
+                  {item.children && item.children.length > 0 && (
+                    <div className="dropdown-menu">
+                      {item.children.map((child) => (
+                        <a key={child.path} href={'/' + getFullRoute(child)} className="dropdown-item">
+                          {child.title}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
-            </HamburgerMenuNav>
-          </HamburgerMenuCollapse>
-        </>
-      ) : (
-        <ul className="flex space-x-4">
-          {structuredNav.map((item) => (
-            <li key={item.path} className="relative group">
-              <a href={'/'+getFullRoute(item)} className="text-white hover:text-gray-400">
-                {item.title}
+            </nav>
+
+            {/* Central Logo */}
+            <div className="absolute -top-8 transform hover:scale-110 transition-transform duration-300">
+              <a
+                href="/"
+                className="block rounded-full bg-white shadow-2xl overflow-hidden"
+                style={{
+                  width: `${THEME.logo.size}px`,
+                  height: `${THEME.logo.size}px`,
+                  border: `${THEME.logo.borderWidth}px solid ${THEME.colors.border}`,
+                }}
+              >
+                {logo?.url ? (
+                  <Image src={logo.url} alt={logo.alt} width={THEME.logo.size} height={THEME.logo.size} className="object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-200 to-pink-400">
+                    <span className="text-2xl font-bold text-white">Logo</span>
+                  </div>
+                )}
               </a>
-              {/* Sous-menu */}
-              {item.children && item.children.length > 0 && (
-                <ul className="absolute left-0 mt-2 w-48 bg-indigo-900 text-white rounded-md shadow-lg hidden group-hover:block">
-                  {item.children.map((child) => (
-                    <li key={child.path} className="px-4 py-2 hover:bg-indigo-700">
-                      <a href={'/'+getFullRoute(child)}>{child.title}</a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
-    </HamburgerMenu>
+            </div>
+
+            {/* Right Navigation */}
+            <nav className="flex gap-4">
+              {rightItems.map((item) => (
+                <div key={item.path} className="relative group">
+                  <a href={'/' + getFullRoute(item)} className="nav-link" style={{ color: THEME.colors.primary }}>
+                    {item.title}
+                  </a>
+
+                  {item.children && item.children.length > 0 && (
+                    <div className="dropdown-menu">
+                      {item.children.map((child) => (
+                        <a key={child.path} href={'/' + getFullRoute(child)} className="dropdown-item">
+                          {child.title}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 };
 
-const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ children, bgColor, textColor }) => (
-  <nav className={`${bgColor} ${textColor} font-light shadow py-2 px-4`}>{children}</nav>
-);
-
-const HamburgerMenuBrand: React.FC<HamburgerMenuBrandProps> = ({ children, href }) => (
-  <a href={href} className="inline-block pt-1.5 pb-1.5 mr-4 cursor-pointer text-2xl font-bold whitespace-nowrap hover:text-gray-400">
-    <strong>{children}</strong>
-  </a>
-);
-
-const HamburgerMenuToggler: React.FC<HamburgerMenuTogglerProps> = ({ toggle }) => (
-  <button
-    type="button"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    className="float-right pt-1.5 text-3xl focus:outline-none focus:shadow"
-    onClick={toggle}
-  >
-    &#8801;
-  </button>
-);
-
-const HamburgerMenuCollapse: React.FC<HamburgerMenuCollapseProps> = ({ children, open }) => {
-  const ref = useRef<HTMLDivElement | null>(null); // Typage correct
-
-  const inlineStyle: CSSProperties = open
-    ? { height: ref.current ? `${ref.current.scrollHeight}px` : 'auto' } // Assure que height est une valeur CSS valide
-    : { height: 0, visibility: 'hidden' as const, opacity: 0 }; // 'as const' pour éviter le problème de type
-
-  return (
-    <div className="transition-height ease duration-300 overflow-hidden" style={inlineStyle} ref={ref}>
-      {children}
-    </div>
-  );
-};
-
-export default HamburgerMenuCollapse;
-
-const HamburgerMenuNav: React.FC<{ children: ReactNode }> = ({ children }) => (
-  <ul className="block pl-0 mb-0">{children}</ul>
-);
-
-const HamburgerMenuItem: React.FC<HamburgerMenuItemProps> = ({ children }) => <li>{children}</li>;
-
-const HamburgerMenuLink: React.FC<HamburgerMenuLinkProps> = ({ children, href }) => (
-  <a href={href} className="block cursor-pointer py-1.5 px-4  hover:text-gray-400 font-medium">
-    {children}
-  </a>
-);
+export default HamburgerMenuPage;

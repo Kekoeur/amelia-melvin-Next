@@ -1,6 +1,19 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import josephSophia from 'next/font/local';
 import "./globals.css";
+
+const josephsophia = josephSophia({
+  src: [
+    {
+      path: './fonts/josephsophia/josephsophia.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-joseph-sophia',
+  display: 'swap',
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${josephsophia.variable} antialiased`}
       >
         {children}
       </body>

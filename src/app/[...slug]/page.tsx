@@ -1,61 +1,46 @@
-import { initializeApollo } from "@/utils/apolloClient";
-import { GET_NAVIGATION, GET_PAGE_DATA } from "@/graphql/queries";
-import { NavigationItem, NavigationProps } from "@/types/pages";
-import SectionRenderer from "@/utils/renderComponent";
+import { getAllergenes, getInvites, getPageData } from "@/utils/getter";
 import { notFound } from "next/navigation";
 import { PageData } from "@/types/api";
-import { HamburgerMenuPage } from "@/components/Navigation/NavigationMenu";
-import { getFullRoute } from "@/utils/navigationUtils";
+import { NavigationProps } from "@/types/pages";
+import SectionRenderer from "@/utils/renderComponent"
+import DefaultPage from "@/components/Page/DefaultPage";
 
-async function getPageData(slug: string) {
-  const client = initializeApollo();
+export default async function DynamicPage({ params }: { params: { slug?: string[] } }) {
+  const paramsslug = await params.slug
+  const props = await getPageData(paramsslug ? paramsslug.join('/') : 'home')
+  console.log('Pages data dans reponses/page.tsx :', props)
+  const page: PageData = props?.pageProps;
+  console.log('Page data dans reponses/page.tsx :', page)
+  const invites = await getInvites();
+  const nav = props?.navProps;
+  console.log('Navigation props dans reponses/page.tsx :', nav)
+  const navMenu: NavigationProps = {current: paramsslug ? paramsslug.join('/') : 'home', ...nav}
+  console.log('Navigation menu dans reponses/page.tsx :', navMenu)
 
-  try {
-    const { data: navData } = await client.query({
-      query: GET_NAVIGATION,
-      variables: { navigationIdOrSlug: "navigation-fr" },
-    });
-    
-
-    const pageId = navData?.renderNavigation.find(
-      (item: NavigationItem) => getFullRoute(item) === slug
-    )?.related.documentId;
-
-    if (!pageId) return null;
-
-    const { data } = await client.query({
-      query: GET_PAGE_DATA,
-      variables: { documentId: pageId },
-    });
-
-    return {navProps: navData,pageProps: data.page || null};
-  } catch (error) {
-    console.error("Erreur lors de la récupération des données :", error);
-    return null;
-  }
-}
-
-export default async function DynamicPage(props: { params: Promise<{ slug?: string[] }> }) {
-  // Await params pour Next.js 15
-  const params = await props.params;
-  const paramsslug = params.slug;
-  const slug = paramsslug ? paramsslug.join("/") : "acceuil";
+  const allergenes = await getAllergenes();
+  if (!invites || !allergenes) return notFound();
   
-  const result = await getPageData(slug);
-  const page: PageData = result?.pageProps;
-  const nav = result?.navProps;
-  const navMenu: NavigationProps = { current: slug, ...nav };
-
-  if (!page) {
-    notFound();
-  }
-
   return (
-    <div>
-      <HamburgerMenuPage {...(navMenu as NavigationProps)} />
-      {page.Sections?.map((element, index) => (
-        <SectionRenderer key={index} section={element} />
-      ))}
-    </div>
+    <DefaultPage navMenu={navMenu}>
+      <p>{paramsslug}</p>
+      {page?.Section?.map((element, index) => {
+        
+        return element.__typename === 'ComponentSectionFormInvite' ? (
+          <SectionRenderer
+            key={index}
+            section={element}
+            navMenu={navMenu}
+            invites={invites}
+            allergenes={allergenes}
+          />
+        ) : (
+          <SectionRenderer
+            key={index}
+            section={element}
+            navMenu={navMenu}
+          />
+        );
+      })}
+    </DefaultPage>
   );
 }

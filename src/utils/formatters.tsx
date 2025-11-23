@@ -51,6 +51,8 @@ export function formatPrenoms(prenoms: string[]) {
 export function getMomentsFromQuand(quand: string): Moment[] {
   switch (quand) {
     case "Journee":
+      return ["Matin", "Midi", "Soir"];
+    case "Journee_and_Retour":
       return ["Matin", "Midi", "Soir", "Retour"];
     case "Matin_and_Soir":
       return ["Matin", "Soir"];
@@ -95,3 +97,13 @@ export function isEmptyParagraph(paragraphs: Paragraph[]): boolean {
   );
 }
 
+export function transformDateToString(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { weekday:'long', year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleDateString('fr-FR', options);
+}
+
+export function transformDateToHourString(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+  console.log('Transforming date to hour string:', date.toLocaleTimeString('fr-FR', options));
+  return date.toLocaleTimeString('fr-FR', options);
+}
