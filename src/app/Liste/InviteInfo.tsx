@@ -6,6 +6,13 @@ import { formatGroupInvite, getMomentsFromQuand, normalize } from "@/utils/forma
 
 type Moment = "Matin" | "Midi" | "Soir" | "Retour";
 
+const momentLabels: Record<string, string> = {
+  "Matin": "Matin",
+  "Matin_and_Soir": "Matin & Soir",
+  "Journee": "Journée",
+  "Journee_and_Retour": "Journée & Retour",
+};
+
 export default function InviteInfo({ invites }: { invites: Invite[] }) {
   const [search, setSearch] = useState("");
   const [selectedInvite, setSelectedInvite] = useState<Invite | null>(null);
@@ -181,9 +188,10 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
 
       {Object.entries(invitesByQuand).map(([quand, group]) => {
         const moments = getMomentsFromQuand(quand);
+        console.log("Rendering group for quand:", quand, group);
         return (
           <div key={quand} className="mb-8 border p-4 rounded shadow">
-            <p className="text-xl font-semibold mb-2">📅 {quand}</p>
+            <p className="text-xl font-semibold mb-2">📅 {momentLabels[quand]}</p>
             <p className="text-sm text-gray-600 mb-2">
               👥 {group.reduce((acc, i) => acc + (i.Qui?.length ?? 0), 0)} personne(s)
             </p>
@@ -212,8 +220,8 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
                         <p className="text-sm font-semibold">{moment} :</p>
                         <ul className="text-sm list-disc ml-4">
                           {invite[moment]?.length ? (
-                            invite[moment].map((p) => (
-                              <li key={moment + p.id}>
+                            invite[moment].map((p, idx) => (
+                              <li key={`${moment}-${p.id || idx}-${p.Prenom}`}>
                                 {p.Prenom} {p.Nom}
                               </li>
                             ))
@@ -233,7 +241,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
 
       {isModalOpen && editedInvite && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow-md w-full max-w-lg space-y-4">
+          <div className="bg-white p-6 rounded shadow-md w-full max-w-lg space-y-4 max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-semibold mb-2">
               {isCreateNew ? "Nouveau groupe" : "Modifier le groupe"}
             </h2>
@@ -255,7 +263,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
             </label>
 
             {editedInvite.Qui.map((person, index) => (
-              <div key={person.id} className="border p-2 mb-2 rounded">
+              <div key={`person-${index}-${person.id || index}`} className="border p-2 mb-2 rounded">
                 <div className="flex gap-2">
                   <input
                     type="text"
@@ -314,6 +322,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
                 className="border p-1 rounded w-full"
               >
                 <option value="Journee">Journée</option>
+                <option value="Journee_and_Retour">Journée & Retour</option>
                 <option value="Matin_and_Soir">Matin & Soir</option>
                 <option value="Matin">Matin</option>
               </select>

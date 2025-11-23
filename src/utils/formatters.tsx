@@ -51,6 +51,8 @@ export function formatPrenoms(prenoms: string[]) {
 export function getMomentsFromQuand(quand: string): Moment[] {
   switch (quand) {
     case "Journee":
+      return ["Matin", "Midi", "Soir"];
+    case "Journee_and_Retour":
       return ["Matin", "Midi", "Soir", "Retour"];
     case "Matin_and_Soir":
       return ["Matin", "Soir"];
