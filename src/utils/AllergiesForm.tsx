@@ -26,6 +26,12 @@ export default function AllergiesForm({ invite, allergenes }: Props) {
     ]);
   };
 
+  const handleRemoveLine = (index: number) => {
+    if (allergySelections.length > 1) {
+      setAllergySelections(allergySelections.filter((_, i) => i !== index));
+    }
+  };
+
   const handleChange = (
     index: number,
     field: "allergen" | "customName",
@@ -34,7 +40,7 @@ export default function AllergiesForm({ invite, allergenes }: Props) {
     const updated = [...allergySelections];
     if (field === "allergen") {
       updated[index].allergen = value;
-      if (value !== "Autre") {
+      if (value !== "Autres") {
         updated[index].customName = "";
       }
     } else if (field === "customName") {
@@ -56,53 +62,77 @@ export default function AllergiesForm({ invite, allergenes }: Props) {
   };
 
   return invite ? (
-    <div className="space-y-6">
-      <h3 className="text-lg font-semibold">Allergies</h3>
+    <div className="allergies-form-container">
+      <h3 className="allergies-title">🥜 Allergies alimentaires</h3>
+      <p className="allergies-subtitle">
+        Indiquez les allergies de chaque membre de votre groupe
+      </p>
 
       {allergySelections.map((selection, index) => (
-        <div key={index} className="border p-4 rounded bg-gray-50">
-          <label className="block mb-2">Sélectionne un allergène :</label>
-          <select
-            className="w-full p-2 border rounded"
-            value={selection.allergen}
-            onChange={(e) =>
-              handleChange(index, "allergen", e.target.value)
-            }
-          >
-            <option value="">-- Choisir --</option>
-            {allergenes.map((allergen) => (
-              <option key={allergen.Nom} value={allergen.Nom}>
-                {allergen.Nom}
-              </option>
-            ))}
-          </select>
+        <div key={index} className="allergie-card">
+          <div className="allergie-card-header">
+            <span className="allergie-card-number">Allergie #{index + 1}</span>
+            {allergySelections.length > 1 && (
+              <button
+                type="button"
+                onClick={() => handleRemoveLine(index)}
+                className="allergie-remove-btn"
+                aria-label="Supprimer cette allergie"
+              >
+                ❌
+              </button>
+            )}
+          </div>
+
+          <div className="allergie-item">
+            <label className="allergie-label">
+              Sélectionnez un allergène :
+            </label>
+            <select
+              className="glass-select"
+              value={selection.allergen}
+              onChange={(e) => handleChange(index, "allergen", e.target.value)}
+            >
+              <option value="">-- Choisir un allergène --</option>
+              {allergenes.map((allergen) => (
+                <option key={allergen.Nom} value={allergen.Nom}>
+                  {allergen.Nom}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {selection.allergen === "Autres" && (
-            <input
-              type="text"
-              className="mt-2 w-full p-2 border rounded"
-              placeholder="Nom de l’allergie"
-              value={selection.customName}
-              onChange={(e) =>
-                handleChange(index, "customName", e.target.value)
-              }
-            />
+            <div className="allergie-item">
+              <label className="allergie-label">
+                Précisez l'allergie :
+              </label>
+              <input
+                type="text"
+                className="glass-input"
+                placeholder="Ex : Kiwi, Ananas..."
+                value={selection.customName}
+                onChange={(e) => handleChange(index, "customName", e.target.value)}
+              />
+            </div>
           )}
 
-          <div className="mt-4">
-            <label className="block mb-2">Associer à :</label>
-            <div className="space-y-1">
+          <div className="allergie-item">
+            <label className="allergie-label">
+              Qui est concerné ?
+            </label>
+            <div className="allergie-checkbox-group">
               {persons.map((person) => (
                 <label
                   key={person.id}
-                  className="flex items-center space-x-2"
+                  className="allergie-checkbox-label"
                 >
                   <input
                     type="checkbox"
                     checked={selection.persons.some(p => p.id === person.id)}
                     onChange={() => handlePersonToggle(index, person)}
                   />
-                  <span>{`${person.Prenom ?? ""} ${person.Nom ?? ""}`}</span>
+                  <span>👤 {`${person.Prenom ?? ""} ${person.Nom ?? ""}`}</span>
                 </label>
               ))}
             </div>
@@ -113,9 +143,9 @@ export default function AllergiesForm({ invite, allergenes }: Props) {
       <button
         type="button"
         onClick={handleAddLine}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        className="glass-button btn-primary allergie-add-btn"
       >
-        Ajouter une allergie
+        <span>➕ Ajouter une allergie</span>
       </button>
     </div>
   ) : null;

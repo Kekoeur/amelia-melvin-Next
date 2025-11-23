@@ -1,4 +1,3 @@
-// components/sections/HeadingSection.tsx
 import React from 'react';
 import Image from 'next/image';
 import { ComponentSectionHeading } from '@/types/api';
@@ -15,7 +14,6 @@ const HeadingSection: React.FC<HeadingSectionProps> = ({ section, navMenu }) => 
   console.log('Section Image data:', section.Image?.Image?.url);
   console.log('Section Image Alt:', section.Image?.ImgAlt);
   console.log('Section Image Title:', section.Image?.ImgTitle);
-
   console.log('Navigation menu in HeadingSection:', navMenu);
 
   const logo = {
@@ -26,30 +24,35 @@ const HeadingSection: React.FC<HeadingSectionProps> = ({ section, navMenu }) => 
 
   if (!section.Image?.Image) {
     return (
-      <section className="py-12 text-center">
-        {section.Titre && <h2 className="text-4xl font-bold mb-4">{section.Titre}</h2>}
-        {section.SousTitre && <p className="text-xl text-gray-600">{section.SousTitre}</p>}
+      <section className="heading-section-fallback">
+        <div className="heading-fallback-content">
+          {section.Titre && <h2 className="heading-fallback-title">{section.Titre}</h2>}
+          {section.SousTitre && <p className="heading-fallback-subtitle">{section.SousTitre}</p>}
+        </div>
       </section>
     );
   }
 
   return (
-    <section className="relative h-96 w-full">
-      <Image
-        src={process.env.NEXT_PUBLIC_STRAPI_URL + section.Image.Image.url}
-        alt={section.Image.ImgAlt || 'Section heading'}
-        title={section.Image.ImgTitle || 'Section heading'}
-        fill
-        className="object-cover"
-        priority
-      />
+    <section className="heading-section">
+      {/* Image de fond */}
+      <div className="heading-image-wrapper">
+        <Image
+          src={process.env.NEXT_PUBLIC_STRAPI_URL + section.Image.Image.url}
+          alt={section.Image.ImgAlt || 'Section heading'}
+          title={section.Image.ImgTitle || 'Section heading'}
+          fill
+          className="heading-image"
+          priority
+        />
+      </div>
       
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-opacity-30" />
+      {/* Overlay avec effet glassmorphism */}
+      <div className="heading-overlay" />
       
-      {/* Titre en cercle */}
-      <div className="absolute bottom-35 left-0 right-0 flex justify-center z-10">
-        <svg viewBox="0 0 600 250" className="w-full max-w-2xl svg-handwriting">
+      {/* Titre en cercle avec animation manuscrite */}
+      <div className="heading-title-wrapper">
+        <svg viewBox="0 0 600 250" className="heading-title-svg">
           <defs>
             <path
               id="arcPath"
@@ -58,12 +61,9 @@ const HeadingSection: React.FC<HeadingSectionProps> = ({ section, navMenu }) => 
             />
           </defs>
           <text 
-            className="font-joseph-sophia fill-white"
+            className="heading-title-text font-joseph-sophia"
             fontSize="60"
             fontWeight="bold"
-            style={{
-              filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))',
-            }}
           >
             <textPath href="#arcPath" startOffset="50%" textAnchor="middle">
               {section.Titre}
@@ -71,8 +71,9 @@ const HeadingSection: React.FC<HeadingSectionProps> = ({ section, navMenu }) => 
           </text>
         </svg>
       </div>
-      {/* Menu en bas */}
-      <div className="absolute bottom-0 left-0 w-full z-20">
+
+      {/* Menu de navigation avec effet marque-page */}
+      <div className="heading-navigation-wrapper">
         <HamburgerMenuPage {...(navMenu as NavigationProps)} logo={logo}/>
       </div>
     </section>

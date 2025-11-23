@@ -130,6 +130,14 @@ export const GET_PAGE_DATA = gql`
                     Desc
                 }
 
+                ... on ComponentSectionImageDivider {
+                    id
+                    Titre
+                    Image {
+                        ...ImageFields
+                    }
+                }
+
                 ... on ComponentInfosLieu {
                     id
                     Latitude
