@@ -10,7 +10,7 @@ export interface PageData {
     Section: Section[];
 }
 
-export type Section = ComponentSectionHeading | ComponentSectionFormInvite | ComponentSectionPresentation | ComponentSectionHistoire | ComponentSectionSectionDate | ComponentSectionTitreText | ComponentInfosLieu | ComponentInfosTrajet | ComponentInfosContact;
+export type Section = ComponentSectionHeading | ComponentSectionFormInvite | ComponentSectionPresentation | ComponentSectionHistoire | ComponentSectionSectionDate | ComponentSectionTitreText | ComponentSectionImageDivider | ComponentInfosLieu | ComponentInfosTrajet | ComponentInfosContact;
 
 export type Moment = "Matin" | "Midi" | "Soir" | "Retour";
 
@@ -66,6 +66,13 @@ export interface ComponentSectionTitreText {
     id: string;
     Titre: string;
     Desc: Paragraph[];
+}
+
+export interface ComponentSectionImageDivider {
+    __typename: 'ComponentSectionImageDivider';
+    id: string;
+    Titre: string;
+    Image: ImageMedia;
 }
 
 export interface ComponentInfosLieu {

@@ -22,7 +22,6 @@ export default async function DynamicPage({ params }: { params: { slug?: string[
   
   return (
     <DefaultPage navMenu={navMenu}>
-      <p>{paramsslug}</p>
       {page?.Section?.map((element, index) => {
         
         return element.__typename === 'ComponentSectionFormInvite' ? (

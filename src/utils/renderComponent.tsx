@@ -9,6 +9,7 @@ import PresentationSection from "@/components/Section/PresentationSection";
 import HistoireSection from "@/components/Section/HistoireSection";
 import SectionDateSection from "@/components/Section/SectionDateSection";
 import TitreTextSection from "@/components/Section/TitreTexteSection";
+import ImageDividerSection from "@/components/Section/ImageDividerSection";
 import InfosLieu from "@/components/Infos/Lieu";
 import InfosTrajet from "@/components/Infos/Trajet";
 import InfosContact from "@/components/Infos/Contact";
@@ -90,6 +91,10 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, inv
 
     case 'ComponentInfosContact': {
       return <InfosContact section={section} />;
+    }
+
+    case 'ComponentSectionImageDivider': {
+      return <ImageDividerSection section={section} />;
     }
 
     default: {

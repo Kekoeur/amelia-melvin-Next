@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import josephSophia from 'next/font/local';
-import "./globals.css";
+import './style/globals.css';
 
 const josephsophia = josephSophia({
   src: [

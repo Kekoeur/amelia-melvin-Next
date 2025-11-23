@@ -17,39 +17,53 @@ const PresentationSection: React.FC<PresentationSectionProps> = ({ section, navM
       label: 'Mariés',
       titre: section.TitreMaries,
       personnes: section.Maries,
-      variant: 'maries' as const
+      variant: 'maries' as const,
+      emoji: '💑'
     },
     {
       label: 'Témoins',
       titre: section.TitreTemoin,
       personnes: section.Temoins,
-      variant: 'temoins' as const
+      variant: 'temoins' as const,
+      emoji: '🤝'
     },
     {
       label: 'Honneur',
       titre: section.TitreHonneur,
       personnes: section.Honneur,
-      variant: 'honneur' as const
+      variant: 'honneur' as const,
+      emoji: '👑'
     },
     {
       label: 'Maître du Temps',
       titre: section.TitreMaitreTemps,
-      personnes: [section.MaitreTemps], // C'est un tableau maintenant
-      variant: 'maitre-temps' as const
+      personnes: [section.MaitreTemps],
+      variant: 'maitre-temps' as const,
+      emoji: '⏰'
     }
   ];
 
   return (
-    <div className="presentation-container">
-      {groups.map((group, index) => (
-        <PersonneGroup
-          key={index}
-          label={group.label}
-          titre={group.titre}
-          personnes={group.personnes}
-          variant={group.variant}
-        />
-      ))}
+    <div className="presentation-section-container">
+      <div className="presentation-header">
+        <h2 className="presentation-main-title">Notre équipe de rêve</h2>
+        <p className="presentation-subtitle">
+          Les personnes qui nous accompagnent dans cette aventure
+        </p>
+      </div>
+
+      <div className="presentation-groups">
+        {groups.map((group, index) => (
+          <PersonneGroup
+            key={index}
+            label={group.label}
+            titre={group.titre}
+            personnes={group.personnes}
+            variant={group.variant}
+            emoji={group.emoji}
+          />
+        ))}
+      </div>
     </div>
   );
 };
