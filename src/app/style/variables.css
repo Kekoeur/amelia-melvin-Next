@@ -1,0 +1,121 @@
+:root {
+  /* ========== Palette de couleurs ========== */
+  --rouge: #e00a26;
+  --salmon: #fa8457;
+  --rose: #fb7fa0;
+  --orange: #f75004;
+  --rose-pale: #ffb7b6;
+  --fuschia: #f40e5e;
+  --jaune: #ffdf41;
+  --jaune-pale: #fffad5;
+  --background: #ffffff;
+  --background-alt: #fafafa;
+  --foreground: #171717;
+  
+  /* ========== Effets glass ========== */
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-bg-strong: rgba(255, 255, 255, 0.95);
+  --glass-bg-medium: rgba(255, 255, 255, 0.9);
+  --glass-bg-light: rgba(255, 255, 255, 0.8);
+  --glass-bg-lighter: rgba(255, 255, 255, 0.7);
+  --glass-bg-lightest: rgba(255, 255, 255, 0.6);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  
+  /* ========== Ombres ========== */
+  --shadow-soft: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --shadow-timeline: rgba(31, 38, 135, 0.15);
+  --shadow-timeline-hover: rgba(31, 38, 135, 0.25);
+  
+  /* ========== Espacements ========== */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  --spacing-3xl: 3rem;
+  --spacing-4xl: 4rem;
+  
+  /* ========== Bordures ========== */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-full: 50px;
+  
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 3px;
+  --border-heavy: 4px;
+  
+  /* ========== Transitions ========== */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.6s ease;
+  
+  /* ========== Typographie - Desktop ========== */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 3.5rem;
+  
+  /* ========== Typographie - Mobile (surcharge en responsive) ========== */
+  --font-title-mobile: 1.5rem;
+  --font-subtitle-mobile: 1rem;
+  --font-heading-mobile: 2rem;
+  --font-icon-mobile: 2rem;
+  
+  /* ========== Layout ========== */
+  --container-xs: 600px;
+  --container-sm: 900px;
+  --container-md: 1000px;
+  --container-lg: 1200px;
+  --container-xl: 1400px;
+  
+  --section-padding-desktop: var(--spacing-4xl) var(--spacing-2xl);
+  --section-padding-mobile: var(--spacing-2xl) var(--spacing-lg);
+  
+  --card-padding-desktop: var(--spacing-2xl);
+  --card-padding-tablet: var(--spacing-xl);
+  --card-padding-mobile: var(--spacing-lg);
+  
+  /* ========== Hauteurs communes ========== */
+  --header-height: 500px;
+  --header-height-mobile: 400px;
+  --nav-height: 80px;
+  --nav-height-mobile: 60px;
+  --event-image-height: 250px;
+  --event-image-height-mobile: 200px;
+  
+  /* ========== Gradients (réutilisables) ========== */
+  --gradient-primary: linear-gradient(135deg, var(--rouge) 0%, var(--fuschia) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--salmon) 0%, var(--orange) 100%);
+  --gradient-bg: linear-gradient(135deg, var(--jaune-pale) 0%, var(--rose-pale) 50%, var(--salmon) 100%);
+  --gradient-bg-alt: linear-gradient(135deg, var(--rose-pale) 0%, var(--jaune-pale) 50%, var(--salmon) 100%);
+  --gradient-timeline: linear-gradient(180deg, var(--rose) 0%, var(--fuschia) 50%, var(--orange) 100%);
+  --gradient-meteo: linear-gradient(135deg, var(--rose) 0%, var(--fuschia) 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.4) 100%);
+  
+  /* ========== Effets réutilisables ========== */
+  --hover-lift: translateY(-4px);
+  --hover-lift-small: translateY(-2px);
+  --hover-lift-large: translateY(-8px);
+  --focus-lift: translateY(-2px);
+  
+  /* ========== Z-index scale ========== */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-navigation: 50;
+  --z-modal: 100;
+}
