@@ -1,5 +1,5 @@
-import ListePageWrapper from "./ListePageWrapper";
+import ListePage from "./ListePage";
 
-export default async function Page() {
-  return <ListePageWrapper />;
+export default function Page() {
+  return <ListePage />;
 }

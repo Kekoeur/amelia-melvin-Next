@@ -158,7 +158,7 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
           </div>
           
           <a href="./" className="confirmation-link">
-            🏠 Retour à l'accueil
+            {"🏠 Retour à l'accueil"}
           </a>
         </div>
       </div>

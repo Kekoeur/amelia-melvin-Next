@@ -1270,7 +1270,8 @@ body {
   overflow: hidden;
   box-shadow: 
     0 4px 12px var(--shadow-soft),
-    0 0 0 var(--border-medium) var(--rose-pale);
+    0 0 0 var(--border-medium) var(--rose-pale),
+    0 0 0 var(--border-heavy) solid var(--background);
   background: var(--background);
   z-index: 1;
   will-change: transform;

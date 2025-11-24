@@ -98,7 +98,6 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, inv
     }
 
     default: {
-      const exhaustiveCheck: never = section;
       return <p>Type de section inconnu : {(section as Section).__typename}</p>;
     }
   }
