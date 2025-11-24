@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+      Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
     },
     body: JSON.stringify({ query: print(SEND_REPONSE), variables }),
   });

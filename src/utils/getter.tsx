@@ -1,7 +1,7 @@
 
 import { initializeApollo } from "@/utils/apolloClient";
 import { GET_ALLERGENES, GET_INVITES, GET_PAGE_DATA, GET_NAVIGATION } from "@/graphql/queries";
-import { NavigationItem, NavigationProps, PageProps } from "@/types/pages";
+import { NavigationItem } from "@/types/pages";
 import { Allergenes, Invite } from "@/types/api";
 import { getFullRoute } from "@/utils/navigationUtils";
 

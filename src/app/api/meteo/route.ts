@@ -27,7 +27,7 @@ export async function GET(req: Request) {
     
     return Response.json({ error: 'Données non disponibles pour cette date' }, { status: 404 });
   } catch (error) {
-    return Response.json({ error: 'Erreur API météo' }, { status: 500 });
+    return Response.json({ error: 'Erreur API météo' + error }, { status: 500 });
   }
 }
 

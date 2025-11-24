@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Paragraph } from '@/types/api';
 
@@ -6,37 +7,51 @@ interface RichTextRendererProps {
   className?: string;
 }
 
+type RichChild = {
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+};
+
+// --------- Type guard sans any ---------
+function hasChildren(
+  block: Paragraph | unknown
+): block is Paragraph & { children: RichChild[] } {
+  return (
+    typeof block === "object" &&
+    block !== null &&
+    "children" in block &&
+    Array.isArray((block as { children?: unknown }).children)
+  );
+}
+
 const RichTextRenderer: React.FC<RichTextRendererProps> = ({ content, className = '' }) => {
-  console.log('RichTextRenderer content:', content);
-  if (!content || !Array.isArray(content)) {
-    return (<p className={className}>{content}</p>);
-  };
-  console.log('Rendering RichTextRenderer with content:', content);
+  if (!content || !Array.isArray(content) || content.length === 0) {
+    return null;
+  }
+
   return (
     <div className={className}>
       {content.map((block, index) => {
-        if (block.type === 'paragraph') {
+        if (block.type === 'paragraph' && hasChildren(block)) {
+          const children = block.children;
+
           return (
             <p key={index}>
-              {block.children.map((child, childIndex) => {
-                let text = child.text;
-                
-                // Gère le formatage
-                if (child.bold) {
-                  text = <strong key={childIndex}>{text}</strong> as any;
-                } else if (child.italic) {
-                  text = <em key={childIndex}>{text}</em> as any;
-                } else if (child.underline) {
-                  text = <u key={childIndex}>{text}</u> as any;
-                }
-                
-                return <span key={childIndex}>{text}</span>;
+              {children.map((child, childIndex) => {
+                let node: React.ReactNode = child.text;
+
+                if (child.underline) node = <u>{node}</u>;
+                if (child.italic) node = <em>{node}</em>;
+                if (child.bold) node = <strong>{node}</strong>;
+
+                return <span key={childIndex}>{node}</span>;
               })}
             </p>
           );
         }
-        
-        // Gère d'autres types de blocs si besoin (heading, list, etc.)
+
         return null;
       })}
     </div>

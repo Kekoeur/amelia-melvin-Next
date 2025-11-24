@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { NavigationProps } from "@/types/pages";
 import { getFullRoute, buildNavigationTree } from "@/utils/navigationUtils";
 import Image from "next/image";
+import Link from "next/link";
 
 /* ==================== THEME CONFIG ==================== */
 const THEME = {
@@ -28,12 +29,6 @@ interface HamburgerMenuPageProps extends NavigationProps {
     alt: string;
     title: string;
   };
-}
-
-interface NavItemType {
-  path: string;
-  title: string;
-  children?: NavItemType[];
 }
 
 /* ==================== ICON TOGGLE (SVG) ==================== */
@@ -114,7 +109,7 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
           <>
             <div className="relative flex items-center justify-end py-2">
               <div className="absolute left-1/2 -translate-x-1/2 -top-4 z-50">
-                <a
+                <Link
                   href="/"
                   className="block rounded-full bg-white shadow-2xl overflow-hidden hover:scale-110 transition-transform duration-300"
                   style={{
@@ -136,7 +131,7 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
                       <span className="text-2xl font-bold text-white">Logo</span>
                     </div>
                   )}
-                </a>
+                </Link>
               </div>
 
               {/* SVG Toggle Button */}
@@ -196,9 +191,9 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
                   {item.children && item.children.length > 0 && (
                     <div className="dropdown-menu">
                       {item.children.map((child) => (
-                        <a key={child.path} href={'/' + getFullRoute(child)} className="dropdown-item">
+                        <Link key={child.path} href={'/' + getFullRoute(child)} className="dropdown-item">
                           {child.title}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -208,7 +203,7 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
 
             {/* Central Logo */}
             <div className="absolute -top-8 transform hover:scale-110 transition-transform duration-300">
-              <a
+              <Link
                 href="/"
                 className="block rounded-full bg-white shadow-2xl overflow-hidden"
                 style={{
@@ -224,7 +219,7 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
                     <span className="text-2xl font-bold text-white">Logo</span>
                   </div>
                 )}
-              </a>
+              </Link>
             </div>
 
             {/* Right Navigation */}

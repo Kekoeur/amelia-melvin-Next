@@ -16,7 +16,7 @@ interface ContactGroupProps {
   contacts: Contact[];
 }
 
-const ContactGroup: React.FC<ContactGroupProps> = ({ id, titre, description, contacts }) => {
+const ContactGroup: React.FC<ContactGroupProps> = ({ titre, description, contacts }) => {
   if (contacts.length === 0) return null;
 
   return (

@@ -105,7 +105,7 @@ export default function AllergiesForm({ invite, allergenes }: Props) {
           {selection.allergen === "Autres" && (
             <div className="allergie-item">
               <label className="allergie-label">
-                Précisez l'allergie :
+                {"Précisez l'allergie :"}
               </label>
               <input
                 type="text"

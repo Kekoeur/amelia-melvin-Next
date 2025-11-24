@@ -5,16 +5,21 @@ import { NavigationProps } from "@/types/pages";
 import SectionRenderer from "@/utils/renderComponent"
 import DefaultPage from "@/components/Page/DefaultPage";
 
-export default async function DynamicPage({ params }: { params: { slug?: string[] } }) {
-  const paramsslug = await params.slug
-  const props = await getPageData(paramsslug ? paramsslug.join('/') : 'home')
+export default async function DynamicPage({ 
+  params 
+}: { 
+  params: Promise<{ slug?: string[] }> 
+}) {
+  const { slug } = await params;
+  
+  const props = await getPageData(slug ? slug.join('/') : 'home')
   console.log('Pages data dans reponses/page.tsx :', props)
   const page: PageData = props?.pageProps;
   console.log('Page data dans reponses/page.tsx :', page)
   const invites = await getInvites();
   const nav = props?.navProps;
   console.log('Navigation props dans reponses/page.tsx :', nav)
-  const navMenu: NavigationProps = {current: paramsslug ? paramsslug.join('/') : 'home', ...nav}
+  const navMenu: NavigationProps = {current: slug ? slug.join('/') : 'home', ...nav}
   console.log('Navigation menu dans reponses/page.tsx :', navMenu)
 
   const allergenes = await getAllergenes();

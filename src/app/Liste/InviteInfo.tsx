@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Invite, Personne } from "@/types/api";
 import { formatGroupInvite, getMomentsFromQuand, normalize } from "@/utils/formatters";
 
@@ -20,6 +20,12 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateNew, setIsCreateNew] = useState(false);
   const [localInvites, setLocalInvites] = useState(invites);
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [inviteToDelete, setInviteToDelete] = useState<Invite | null>(null);
+
+  useEffect(() => {
+    setLocalInvites(invites);
+  }, [invites]);
 
   const filteredInvites = useMemo(() => {
     const normalizedSearch = normalize(search);
@@ -65,6 +71,38 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
     setEditedInvite(null);
   };
 
+  const openDeleteConfirm = (invite: Invite) => {
+    setInviteToDelete(invite);
+    setIsDeleteConfirmOpen(true);
+  };
+
+  const closeDeleteConfirm = () => {
+    setIsDeleteConfirmOpen(false);
+    setInviteToDelete(null);
+  };
+
+  const handleDelete = async () => {
+    if (!inviteToDelete) return;
+
+    try {
+      const response = await fetch("/api/deleteGroupe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: inviteToDelete.documentId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la suppression");
+      }
+
+      // Recharger la page pour refetch les données
+      window.location.reload();
+    } catch (error) {
+      console.error("Erreur suppression:", error);
+      alert("Erreur lors de la suppression du groupe");
+    }
+  };
+
   const handleCreate = async () => {
     if (editedInvite) {
       const payload = {
@@ -85,8 +123,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
         body: JSON.stringify(payload),
       });
 
-      closeModal();
-      setLocalInvites((prev) => [...prev, editedInvite]);
+      window.location.reload();
     }
   };
 
@@ -109,12 +146,7 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
         body: JSON.stringify(payload),
       });
 
-      closeModal();
-      setLocalInvites((prev) =>
-        prev.map((invite) =>
-          invite.documentId === selectedInvite.documentId ? { ...invite, ...editedInvite } : invite
-        )
-      );
+      window.location.reload();
     }
   };
 
@@ -188,7 +220,6 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
 
       {Object.entries(invitesByQuand).map(([quand, group]) => {
         const moments = getMomentsFromQuand(quand);
-        console.log("Rendering group for quand:", quand, group);
         return (
           <div key={quand} className="mb-8 border p-4 rounded shadow">
             <p className="text-xl font-semibold mb-2">📅 {momentLabels[quand]}</p>
@@ -205,12 +236,20 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
                     </p>
                     <p className="text-gray-700">{formatGroupInvite(invite.Qui)}</p>
                   </div>
-                  <button
-                    className="text-blue-600 underline text-sm"
-                    onClick={() => openModal(invite)}
-                  >
-                    ✏️ Modifier
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      className="text-blue-600 underline text-sm"
+                      onClick={() => openModal(invite)}
+                    >
+                      ✏️ Modifier
+                    </button>
+                    <button
+                      className="text-red-600 underline text-sm"
+                      onClick={() => openDeleteConfirm(invite)}
+                    >
+                      🗑️ Supprimer
+                    </button>
+                  </div>
                 </div>
 
                 {invite.Reponse && (
@@ -239,6 +278,37 @@ export default function InviteInfo({ invites }: { invites: Invite[] }) {
         );
       })}
 
+      {/* Modal de confirmation de suppression */}
+      {isDeleteConfirmOpen && inviteToDelete && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
+            <h2 className="text-xl font-semibold mb-4">Confirmer la suppression</h2>
+            <p className="mb-4">
+              Êtes-vous sûr de vouloir supprimer le groupe de{" "}
+              <strong>{formatGroupInvite(inviteToDelete.Qui)}</strong> ?
+            </p>
+            <p className="text-sm text-gray-600 mb-6">
+              Cette action est irréversible.
+            </p>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={closeDeleteConfirm}
+                className="px-4 py-2 rounded bg-gray-300 text-gray-800"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 rounded bg-red-600 text-white"
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal d'édition/création */}
       {isModalOpen && editedInvite && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-md w-full max-w-lg space-y-4 max-h-[90vh] overflow-y-auto">
