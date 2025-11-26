@@ -86,6 +86,10 @@ body {
   background: var(--gradient-bg);
 }
 
+h2 {
+  font-family: var(--font-lovely-melody);
+}
+
 /* ========== Styles texte manuscrit ========== */
 .svg-handwriting {
   animation: handwriting 2s ease-out forwards;
@@ -1110,6 +1114,8 @@ body {
   box-shadow: 0 12px 30px rgba(247, 80, 4, 0.3);
 }
 
+.personne-card
+
 .personne-photo-wrapper {
   position: relative;
   width: 100%;
@@ -1138,6 +1144,7 @@ body {
 
 .personne-nom {
   font-size: var(--font-size-xl);
+  font-family: var(--font-lovely-melody);
   font-weight: 700;
   color: var(--rouge);
   margin: 0;
@@ -1845,12 +1852,12 @@ body {
   position: absolute;
   inset: 0;
   background: var(--gradient-overlay);
-  backdrop-filter: blur(2px);
 }
 
 .heading-title-wrapper {
   position: absolute;
-  bottom: 120px;
+  height: 100%;
+  bottom: 125px;
   left: 0;
   right: 0;
   display: flex;

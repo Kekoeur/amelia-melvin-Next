@@ -86,6 +86,7 @@ export const GET_PAGE_DATA = gql`
                     Logo {
                         ...ImageFields
                     }
+                    Titre
                 }
                 
                 ... on ComponentSectionPresentation {
