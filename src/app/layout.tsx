@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import josephSophia from 'next/font/local';
+import lovely_melody from 'next/font/local';
 import './style/globals.css';
 
 const josephsophia = josephSophia({
@@ -12,6 +13,18 @@ const josephsophia = josephSophia({
     },
   ],
   variable: '--font-joseph-sophia',
+  display: 'swap',
+});
+
+const lovelyMelody = lovely_melody({
+  src: [
+    {
+      path: './fonts/lovely_melody/LovelyMelody.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-lovely-melody',
   display: 'swap',
 });
 
@@ -38,7 +51,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${josephsophia.variable} antialiased`}
+        className={`
+          ${geistSans.variable} 
+          ${geistMono.variable} 
+          ${josephsophia.variable} 
+          ${lovelyMelody.variable}
+          antialiased`}
       >
         {children}
       </body>

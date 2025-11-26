@@ -44,6 +44,7 @@ const HeadingSection: React.FC<HeadingSectionProps> = ({ section, navMenu }) => 
           fill
           className="heading-image"
           priority
+          quality={95}
         />
       </div>
       

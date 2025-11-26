@@ -270,3 +270,11 @@
     display: none;
   }
 }
+
+/* ========== DESKTOP (>=1024px) ========== */
+@media (min-width: 1448px) {
+  .heading-title-wrapper {
+    top: 100px;
+    bottom: 0;
+  }
+}
