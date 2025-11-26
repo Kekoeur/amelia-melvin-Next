@@ -10,6 +10,13 @@ interface PersonneGroupProps {
   emoji?: string;
 }
 
+const classVariantMap: { [key in PersonneGroupProps['variant']]: string } = {
+  maries: 'personnes-grid',
+  temoins: 'personnes-grid',
+  honneur: 'personnes-grid-honneur',
+  'maitre-temps': 'personnes-grid-maitre-temps',
+};
+
 const PersonneGroup: React.FC<PersonneGroupProps> = ({ label, titre, personnes, variant, emoji = '👤' }) => {
 
   const personnesArray = Array.isArray(personnes) ? personnes : [];
@@ -26,7 +33,7 @@ const PersonneGroup: React.FC<PersonneGroupProps> = ({ label, titre, personnes, 
           </div>
         </div>
         
-        <div className="personnes-grid">
+        <div className={classVariantMap[variant]}>
           {personnes.map((personne) => (
             <PersonneCard 
               key={personne.id} 
