@@ -85,14 +85,14 @@
   --section-padding-desktop: var(--spacing-4xl) var(--spacing-2xl);
   --section-padding-mobile: var(--spacing-2xl) var(--spacing-lg);
   
-  --card-padding-desktop: var(--spacing-2xl);
+  --card-padding-desktop: var(--spacing-3xl);
   --card-padding-tablet: var(--spacing-xl);
   --card-padding-mobile: var(--spacing-lg);
   
   /* ========== Hauteurs communes ========== */
   --header-height: 500px;
   --header-height-mobile: 400px;
-  --nav-height: 80px;
+  --nav-height: 60px;
   --nav-height-mobile: 60px;
   --event-image-height: 250px;
   --event-image-height-mobile: 200px;

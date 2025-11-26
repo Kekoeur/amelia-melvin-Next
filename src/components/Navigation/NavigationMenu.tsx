@@ -179,7 +179,7 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
           </>
         ) : (
           // ==================== DESKTOP MENU ====================
-          <div className="flex items-center justify-center gap-25 relative">
+          <div className="flex items-center justify-center gap-30 relative">
             {/* Left Navigation */}
             <nav className="flex gap-4">
               {leftItems.map((item) => (

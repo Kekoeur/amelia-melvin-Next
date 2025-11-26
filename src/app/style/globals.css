@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./variables.css";
+@import "./navigation.css";
 @import "./responsive.css";
 
 /* ========== Animations ========== */
@@ -72,6 +73,15 @@
   50% { box-shadow: 0 0 0 8px var(--rose-pale); }
 }
 
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 body {
   background: var(--gradient-bg);
 }
@@ -102,78 +112,6 @@ body {
   color: var(--background);
   text-shadow: 2px 2px 4px var(--shadow-soft);
   transform-origin: 0 150px;
-}
-
-/* ========== Navigation ========== */
-.nav-link {
-  position: relative;
-  display: block;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  text-decoration: none;
-  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-}
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--rose);
-  transition: left var(--transition-normal);
-  z-index: -1;
-}
-
-.nav-link:hover {
-  color: var(--jaune-pale) !important;
-}
-
-.nav-link:hover::before {
-  left: 0;
-}
-
-.dropdown-menu {
-  position: absolute;
-  left: 0;
-  top: 100%;
-  margin-top: var(--spacing-sm);
-  min-width: 12rem;
-  padding: var(--spacing-sm);
-  background: var(--jaune-pale);
-  border: var(--border-thin) solid var(--rose);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 10px 15px -3px var(--shadow-soft);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: var(--z-dropdown);
-}
-
-.group:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.dropdown-item {
-  display: block;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  color: var(--rose);
-  text-decoration: none;
-  border-radius: 0.375rem;
-  transition: all var(--transition-fast);
-  font-size: var(--font-size-sm);
-}
-
-.dropdown-item:hover {
-  background: var(--rose);
-  color: var(--jaune-pale);
 }
 
 /* ========== Formulaire de Réponse ========== */
@@ -1055,7 +993,7 @@ body {
   display: flex;
   align-items: center;
   gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
   padding-bottom: var(--spacing-lg);
   border-bottom: var(--border-thick) solid var(--rose-pale);
 }
@@ -1103,11 +1041,26 @@ body {
 
 .personnes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-2xl);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
 }
 
+.personnes-grid-honneur {
+  display: grid;
+  grid-template-areas:
+    "a a a b b b"
+    "c c d d e e";
+  gap: var(--spacing-3xl);
+}
+
+.personnes-grid-honneur > :nth-child(1) { grid-area: a; }
+.personnes-grid-honneur > :nth-child(2) { grid-area: b; }
+.personnes-grid-honneur > :nth-child(3) { grid-area: c; }
+.personnes-grid-honneur > :nth-child(4) { grid-area: d; }
+.personnes-grid-honneur > :nth-child(5) { grid-area: e; }
+
 .personne-card {
+  position: relative;
   background: var(--glass-bg-strong);
   border-radius: var(--radius-2xl);
   padding: var(--spacing-xl);
@@ -1117,6 +1070,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
+  overflow: visible;
 }
 
 .personne-card:hover {
@@ -1232,59 +1186,41 @@ body {
   color: var(--foreground);
 }
 
-/* ========== Carte Personne ========== */
-.personne-card {
-  position: relative; /* CRITIQUE : pour que le badge se positionne par rapport à la card */
-  background: var(--glass-bg-strong);
-  border-radius: var(--radius-2xl);
-  padding: var(--spacing-xl);
-  border: var(--border-medium) solid var(--glass-border);
-  transition: all var(--transition-normal);
-  animation: slideInRight 0.5s ease-out;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  overflow: visible; /* Pour que le badge puisse dépasser */
-}
-
 /* ========== Photo de profil badge avec parallax ========== */
 .personne-profile-badge {
   position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 75px;
-  height: 75px;
+  top: -120px;
+  right: 50px;
+  width: 170px;
+  height: 170px;
   z-index: var(--z-dropdown);
-  pointer-events: auto; /* Pour détecter le hover */
+  pointer-events: auto;
   cursor: pointer;
 }
 
-/* Container pour l'image de fond - DÉFINIT LA TAILLE */
 .profile-image-background {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 80px;
-  height: 80px;
+  top: 50%;
+  left: 50%;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 
-    0 4px 12px var(--shadow-soft),
-    0 0 0 var(--border-medium) var(--rose-pale),
-    0 0 0 var(--border-heavy) solid var(--background);
+  box-shadow:
+    0 0 0 calc(var(--border-heavy)) var(--background), 
+    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--rose-pale),
+    0 4px 12px var(--shadow-soft);
   background: var(--background);
   z-index: 1;
   will-change: transform;
 }
 
-/* Image de fond */
 .profile-img-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Overlay sombre sur l'image de fond */
 .profile-image-background::after {
   content: '';
   position: absolute;
@@ -1294,102 +1230,63 @@ body {
   pointer-events: none;
 }
 
-/* Container pour l'image de premier plan - PLUS GRANDE */
 .profile-image-foreground {
   position: absolute;
-  /*top: 50%;
-  left: 50%;*/
-  width: 80px;
-  height: 80px;
-  /*margin-left: -67.5px; /* -width/2 pour centrer */
-  /*margin-top: -67.5px; /* -height/2 pour centrer */
+  top: 47%;
+  left: 47%;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  overflow: hidden;
-  /* border: var(--border-heavy) solid var(--background); */
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--rose-pale);
   z-index: 2;
   will-change: transform;
 }
 
-/* Image de premier plan */
+.profile-image-foreground img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .profile-img-fg {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Animation hover sur la card qui affecte le badge */
 .personne-card:hover .profile-image-background {
   box-shadow: 
-    0 12px 32px rgba(0, 0, 0, 0.35),
-    0 0 0 var(--border-medium) var(--rose);
+    0 0 0 calc(var(--border-heavy)) var(--background), 
+    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--rose),
+    0 12px 32px rgba(0, 0, 0, 0.35);
 }
 
-.personne-card:hover .profile-image-foreground {
-  box-shadow: 
-    0 12px 32px rgba(0, 0, 0, 0.35),
-    0 0 0 var(--border-medium) var(--rose);
-}
-
-/* Variantes de couleurs selon le type */
 .personne-card--maries .profile-image-background {
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--rose);
-}
-
-.personne-card--maries .profile-image-foreground {
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--rose);
+    0 0 0 calc(var(--border-heavy)) var(--background), 
+    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--rose),
+    0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .personne-card--temoins .profile-image-background {
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--salmon);
-}
-
-.personne-card--temoins .profile-image-foreground {
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--salmon);
+    0 0 0 calc(var(--border-heavy)) var(--background), 
+    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--salmon),
+    0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .personne-card--honneur .profile-image-background {
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--jaune);
-}
-
-.personne-card--honneur .profile-image-foreground {
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--jaune);
+    0 0 0 calc(var(--border-heavy)) var(--background), 
+    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--jaune),
+    0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .personne-card--maitre-temps .profile-image-background {
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--orange);
-}
-
-.personne-card--maitre-temps .profile-image-foreground {
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 var(--border-medium) var(--orange);
-}
-
-/* Animation de pulse subtile sur le badge au hover de la card */
-@keyframes badgePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+    0 0 0 calc(var(--border-heavy)) var(--background), 
+    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--orange),
+    0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .personne-card:hover .personne-profile-badge {
@@ -1972,171 +1869,6 @@ body {
   fill: var(--background);
   filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.8));
   animation: draw 2s ease-out forwards;
-}
-
-.heading-navigation-wrapper {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: var(--z-sticky);
-  height: var(--nav-height);
-  overflow: visible;
-}
-
-.heading-navigation-wrapper nav {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: var(--border-medium) solid var(--glass-border);
-  box-shadow: 0 -4px 20px var(--shadow-soft);
-  height: 100%;
-}
-
-.heading-navigation-wrapper .nav-links {
-  display: flex;
-  gap: 0;
-  height: 100%;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 0 var(--spacing-xl);
-}
-
-.heading-navigation-wrapper .nav-link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-lg) var(--spacing-xl);
-  min-width: 120px;
-  height: 60px;
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--foreground);
-  background: var(--glass-bg-medium);
-  border: var(--border-medium) solid var(--glass-border);
-  border-bottom: none;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  transition: all var(--transition-normal);
-  overflow: visible;
-  z-index: var(--z-base);
-  margin: 0 var(--spacing-xs);
-}
-
-.heading-navigation-wrapper .nav-link:hover {
-  height: var(--nav-height);
-  transform: translateY(-20px);
-  background: var(--background);
-  border-color: var(--rose);
-  color: var(--rouge);
-  box-shadow: 0 -4px 12px rgba(250, 123, 160, 0.3);
-  z-index: var(--z-dropdown);
-}
-
-.heading-navigation-wrapper .nav-link:hover::before {
-  opacity: 1;
-}
-
-.heading-navigation-wrapper .nav-link::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gradient-primary);
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-}
-
-.heading-navigation-wrapper .nav-link.active {
-  height: 70px;
-  transform: translateY(-10px);
-  background: var(--background);
-  border-color: var(--rose);
-  color: var(--rouge);
-  font-weight: 700;
-}
-
-.heading-navigation-wrapper .nav-link.active::before {
-  opacity: 1;
-}
-
-.heading-navigation-wrapper .nav-dropdown {
-  position: relative;
-}
-
-.heading-navigation-wrapper .dropdown-menu {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: var(--spacing-sm);
-  min-width: 200px;
-  padding: var(--spacing-sm);
-  background: var(--background);
-  border: var(--border-medium) solid var(--rose);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 -8px 24px var(--shadow-soft);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(-50%) translateY(10px);
-  transition: all var(--transition-normal);
-}
-
-.heading-navigation-wrapper .nav-dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.heading-navigation-wrapper .dropdown-item {
-  display: block;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  color: var(--foreground);
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
-  font-size: 0.9rem;
-}
-
-.heading-navigation-wrapper .dropdown-item:hover {
-  background: var(--rose);
-  color: var(--background);
-}
-
-.heading-navigation-wrapper .nav-logo {
-  position: absolute;
-  left: var(--spacing-xl);
-  top: 50%;
-  transform: translateY(-50%);
-  height: 50px;
-  width: auto;
-  transition: transform var(--transition-normal);
-}
-
-.heading-navigation-wrapper .nav-logo:hover {
-  transform: translateY(-50%) scale(1.1);
-}
-
-.heading-navigation-wrapper .hamburger-button {
-  position: absolute;
-  right: var(--spacing-xl);
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--glass-bg-medium);
-  border: var(--border-medium) solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-sm);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  display: none;
-}
-
-.heading-navigation-wrapper .hamburger-button:hover {
-  background: var(--rose);
-  border-color: var(--fuschia);
 }
 
 .heading-section-fallback {
