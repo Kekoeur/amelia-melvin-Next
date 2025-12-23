@@ -1,0 +1,491 @@
+/* ========== GRILLE DE PRÉSENCE ========== */
+
+.presence-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0;
+  margin-top: 1.5rem;
+  align-items: stretch;
+}
+
+.presence-grid-elt {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Divider vertical entre les sections */
+.v-divider {
+  width: var(--border-medium);
+  height: 70%;
+  background: var(--gradient-primary);
+  margin: auto 0;
+  align-self: stretch;
+}
+
+.presence-grid-elt:last-of-type .v-divider {
+  display: none;
+}
+
+/* Section pour chaque moment */
+.moment-section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Permet au texte de se tronquer si nécessaire */
+}
+
+.moment-title {
+  font-family: var(--font-graduate), serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--white);
+  -webkit-text-stroke: var(--border-heavy) var(--fuschia);
+  text-stroke: var(--border-heavy) var(--fuschia);
+  paint-order: stroke fill;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Conteneur des cartes de personnes */
+.person-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+/* Carte de personne */
+.person-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-3xl);
+  border: 2px solid;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-anonymous-pro);
+  font-size: var(--font-size-base);
+  min-width: 0; /* Permet au texte de se tronquer */
+}
+
+/* État non sélectionné */
+.person-card-unselected {
+  background-color: var(--p5-rouge);
+  border: var(--border-thin) solid var(--glass-border);
+  color: var(--grey);
+}
+
+.person-card-unselected:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* État sélectionné */
+.person-card-selected {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 0 0 20px var(--p20-orange);
+}
+
+.person-card-selected:hover {
+  background: var(--p20-orange);
+  border-color: var(--orange);
+  color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px var(--p20-orange);
+}
+
+/* Icône de sélection */
+.person-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.person-card-selected .person-icon {
+  color: var(--white);
+}
+
+.person-card-selected:hover .person-icon {
+  color: var(--orange);
+}
+
+.person-card-unselected .person-icon {
+  color: var(--grey);
+}
+
+/* Nom de la personne */
+.person-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ========== RESPONSIVE - PRÉSENCE ========== */
+
+@media (max-width: 1000px) {
+  .presence-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .presence-grid-elt:nth-child(2n) .v-divider{
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .presence-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .v-divider {
+    display: none;
+  }
+  
+  .moment-section {
+    padding: 1rem;
+  }
+  
+  .person-card {
+    padding: 0.875rem 1rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .presence-grid {
+    grid-template-columns: repeat(7, auto);
+  }
+  
+  .moment-section {
+    min-width: 200px;
+  }
+}
+
+/* ========== BARRE DE PROGRESSION ========== */
+
+.progress-bar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-lg);
+  width: 50%;
+  margin: var(--spacing-lg) auto;
+}
+
+.progress-bar-background {
+  position: relative;
+  width: 100%;
+  height: 15px;
+  background: var(--p10-orange);
+  border: var(--border-thin) solid var(--fuschia);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar-fill {
+  position: relative;
+  min-width: 13px;
+  height: 100%;
+  background: var(--gradient-primary);
+  border: var(--border-thin) solid var(--fuschia);
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  animation: fillAnimation 0.5s ease-out;
+}
+
+.progress-bar-label {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.5px;
+}
+
+@keyframes fillAnimation {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .progress-bar-background {
+    height: 10px;
+  }
+  
+  .progress-bar-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* ========== ALLERGIES FORM ========== */
+
+.allergies-form-container {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.allergies-title {
+  display: flex;
+}
+
+.allergie-card {
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  margin: var(--spacing-lg) 0;
+  transition: all var(--transition-normal);
+  animation: slideInRight 0.4s ease-out;
+}
+
+.allergie-card:hover {
+  border-color: var(--rose);
+  box-shadow: 0 4px 20px rgba(250, 123, 160, 0.2);
+}
+
+.allergie-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: var(--border-medium) solid var(--rose-pale);
+}
+
+.allergie-card-number {
+  padding: 0 10px;
+  font-family: var(--font-graduate), serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--white);
+  -webkit-text-stroke: var(--border-heavy) var(--fuschia);
+  text-stroke: var(--border-heavy) var(--fuschia);
+  paint-order: stroke fill;
+  margin-bottom: 1rem;
+  text-align: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.allergie-remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform var(--transition-fast);
+  padding: var(--spacing-xs);
+}
+
+.allergie-remove-btn:hover {
+  transform: scale(1.2) rotate(90deg);
+}
+
+.allergie-item {
+  margin-bottom: var(--spacing-lg);
+}
+
+.allergie-item:last-child {
+  margin-bottom: 0;
+}
+
+.allergie-label {
+  display: block;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.95rem;
+}
+
+.person-cards-horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.person-cards-horizontal .person-card {
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 150px;
+}
+
+.allergie-add-btn {
+  width: 80%;
+  margin: var(--spacing-xl) auto 0 auto;
+}
+
+.allergies-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ========== RÉCAPITULATIF ========== */
+
+.recap-item-presence {
+  display: flex;
+  flex-direction: column;
+}
+
+.recap-group-title {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-graduate), serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  -webkit-text-stroke: var(--border-heavy) var(--fuschia);
+  text-stroke: var(--border-heavy) var(--fuschia);
+  paint-order: stroke fill;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.recap-moments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.recap-moment-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.recap-group-subtitle {
+  display: inline-block;
+  width: 100%;
+  min-width: 80px;
+  font-family: var(--font-anonymous-pro);
+  color: var(--rouge);
+  font-weight: 600;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+  background: var(--p5-rouge);
+  border-radius: var(--radius-md);
+}
+
+.recap-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recap-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-xl);
+  border: 2px solid;
+  font-family: var(--font-anonymous-pro);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  width: fit-content;
+  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.recap-unselected {
+  background-color: var(--p5-rouge);
+  border-color: var(--glass-border);
+  color: var(--grey);
+}
+
+.recap-selected {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 0 0 15px var(--p20-orange);
+}
+
+.recap-card .person-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-right: 0.25rem;
+}
+
+.recap-selected .person-icon {
+  color: var(--white);
+}
+
+.recap-unselected .person-icon {
+  color: var(--grey);
+}
+
+.recap-message {
+  margin-top: 0.5rem;
+  padding: var(--spacing-lg);
+  background: var(--p5-jaune);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-anonymous-pro);
+  font-size: var(--font-size-base);
+  color: var(--grey);
+  white-space: pre-wrap;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* ========== RESPONSIVE - RÉCAPITULATIF ========== */
+
+@media (max-width: 768px) {
+  .recap-moments-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recap-group-title {
+    min-width: 100px;
+    font-size: 0.9rem;
+  }
+  
+  .recap-group-subtitle {
+    min-width: 70px;
+    font-size: 0.85rem;
+  }
+  
+  .recap-card {
+    min-width: 100px;
+    font-size: 0.85rem;
+  }
+}
+
+#contact-btn {
+  padding: var(--spacing-xs) var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
