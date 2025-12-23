@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { Invite, Moment, InvitePerson, Allergenes, ComponentSectionFormInvite } from "@/types/api";
 import { formatGroupInvite, getMomentsFromQuand, normalize } from "@/utils/formatters";
-import AllergiesForm from "@/utils/AllergiesForm";
+import AllergiesForm, { AllergySelection } from "@/components/Section/AllergiesForm";
 
 interface Props {
   section: ComponentSectionFormInvite;
@@ -11,7 +11,7 @@ interface Props {
   allergenes: Allergenes[];
 }
 
-export type Step = "Nom" | Moment | "Allergies" | "Message" | "Recap";
+export type Step = "Nom" | "Presence" | "Allergies" | "Message" | "Recap";
 
 export default function RepondreForm({ section, invites, allergenes }: Props) {
 
@@ -23,18 +23,22 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
     Soir: [],
     Retour: [],
   });
-  const [allergie, setAllergies] = useState("");
+  const [allergies, setAllergies] = useState<AllergySelection[]>([]);
   const [message, setMessage] = useState("");
   const [stepIndex, setStepIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
   const steps = useMemo<Step[]>(() => {
     if (!selectedInvite) return ["Nom"];
-    const moments = getMomentsFromQuand(selectedInvite.Quand);
-    return ["Nom", ...moments, "Allergies", "Message", "Recap"];
+    return ["Nom", "Presence", "Allergies", "Message", "Recap"];
   }, [selectedInvite]);
 
   const currentStep = steps[stepIndex];
+  
+  const availableMoments = useMemo<Moment[]>(() => {
+    if (!selectedInvite) return [];
+    return getMomentsFromQuand(selectedInvite.Quand);
+  }, [selectedInvite]);
 
   const filteredInvites = useMemo(() => {
     if (!search || search.length < 2) return [];
@@ -69,8 +73,18 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
     });
   };
 
+  const handleAllergiesChange = (newAllergies: AllergySelection[]) => {
+    setAllergies(newAllergies);
+  };
+
   const handleSubmit = async () => {
     if (!selectedInvite) return;
+
+    // Formater les allergies pour l'envoi
+    const allergiesFormatted = allergies.map(a => ({
+      allergen: a.allergen === "Autres" ? a.customName : a.allergen,
+      persons: a.persons.map(p => `${p.Prenom} ${p.Nom}`).join(", ")
+    })).filter(a => a.allergen && a.persons);
 
     const payload = {
       id: selectedInvite.documentId,
@@ -79,7 +93,7 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
       Midi: presence.Midi,
       Soir: presence.Soir,
       Retour: presence.Retour,
-      Allergies: allergie,
+      Allergies: JSON.stringify(allergiesFormatted),
       Message: message,
     };
 
@@ -96,7 +110,7 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
     setSearch("");
     setSelectedInvite(null);
     setPresence({ Matin: [], Midi: [], Soir: [], Retour: [] });
-    setAllergies("");
+    setAllergies([]);
     setMessage("");
     setStepIndex(0);
   };
@@ -126,39 +140,79 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
         <div className="confirmation-card">
           <div className="confirmation-icon">🎉</div>
           <h2 className="confirmation-title">Merci pour votre réponse !</h2>
+          <p className="confirmation-message">Elle a bien été enregistré, si vous souhaitez effectuez des modifications vous pouvez nous joindre par téléphone. Vous pouvez retrouvez nos numéros ici</p>
+          <a href="./presentation#contact" className="glass-button btn-success" id="contact-btn">Contact</a>
           
-          <div className="recap-section">
+          <div className="recap-section glass-card">
+            <div className="recap-title glass-card-title">Votre réponse</div>
             <div className="recap-item">
-              <strong>Invité :</strong>
-              <p>{formatGroupInvite(selectedInvite!.Qui)}</p>
+              <p><span className="recap-group-title">Qui :</span> {formatGroupInvite(selectedInvite!.Qui)}</p>
             </div>
             
-            <div className="recap-item">
-              <strong>Présence :</strong>
-              <ul className="recap-list">
-                {getMomentsFromQuand(selectedInvite!.Quand).map((moment) => (
-                  <li key={moment}>
-                    <strong>{moment} :</strong> {presence[moment].length > 0
-                      ? presence[moment].map((p) => `${p.Prenom} ${p.Nom}`).join(", ")
-                      : "Aucune présence"}
-                  </li>
+            <div className="recap-item recap-item-presence">
+              <span className="recap-group-title">Quand :</span>
+              <div className="recap-moments-grid">
+                {availableMoments.map((moment) => (
+                  <div key={moment} className="recap-moment-section">
+                    <div className="recap-group-subtitle">{moment}</div>
+                    <div className="recap-cards-container">
+                      {selectedInvite!.Qui.map((person, idx) => {
+                        const isSelected = presence[moment].some(p => p.Prenom === person.Prenom);
+                        return (
+                          <div
+                            key={idx}
+                            className={`recap-card ${isSelected ? 'recap-selected' : 'recap-unselected'}`}
+                          >
+                            <span className="person-icon">{isSelected ? '✓' : '○'}</span>
+                            {person.Prenom} {person.Nom}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
             
-            <div className="recap-item">
-              <strong>Allergies :</strong>
-              <p>{allergie || "Aucune allergie"}</p>
-            </div>
+            {allergies.length > 0 && (
+              <div className="recap-item recap-item-presence">
+                <span className="recap-group-title">Allergies :</span>
+                <div className="recap-moments-grid">
+                  {allergies.map((allergy, allergyIdx) => (
+                    <div key={allergyIdx} className="recap-moment-section">
+                      <div className="recap-group-subtitle">
+                        {allergy.allergen === "Autres" ? allergy.customName : allergy.allergen}
+                      </div>
+                      <div className="recap-cards-container">
+                        {selectedInvite!.Qui.map((person, idx) => {
+                          const isSelected = allergy.persons.some(
+                            p => p.Prenom === person.Prenom && p.Nom === person.Nom
+                          );
+                          return (
+                            <div
+                              key={idx}
+                              className={`recap-card ${isSelected ? 'recap-selected' : 'recap-unselected'}`}
+                            >
+                              <span className="person-icon">{isSelected ? '✓' : '○'}</span>
+                              {person.Prenom} {person.Nom}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             
             <div className="recap-item">
-              <strong>Message :</strong>
-              <p>{message || "Aucun message"}</p>
+              <span className="recap-group-title">Message :</span>
+              <p className="recap-message">{message || "Aucun message"}</p>
             </div>
           </div>
           
-          <a href="./" className="confirmation-link">
-            {"🏠 Retour à l'accueil"}
+          <a href="./accueil" className="confirmation-link btn-primary glass-button">
+            {"Retour à l'accueil"}
           </a>
         </div>
       </div>
@@ -167,16 +221,17 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
 
   return (
     <div className="repondre-form-container">
-      <div className="glass-card">
-        <div className="glass-card-header">
+      <div className="glass-card-header">
           <h1 className="glass-card-title">{section.Titre}</h1>
           <p className="glass-card-subtitle">Répondez à votre invitation en quelques étapes</p>
-        </div>
+      </div>
+      <div className="glass-card">
+        
 
         {/* Étape Nom */}
         {currentStep === "Nom" && (
           <div>
-            <label className="presence-title">
+            <label className="presence-title glass-card-title">
               {section.DisplayInput.find(input => input.InputType === currentStep)?.Question}
             </label>
             <input
@@ -196,7 +251,7 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
                       setStepIndex(1);
                     }}
                   >
-                    👥 {formatGroupInvite(invite.Qui)}
+                    {formatGroupInvite(invite.Qui)}
                   </li>
                 ))}
               </ul>
@@ -204,45 +259,55 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
           </div>
         )}
 
-        {/* Étapes Moments (Matin, Midi, Soir, Retour) */}
-        {selectedInvite && ["Matin", "Midi", "Soir", "Retour"].includes(currentStep) && (
-          <div className="presence-section">
-            <p className="presence-title">
-              {section.DisplayInput.find(input => input.InputType === currentStep)?.Question}
-            </p>
-            {selectedInvite.Qui.map((p, idx) => (
-              <label key={idx} className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={presence[currentStep as Moment].some(person => person.Prenom === p.Prenom)}
-                  onChange={() => togglePresence(currentStep as Moment, p.Prenom || "")}
-                />
-                <span>👤 {p.Prenom} {p.Nom}</span>
-              </label>
-            ))}
+        {/* Étape Présence - Tous les moments regroupés */}
+        {selectedInvite && currentStep === "Presence" && (
+          <div>
+            <div className="presence-title glass-card-title">
+                Qui sera présent ?
+            </div>
+            <div className="presence-grid">
+              {availableMoments.map((moment, index) => (
+                <div className="presence-grid-elt" key={`elt-${moment}`}>
+                  <div className="moment-section">
+                    <h3 className="moment-title">
+                      {section.DisplayInput.find(input => input.InputType === moment)?.Question || moment}
+                    </h3>
+                    <div className="person-cards">
+                      {selectedInvite.Qui.map((person, idx) => {
+                        const isSelected = presence[moment].some(p => p.Prenom === person.Prenom);
+                        return (
+                          <button
+                            key={idx}
+                            className={`person-card ${isSelected ? 'person-card-selected' : 'person-card-unselected'}`}
+                            onClick={() => togglePresence(moment, person.Prenom || "")}
+                          >
+                            <span className="person-icon">{isSelected ? '✓' : '○'}</span>
+                            <span className="person-name">
+                              {person.Prenom} {person.Nom}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  {index < availableMoments.length - 1 && (
+                    <div className="v-divider"></div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
-        {/* Étape Allergies (texte libre) */}
-        {/*selectedInvite && currentStep === "Allergies2" && (
-          <div>
-            <label className="presence-title">
-              {section.DisplayInput.find(input => input.InputType === currentStep)?.Question}
-            </label>
-            <textarea
-              className="glass-textarea"
-              value={allergie}
-              onChange={(e) => setAllergies(e.target.value)}
-              placeholder="Décrivez vos allergies alimentaires..."
-            />
-          </div>
-        )*/}
-
         {/* Étape Allergies (formulaire détaillé) */}
         {selectedInvite && currentStep === "Allergies" && (
-          <div className="presence-section">
+          <div className="allergies-section">
             {allergenes.length > 0 && (
-              <AllergiesForm invite={selectedInvite} allergenes={allergenes} />
+              <AllergiesForm 
+                invite={selectedInvite} 
+                allergenes={allergenes} 
+                onAllergiesChange={handleAllergiesChange}
+              />
             )}
           </div>
         )}
@@ -250,14 +315,15 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
         {/* Étape Message */}
         {selectedInvite && currentStep === "Message" && (
           <div>
-            <label className="presence-title">
+            <label className="presence-title glass-card-title">
               {section.DisplayInput.find(input => input.InputType === currentStep)?.Question}
             </label>
+            <div className="glass-card-subtitle">Vous pouvez nous laissez un petit message si vous le souhaitez !</div>
             <textarea
               className="glass-textarea"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Laissez-nous un petit message..."
+              placeholder="Ecrivez-votre message ici..."
             />
           </div>
         )}
@@ -265,53 +331,74 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
         {/* Étape Récapitulatif */}
         {selectedInvite && currentStep === "Recap" && (
           <div className="recap-section">
-            <div className="recap-item">
-              <strong>Invité :</strong>
-              <p>{formatGroupInvite(selectedInvite.Qui)}</p>
-            </div>
+            <div className="recap-title glass-card-title">Confirmation</div>
+            <div className="glass-card-subtitle">Veuillez à bien vérifier l'ensemble des éléments avant d'envoyer votre réponse</div>
             
             <div className="recap-item">
-              <strong>Présence :</strong>
-              <ul className="recap-list">
-                {getMomentsFromQuand(selectedInvite.Quand).map((moment) => (
-                  <li key={moment}>
-                    <strong>{moment} :</strong> {presence[moment].length > 0
-                      ? presence[moment].map((p) => `${p.Prenom} ${p.Nom}`).join(", ")
-                      : "Aucune présence"}
-                  </li>
+              <p><span className="recap-group-title">Qui :</span> {formatGroupInvite(selectedInvite.Qui)}</p>
+            </div>
+            
+            <div className="recap-item recap-item-presence">
+              <span className="recap-group-title">Quand :</span>
+              <div className="recap-moments-grid">
+                {availableMoments.map((moment) => (
+                  <div key={moment} className="recap-moment-section">
+                    <div className="recap-group-subtitle">{moment}</div>
+                    <div className="recap-cards-container">
+                      {selectedInvite.Qui.map((person, idx) => {
+                        const isSelected = presence[moment].some(p => p.Prenom === person.Prenom);
+                        return (
+                          <div
+                            key={idx}
+                            className={`recap-card ${isSelected ? 'recap-selected' : 'recap-unselected'}`}
+                          >
+                            <span className="person-icon">{isSelected ? '✓' : '○'}</span>
+                            {person.Prenom} {person.Nom}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
             
-            <div className="recap-item">
-              <strong>Allergies :</strong>
-              <p>{allergie || "Aucune allergie"}</p>
-            </div>
+            {/* Affichage des allergies */}
+            {allergies.length > 0 && (
+              <div className="recap-item recap-item-presence">
+                <span className="recap-group-title">Allergies :</span>
+                <div className="recap-moments-grid">
+                  {allergies.map((allergy, allergyIdx) => (
+                    <div key={allergyIdx} className="recap-moment-section">
+                      <div className="recap-group-subtitle">
+                        {allergy.allergen === "Autres" ? allergy.customName : allergy.allergen}
+                      </div>
+                      <div className="recap-cards-container">
+                        {selectedInvite.Qui.map((person, idx) => {
+                          const isSelected = allergy.persons.some(
+                            p => p.Prenom === person.Prenom && p.Nom === person.Nom
+                          );
+                          return (
+                            <div
+                              key={idx}
+                              className={`recap-card ${isSelected ? 'recap-selected' : 'recap-unselected'}`}
+                            >
+                              <span className="person-icon">{isSelected ? '✓' : '○'}</span>
+                              {person.Prenom} {person.Nom}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             
             <div className="recap-item">
-              <strong>Message :</strong>
-              <p>{message || "Aucun message"}</p>
+              <span className="recap-group-title">Message :</span>
+              <p className="recap-message">{message || "Aucun message"}</p>
             </div>
-          </div>
-        )}
-
-        {/* Indicateur de progression */}
-        {selectedInvite && (
-          <div className="progress-indicator">
-            {steps.slice(1).map((step, index) => (
-              <span 
-                key={index} 
-                className={`progress-dot ${
-                  index < stepIndex - 1 
-                    ? 'completed' 
-                    : index === stepIndex - 1 
-                    ? 'current' 
-                    : 'pending'
-                }`}
-              >
-                {index < stepIndex - 1 ? "✔️" : index === stepIndex - 1 ? "●" : "○"}
-              </span>
-            ))}
           </div>
         )}
 
@@ -331,7 +418,7 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
               onClick={handleReset}
               className="glass-button btn-danger"
             >
-              <span>🔄 Réinitialiser</span>
+              <span>Réinitialiser</span>
             </button>
 
             {currentStep !== "Recap" ? (
@@ -346,11 +433,25 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
                 onClick={handleSubmit}
                 className="glass-button btn-success"
               >
-                <span>✓ Envoyer</span>
+                <span>Envoyer</span>
               </button>
             )}
           </div>
         )}
+      </div>
+
+      {/* Barre de progression */}
+      <div className="progress-bar-container">
+        <div className="small-divider"></div>
+        <div className="progress-bar-background">
+          <div 
+            className="progress-bar-fill"
+            style={{ 
+              width: `${
+                stepIndex === 0 ? 0 : ((stepIndex) / (steps.length - 1)) * 100}%` 
+            }}
+          />
+        </div>
       </div>
     </div>
   );

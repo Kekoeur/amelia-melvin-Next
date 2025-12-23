@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     console.log("🗑️ Tentative de suppression de l'ID:", id);
 
     const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
-    const strapiToken = process.env.STRAPI_API_TOKEN;
+    const strapiToken = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
     
     if (!strapiUrl || !strapiToken) {
       throw new Error("Variables d'environnement manquantes");

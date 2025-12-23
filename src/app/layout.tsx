@@ -1,7 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Italianno, Anonymous_Pro, Graduate } from "next/font/google";
 import josephSophia from 'next/font/local';
 import lovely_melody from 'next/font/local';
+import autography from 'next/font/local';
+import billing_lottre from 'next/font/local';
+import birds_of_paradise from 'next/font/local';
+import brittany_signature from 'next/font/local';
+import chetta_vissto from 'next/font/local';
+import cronde from 'next/font/local';
+import foremost from 'next/font/local';
+import halimun from 'next/font/local';
+import motterdam from 'next/font/local';
+import sinera from 'next/font/local';
+import velista from 'next/font/local';
+import zestful_christmas from 'next/font/local';
 import './style/globals.css';
 
 const josephsophia = josephSophia({
@@ -28,6 +40,160 @@ const lovelyMelody = lovely_melody({
   display: 'swap',
 });
 
+const autographyFont = autography({
+  src: [
+    {
+      path: './fonts/autography/Autography.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-autography',
+  display: 'swap',
+});
+
+const billingLottre = billing_lottre({
+  src: [
+    {
+      path: './fonts/billing_lottre/BillingLottre-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-billing-lottre',
+  display: 'swap',
+});
+
+const birdsOfParadise = birds_of_paradise({
+  src: [
+    {
+      path: './fonts/birds_of_paradise/Birds-of-Paradise.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-birds-of-paradise',
+  display: 'swap',
+});
+
+const brittanySignature = brittany_signature({
+  src: [
+    {
+      path: './fonts/brittany_signature/BrittanySignature.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-brittany-signature',
+  display: 'swap',
+});
+
+const chettaVissto = chetta_vissto({
+  src: [
+    {
+      path: './fonts/chetta_vissto/ChettaVissto.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-chetta-vissto',
+  display: 'swap',
+});
+
+const crondeFont = cronde({
+  src: [
+    {
+      path: './fonts/cronde/CRONDE.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/cronde/CRONDE-Italic.otf',
+      weight: '400',
+      style: 'italic',
+    }
+  ],
+  variable: '--font-cronde',
+  display: 'swap',
+});
+
+const foremostFont = foremost({
+  src: [
+    {
+      path: './fonts/foremost/Foremost-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/foremost/Foremost-Italic.otf',
+      weight: '400',
+      style: 'italic',
+    }
+  ],
+  variable: '--font-foremost',
+  display: 'swap',
+});
+
+const halimunFont = halimun({
+  src: [
+    {
+      path: './fonts/halimun/Halimun.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-halimun',
+  display: 'swap',
+});
+
+const motterdamFont = motterdam({
+  src: [
+    {
+      path: './fonts/motterdam/Motterdam.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-motterdam',
+  display: 'swap',
+});
+
+const sineraFont = sinera({
+  src: [
+    {
+      path: './fonts/sinera/Sinera.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-sinera',
+  display: 'swap',
+});
+
+const velistaFont = velista({
+  src: [
+    {
+      path: './fonts/velista/VELISTA.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-velista',
+  display: 'swap',
+});
+
+const zestfulChristmas = zestful_christmas({
+  src: [
+    {
+      path: './fonts/zestful_christmas/ZestfulChristmas.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-zestful-christmas',
+  display: 'swap',
+});
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,6 +201,24 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const italianno = Italianno({
+  variable: "--font-italianno",
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const anonymousPro = Anonymous_Pro({
+  variable: "--font-anonymous-pro",
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const graduate = Graduate({
+  variable: "--font-graduate",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -56,6 +240,21 @@ export default function RootLayout({
           ${geistMono.variable} 
           ${josephsophia.variable} 
           ${lovelyMelody.variable}
+          ${autographyFont.variable}
+          ${billingLottre.variable}
+          ${birdsOfParadise.variable}
+          ${brittanySignature.variable}
+          ${chettaVissto.variable}
+          ${crondeFont.variable}
+          ${foremostFont.variable}
+          ${halimunFont.variable}
+          ${motterdamFont.variable}
+          ${sineraFont.variable}
+          ${velistaFont.variable}
+          ${zestfulChristmas.variable}
+          ${italianno.variable}
+          ${anonymousPro.variable}
+          ${graduate.variable}
           antialiased`}
       >
         {children}

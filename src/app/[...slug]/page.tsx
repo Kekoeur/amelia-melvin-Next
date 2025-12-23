@@ -1,9 +1,30 @@
 import { getAllergenes, getInvites, getPageData } from "@/utils/getter";
 import { notFound } from "next/navigation";
-import { PageData } from "@/types/api";
+import { PageData, ComponentTypeChoixPoliceHtml } from "@/types/api";
 import { NavigationProps } from "@/types/pages";
 import SectionRenderer from "@/utils/renderComponent"
 import DefaultPage from "@/components/Page/DefaultPage";
+import ClientStyleWrapper from "@/utils/ClientStyleWrapper";
+
+// Fonction helper pour récupérer les styles
+async function getPageStyles(slug: string): Promise<ComponentTypeChoixPoliceHtml[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/styles/get`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug }),
+      cache: 'no-store',
+    });
+    
+    if (!response.ok) return [];
+    
+    const data = await response.json();
+    return data.page?.Style || [];
+  } catch (error) {
+    console.error('Erreur récupération styles:', error);
+    return [];
+  }
+}
 
 export default async function DynamicPage({ 
   params 
@@ -11,40 +32,49 @@ export default async function DynamicPage({
   params: Promise<{ slug?: string[] }> 
 }) {
   const { slug } = await params;
+  const currentSlug: string = slug ? slug.join('/') : 'home';
   
-  const props = await getPageData(slug ? slug.join('/') : 'home')
-  console.log('Pages data dans reponses/page.tsx :', props)
+  const props = await getPageData(currentSlug);
   const page: PageData = props?.pageProps;
-  console.log('Page data dans reponses/page.tsx :', page)
+  
+  if (!page) return notFound();
+  
+  // Récupérer les styles
+  const globalStyles = currentSlug !== 'header' ? await getPageStyles('header') : [];
+  const pageStyles = await getPageStyles(currentSlug);
+  
   const invites = await getInvites();
   const nav = props?.navProps;
-  console.log('Navigation props dans reponses/page.tsx :', nav)
-  const navMenu: NavigationProps = {current: slug ? slug.join('/') : 'home', ...nav}
-  console.log('Navigation menu dans reponses/page.tsx :', navMenu)
-
+  const navMenu: NavigationProps = {current: currentSlug, ...nav};
   const allergenes = await getAllergenes();
+  
   if (!invites || !allergenes) return notFound();
   
   return (
-    <DefaultPage navMenu={navMenu}>
-      {page?.Section?.map((element, index) => {
-        
-        return element.__typename === 'ComponentSectionFormInvite' ? (
-          <SectionRenderer
-            key={index}
-            section={element}
-            navMenu={navMenu}
-            invites={invites}
-            allergenes={allergenes}
-          />
-        ) : (
-          <SectionRenderer
-            key={index}
-            section={element}
-            navMenu={navMenu}
-          />
-        );
-      })}
-    </DefaultPage>
+    <ClientStyleWrapper
+      globalStyles={globalStyles}
+      pageStyles={pageStyles}
+      pageSlug={currentSlug}
+    >
+      <DefaultPage navMenu={navMenu}>
+        {page?.Section?.map((element, index) => {
+          return element.__typename === 'ComponentSectionFormInvite' ? (
+            <SectionRenderer
+              key={index}
+              section={element}
+              navMenu={navMenu}
+              invites={invites}
+              allergenes={allergenes}
+            />
+          ) : (
+            <SectionRenderer
+              key={index}
+              section={element}
+              navMenu={navMenu}
+            />
+          );
+        })}
+      </DefaultPage>
+    </ClientStyleWrapper>
   );
 }

@@ -1,5 +1,5 @@
 import { ApolloProvider } from "@apollo/client";
-import { initializeApollo } from "./apolloClient";
+import { initializeApollo } from "../lib/apolloClient";
 import { ReactNode } from "react";
 
 interface ApolloProviderWrapperProps {

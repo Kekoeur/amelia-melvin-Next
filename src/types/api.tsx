@@ -8,9 +8,12 @@ export interface PageData {
     Nom: string;
     Slug: string;
     Section: Section[];
+    Style: Style[];
 }
 
 export type Section = ComponentSectionHeading | ComponentSectionFormInvite | ComponentSectionPresentation | ComponentSectionHistoire | ComponentSectionSectionDate | ComponentSectionTitreText | ComponentSectionImageDivider | ComponentInfosLieu | ComponentInfosTrajet | ComponentInfosContact;
+
+export type Style = ComponentTypeChoixPoliceHtml;
 
 export type Moment = "Matin" | "Midi" | "Soir" | "Retour";
 
@@ -205,4 +208,16 @@ export interface ListContact {
   Titre: string;
   Desc: Paragraph[];
   Contact: Contact[];
+}
+
+// ========== Style ==========
+
+export interface ComponentTypeChoixPoliceHtml {
+    __typename: 'ComponentTypeChoixPoliceHtml';
+    Police: {
+        Font: string;
+    };
+    Elements: {
+        Nom: string;
+    }[];
 }

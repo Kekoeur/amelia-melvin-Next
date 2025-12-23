@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { Invite, Moment, InvitePerson, Allergenes } from "@/types/api";
 import { formatGroupInvite, getMomentsFromQuand, normalize } from "@/utils/formatters";
-import AllergiesForm from "./AllergiesForm";
+import AllergiesForm from "../components/Section/AllergiesForm";
 
 interface Props {
   invites: Invite[];
