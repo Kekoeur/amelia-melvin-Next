@@ -1,7 +1,8 @@
 import { gql } from "@apollo/client";
 
+// Query SANS Style (pour les pages normales)
 export const GET_PAGE_DATA = gql`
-    # Fragment pour les listes (Surnom et Lien)
+    # Tous tes fragments existants...
     fragment ListeFields on ComponentTypeListeString {
         id
         Elt
@@ -16,7 +17,6 @@ export const GET_PAGE_DATA = gql`
         }
     }
 
-    # Fragment pour les images
     fragment ImageFields on ComponentMediaImageMedia {
         id
         ImgTitle
@@ -26,7 +26,6 @@ export const GET_PAGE_DATA = gql`
         }
     }
 
-    # Fragment pour une personne (Mariés, Témoins, etc.)
     fragment PersonneFields on ComponentPresentationPresentation {
         id
         Personne
@@ -44,7 +43,6 @@ export const GET_PAGE_DATA = gql`
         Type
     }
 
-    # Fragment pour un événement dans la section Histoire
     fragment EventFields on ComponentPresentationDateHistoire {
         id
         Titre
@@ -171,6 +169,28 @@ export const GET_PAGE_DATA = gql`
     }
 `;
 
+// Query AVEC Style (pour l'admin et la récupération des styles)
+export const GET_PAGE_STYLES = gql`
+    query GetPageStyles($documentId: ID!) {
+        page(documentId: $documentId) {
+            documentId
+            Nom
+            Slug
+            Style {
+                __typename
+               ... on ComponentTypeChoixPoliceHtml {
+                    Police {
+                        Font
+                    }
+                    Elements {
+                        Nom
+                    }
+                }
+            }
+        }
+    }
+`;
+
 export const GET_NAVIGATION = gql`
     query getNavigation($navigationIdOrSlug: String!) {
         renderNavigation(navigationIdOrSlug: $navigationIdOrSlug) {
@@ -228,7 +248,7 @@ export const GET_INVITES = gql`
             publishedAt
         }
     }
-`
+`;
 
 export const GET_ALLERGENES = gql`
     query GetAllergenes {
@@ -240,4 +260,4 @@ export const GET_ALLERGENES = gql`
             publishedAt
         }
     }
-`
+`;

@@ -12,6 +12,7 @@ export async function POST(req: Request) {
       Matin: body.Matin,
       Midi: body.Midi,
       Soir: body.Soir,
+      Retour: body.Retour,
       Allergies: body.Allergies,
       Message: body.Message,
     },
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
     },
     body: JSON.stringify({ query: print(SEND_REPONSE), variables }),
   });

@@ -2,6 +2,8 @@
 @import "./variables.css";
 @import "./navigation.css";
 @import "./responsive.css";
+@import "./reponseForm.css";
+@import "./customSelect.css";
 
 /* ========== Animations ========== */
 @keyframes draw {
@@ -83,7 +85,7 @@
 }
 
 body {
-  background: var(--gradient-bg);
+  /* background: var(--gradient-bg); */
 }
 
 h2 {
@@ -156,7 +158,7 @@ h2 {
   -webkit-backdrop-filter: blur(20px);
   border: var(--border-thin) solid var(--glass-border);
   border-radius: var(--radius-3xl);
-  padding: var(--card-padding-desktop);
+  padding: var(--card-padding-desktop) var(--card-padding-desktop-side);
   box-shadow: 0 8px 32px 0 var(--shadow-timeline);
   animation: fadeInUp var(--transition-slow);
   max-width: var(--container-sm);
@@ -170,38 +172,34 @@ h2 {
   margin-bottom: var(--spacing-2xl);
 }
 
-.glass-card-title {
-  font-size: var(--font-size-3xl);
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: var(--spacing-sm);
-}
-
 .glass-card-subtitle {
-  color: var(--foreground);
-  opacity: 0.8;
+  font-family: var(--font-anonymous-pro), monospace;
+  color: var(--grey);
   font-size: var(--font-size-md);
+  text-align: center;
+  padding: 0 var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
 }
 
 /* ========== Inputs & Selects ========== */
 .glass-input {
+  font-family: var(--font-anonymous-pro), monospace;
   width: 100%;
-  padding: var(--spacing-lg) var(--spacing-xl);
+  padding: var(--spacing-md) var(--spacing-xl);
   background: var(--glass-bg-medium);
   border: var(--border-medium) solid var(--glass-border);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-full);
   font-size: var(--font-size-base);
   transition: all var(--transition-normal);
   outline: none;
   box-shadow: 0 4px 12px var(--shadow-soft);
+  color: var(--grey);
 }
 
 .glass-input:focus {
-  border-color: var(--rose);
-  box-shadow: 0 4px 20px rgba(250, 123, 160, 0.3);
+  border-color: var(--rouge);
+  color: var(--rouge);
+  box-shadow: 0 2px 10px rgba(224, 10, 38, 0.3);
   transform: var(--focus-lift);
 }
 
@@ -211,6 +209,8 @@ h2 {
 }
 
 .glass-textarea {
+  font-family: var(--font-anonymous-pro), monospace;
+  color: var(--grey);
   width: 100%;
   padding: var(--spacing-lg) var(--spacing-xl);
   background: var(--glass-bg-medium);
@@ -221,165 +221,171 @@ h2 {
   min-height: 120px;
   transition: all var(--transition-normal);
   outline: none;
-  font-family: inherit;
 }
 
 .glass-textarea:focus {
-  border-color: var(--rose);
-  box-shadow: 0 4px 20px rgba(250, 123, 160, 0.3);
+  border-color: var(--rouge);
 }
+
+/* ========== SELECT CORRIGÉ ========== */
 
 .glass-select {
   width: 100%;
   padding: var(--spacing-md) var(--spacing-lg);
-  background: var(--glass-bg-strong);
-  border: var(--border-medium) solid var(--glass-border);
+  background: var(--p5-rouge);
+  color: var(--grey);
+  font-family: var(--font-anonymous-pro), monospace;
+  font-weight: 500;
   border-radius: var(--radius-lg);
   font-size: var(--font-size-base);
   transition: all var(--transition-normal);
   outline: none;
   cursor: pointer;
+  
+  /* Reset de l'apparence par défaut */
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23e00a26' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  /* Flèche personnalisée fuschia */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ff00ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--spacing-lg) center;
+  background-size: 1.2rem;
   padding-right: 2.5rem;
 }
 
 .glass-select:focus {
-  border-color: var(--rose);
-  box-shadow: 0 4px 20px rgba(250, 123, 160, 0.3);
+  border-color: var(--rouge);
+  box-shadow: 0 0 15px var(--p5-rouge);
   transform: var(--focus-lift);
 }
 
 .glass-select:hover {
-  border-color: var(--rose);
-  background-color: var(--background);
+  border-color: var(--rouge);
+  box-shadow: 0 0 15px var(--p5-rouge);
 }
 
-/* ========== Allergies Form ========== */
-.allergies-form-container {
-  animation: fadeInUp 0.5s ease-out;
-}
+/* ========== STYLE DES OPTIONS (DROPDOWN) ========== */
 
-.allergies-title {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  color: var(--rouge);
-  margin-bottom: var(--spacing-sm);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.allergies-subtitle {
-  font-size: 0.95rem;
-  color: var(--foreground);
-  opacity: 0.7;
-  margin-bottom: var(--spacing-xl);
-}
-
-.allergie-card {
-  padding: var(--spacing-xl);
-  background: var(--glass-bg-medium);
-  border-radius: var(--radius-xl);
-  border: var(--border-medium) solid var(--glass-border);
-  margin-bottom: var(--spacing-lg);
-  transition: all var(--transition-normal);
-  animation: slideInRight 0.4s ease-out;
-}
-
-.allergie-card:hover {
-  border-color: var(--rose);
-  box-shadow: 0 4px 20px rgba(250, 123, 160, 0.2);
-}
-
-.allergie-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-md);
-  border-bottom: var(--border-medium) solid var(--rose-pale);
-}
-
-.allergie-card-number {
-  font-weight: 600;
-  color: var(--rouge);
-  font-size: 1.1rem;
-}
-
-.allergie-remove-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: transform var(--transition-fast);
-  padding: var(--spacing-xs);
-}
-
-.allergie-remove-btn:hover {
-  transform: scale(1.2) rotate(90deg);
-}
-
-.allergie-item {
-  margin-bottom: var(--spacing-lg);
-}
-
-.allergie-item:last-child {
-  margin-bottom: 0;
-}
-
-.allergie-label {
-  display: block;
-  font-weight: 600;
-  color: var(--foreground);
-  margin-bottom: var(--spacing-sm);
-  font-size: 0.95rem;
-}
-
-.allergie-checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-sm);
-}
-
-.allergie-checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md) var(--spacing-lg);
-  background: var(--glass-bg-lighter);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  border: var(--border-medium) solid transparent;
-}
-
-.allergie-checkbox-label:hover {
-  background: var(--jaune-pale);
-  border-color: var(--jaune);
-  transform: translateX(4px);
-}
-
-.allergie-checkbox-label input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  accent-color: var(--rose);
-}
-
-.allergie-checkbox-label span {
-  font-size: var(--font-size-base);
-  color: var(--foreground);
+/* Reset complet du style des options */
+.glass-select option {
+  padding: var(--spacing-md);
+  background: var(--white);
+  color: var(--grey);
+  font-family: var(--font-anonymous-pro), monospace;
   font-weight: 500;
+  font-size: var(--font-size-base);
+  border: none;
 }
 
-.allergie-add-btn {
-  width: 100%;
-  margin-top: var(--spacing-xl);
+.glass-select option:hover {
+  background-color: var(--orange);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: var(--radius-full);
 }
+
+.glass-select option:checked {
+  background-color: var(--orange);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: var(--radius-full);
+}
+
+/* Style pour l'option par défaut (placeholder) */
+.glass-select option:first-child {
+  color: var(--grey);
+  background: var(--p5-rouge);
+  font-style: italic;
+}
+
+/* Retire la flèche par défaut sur IE/Edge */
+.glass-select::-ms-expand {
+  display: none;
+}
+
+/* Style spécifique pour Firefox */
+@-moz-document url-prefix() {
+  .glass-select {
+    text-indent: 0.01px;
+    text-overflow: '';
+  }
+  
+  .glass-select option {
+    background-color: var(--background);
+    color: var(--white);
+  }
+}
+
+/* ========== VARIANTE ALTERNATIVE SI BESOIN ========== */
+
+/* Si le style des options ne s'applique pas, utiliser cette classe */
+.glass-select-custom {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-family: var(--font-anonymous-pro), monospace;
+  font-weight: 500;
+  font-size: var(--font-size-base);
+  color: var(--white);
+  background-color: var(--p5-rouge);
+  border: var(--border-medium) solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  outline: none;
+  
+  /* Reset complet */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* Flèche */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ff00ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  padding-right: 2.5rem;
+}
+
+.glass-select-custom:hover {
+  background-color: var(--p10-orange);
+  border-color: var(--fuschia);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+.glass-select-custom:focus {
+  border-color: var(--fuschia);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+}
+
+.glass-select-custom option {
+  padding: 0.75rem;
+  background-color: var(--background);
+  color: var(--white);
+  font-family: var(--font-anonymous-pro), monospace;
+}
+
+.glass-select-custom option:checked {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+/* ========== NOTES IMPORTANTES ========== */
+
+/*
+LIMITATION DES NAVIGATEURS:
+Le style des options dans un <select> natif est très limité par les navigateurs.
+La plupart des navigateurs n'appliquent que:
+- background-color
+- color
+- padding (parfois)
+
+Pour un contrôle total du style, il faudrait créer un custom select en React
+avec des divs et du JavaScript, mais cela nécessite plus de code.
+
+Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
+*/
 
 /* ========== Liste des invités ========== */
 .invite-list {
@@ -389,19 +395,22 @@ h2 {
 }
 
 .invite-item {
-  padding: var(--spacing-lg) var(--spacing-xl);
+  padding: var(--spacing-md) var(--spacing-xl);
   background: var(--glass-bg-strong);
   border: var(--border-thin) solid var(--glass-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-normal);
   animation: slideInRight 0.4s ease-out;
+  background: var(--p20-orange);
+  color: var(--rouge);
 }
 
 .invite-item:hover {
-  background: var(--rose-pale);
-  border-color: var(--rose);
-  transform: translateX(8px) scale(1.02);
+  font-weight: bold;
+  background: var(--orange);
+  color: var(--white);
+  transform: translateX(0px) scale(1.05);
   box-shadow: 0 6px 20px rgba(250, 123, 160, 0.3);
 }
 
@@ -421,7 +430,6 @@ h2 {
   margin-bottom: var(--spacing-lg);
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
 }
 
 .checkbox-label {
@@ -484,9 +492,10 @@ h2 {
 
 /* ========== Boutons ========== */
 .glass-button {
+  font-family: var(--font-graduate), serif;
   padding: var(--spacing-md) var(--spacing-2xl);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   font-weight: 600;
   font-size: var(--font-size-base);
   cursor: pointer;
@@ -531,23 +540,23 @@ h2 {
 
 .btn-secondary {
   background: var(--glass-bg-medium);
-  color: var(--foreground);
+  color: var(--rouge);
   border: var(--border-medium) solid var(--glass-border);
 }
 
 .btn-secondary:hover {
-  background: var(--jaune-pale);
-  border-color: var(--jaune);
+  background: var(--p5-rouge);
+  border-color: var(--rouge);
 }
 
 .btn-success {
-  background: var(--gradient-secondary);
+  background: var(--green);
   color: var(--background);
 }
 
 .btn-success:hover {
   transform: var(--hover-lift-small);
-  box-shadow: 0 8px 24px rgba(247, 80, 4, 0.4);
+  box-shadow: 4px 4px 10px var(--p20-green);
 }
 
 .btn-danger {
@@ -566,31 +575,15 @@ h2 {
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-lg);
-  margin-top: var(--spacing-2xl);
+  margin-top: var(--spacing-lg);
   flex-wrap: wrap;
 }
 
 /* ========== Récapitulatif ========== */
 .recap-section {
-  padding: var(--spacing-xl);
-  background: var(--glass-bg-medium);
-  border-radius: var(--radius-xl);
-  border: var(--border-thin) solid var(--glass-border);
-  animation: fadeInUp 0.5s ease-out;
-}
-
-.recap-item {
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-  background: var(--jaune-pale);
-  border-radius: var(--radius-lg);
-  border-left: var(--border-heavy) solid var(--rose);
-}
-
-.recap-item strong {
   color: var(--rouge);
-  display: block;
-  margin-bottom: var(--spacing-sm);
+  width: 100%;
+  animation: fadeInUp 0.5s ease-out;
 }
 
 .recap-list {
@@ -605,7 +598,9 @@ h2 {
 
 /* ========== Message de confirmation ========== */
 .confirmation-card {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: var(--spacing-3xl) var(--spacing-2xl);
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
@@ -621,10 +616,18 @@ h2 {
 }
 
 .confirmation-title {
+  font-family: var(--font-italianno), cursive;
   font-size: var(--font-size-2xl);
   font-weight: 800;
   color: var(--rouge);
   margin-bottom: var(--spacing-lg);
+}
+
+.confirmation-message {
+  font-size: var(--font-size-base);
+  font-family: var(--font-anonymous-pro) monospace;
+  color: var(--grey);
+  text-align: center;
 }
 
 .confirmation-link {
@@ -1906,4 +1909,36 @@ h2 {
   font-size: var(--font-size-xl);
   color: var(--foreground);
   opacity: 0.8;
+}
+
+/* ========== FONT STYLE ========= */
+
+.glass-card-title {
+  font-family: var(--font-italianno), cursive;
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  text-align: left;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-xl);
+  flex-direction: column;
+  align-items: start;
+  line-height: var(--font-size-3xl);
+  display: flex;
+}
+.glass-card-title::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  border-radius: 50px;
+  background: var(--gradient-primary);
+}
+
+.small-divider {
+  width: 10rem;
+  height: var(--border-medium);
+  background: var(--gradient-primary);
+  margin: auto;
 }

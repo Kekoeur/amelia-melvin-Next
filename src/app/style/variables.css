@@ -8,14 +8,25 @@
   --fuschia: #f40e5e;
   --jaune: #ffdf41;
   --jaune-pale: #fffad5;
+  --grey: #949494;
+  --white: #ffffff;
+  --green: #C3B63A;
   --background: #ffffff;
   --background-alt: #fafafa;
   --foreground: #171717;
-  
+
+  /* ========== Transparent color ========== */
+
+  --p5-rouge: rgba(224, 10, 38, 0.05);
+  --p5-jaune: rgba(255, 223, 65, 0.05);
+  --p20-orange: rgba(247, 80, 4, 0.2);
+  --p10-orange: rgba(247, 80, 4, 0.1);
+  --p20-green: rgba(195, 182, 58, 0.2);
+   
   /* ========== Effets glass ========== */
   --glass-bg: rgba(255, 255, 255, 0.15);
   --glass-bg-strong: rgba(255, 255, 255, 0.95);
-  --glass-bg-medium: rgba(255, 255, 255, 0.9);
+  --glass-bg-medium: var(--p5-rouge);
   --glass-bg-light: rgba(255, 255, 255, 0.8);
   --glass-bg-lighter: rgba(255, 255, 255, 0.7);
   --glass-bg-lightest: rgba(255, 255, 255, 0.6);
@@ -85,7 +96,9 @@
   --section-padding-desktop: var(--spacing-4xl) var(--spacing-2xl);
   --section-padding-mobile: var(--spacing-2xl) var(--spacing-lg);
   
-  --card-padding-desktop: var(--spacing-3xl);
+  --card-padding: var(--spacing-xs);
+  --card-padding-desktop: var(--spacing-2xl);
+  --card-padding-desktop-side: var(--spacing-4xl);
   --card-padding-tablet: var(--spacing-xl);
   --card-padding-mobile: var(--spacing-lg);
   

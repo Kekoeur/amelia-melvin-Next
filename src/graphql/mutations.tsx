@@ -90,3 +90,21 @@ export const CREATE_INVITE = gql`
     }
   }
 `;
+
+export const UPDATE_PAGE_STYLES = gql`
+  mutation UpdatePageStyles($documentId: ID!, $data: PageInput!)  {
+    updatePage(documentId: $documentId, data: $data) {
+      documentId
+      Style {
+        ... on ComponentTypeChoixPoliceHtml {
+          Police {
+            Font
+          }
+          Elements {
+            Nom
+          }
+        }
+      }
+    }
+  }
+`;
