@@ -54,7 +54,7 @@ export async function getDocumentIdFromSlug(slug: string): Promise<string | null
       variables: { navigationIdOrSlug: "yqv4a4ary5foimhq2e20r5ps" },
       context: {
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
       },
     });

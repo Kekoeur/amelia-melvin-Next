@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       variables: { documentId },
       context: {
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
       },
       fetchPolicy: 'no-cache',

@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
+          'Authorization': `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
         body: JSON.stringify({
           data: {
