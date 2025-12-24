@@ -6,7 +6,7 @@ const createApolloClient = () => {
     link: new HttpLink({
       uri: process.env.NEXT_PUBLIC_GRAPHQL_API,
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+        Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`
       },
       credentials: "include",
       fetchOptions: { mode: 'cors' },
