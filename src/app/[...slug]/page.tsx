@@ -6,6 +6,11 @@ import SectionRenderer from "@/utils/renderComponent"
 import DefaultPage from "@/components/Page/DefaultPage";
 import ClientStyleWrapper from "@/utils/ClientStyleWrapper";
 
+const couleur: { [key: string]: string } = {
+  'reponses': 'var(--gradient-green)',
+  'programme': 'var(--gradient-jaune)',
+}
+
 // Fonction helper pour récupérer les styles
 async function getPageStyles(slug: string): Promise<ComponentTypeChoixPoliceHtml[]> {
   try {
@@ -57,23 +62,25 @@ export default async function DynamicPage({
       pageSlug={currentSlug}
     >
       <DefaultPage navMenu={navMenu}>
-        {page?.Section?.map((element, index) => {
-          return element.__typename === 'ComponentSectionFormInvite' ? (
-            <SectionRenderer
-              key={index}
-              section={element}
-              navMenu={navMenu}
-              invites={invites}
-              allergenes={allergenes}
-            />
-          ) : (
-            <SectionRenderer
-              key={index}
-              section={element}
-              navMenu={navMenu}
-            />
-          );
-        })}
+        <section className="gradient-section" style={{background: couleur[currentSlug] || 'transparent'}}>
+          {page?.Section?.map((element, index) => {
+            return element.__typename === 'ComponentSectionFormInvite' ? (
+              <SectionRenderer
+                key={index}
+                section={element}
+                navMenu={navMenu}
+                invites={invites}
+                allergenes={allergenes}
+              />
+            ) : (
+              <SectionRenderer
+                key={index}
+                section={element}
+                navMenu={navMenu}
+              />
+            );
+          })}
+        </section>
       </DefaultPage>
     </ClientStyleWrapper>
   );

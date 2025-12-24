@@ -1,0 +1,6 @@
+.section-date-title {
+    font-family: var(--font-anonymous-pro), serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

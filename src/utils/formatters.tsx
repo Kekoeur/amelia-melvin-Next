@@ -102,6 +102,24 @@ export function transformDateToString(date: Date): string {
   return date.toLocaleDateString('fr-FR', options);
 }
 
+function capitalizeWords(str: string): string {
+  return str.split(' ').map(word => 
+    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  ).join(' ');
+}
+
+export function transformDateToStringDay(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formatted = date.toLocaleDateString('fr-FR', options);
+  return capitalizeWords(formatted); // "29 Août 2026"
+}
+
+export function transformDateToStringDate(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
+  const formatted = date.toLocaleDateString('fr-FR', options);
+  return capitalizeWords(formatted); // "samedi" → "Samedi"
+}
+
 export function transformDateToHourString(date: Date): string {
   const options: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
   console.log('Transforming date to hour string:', date.toLocaleTimeString('fr-FR', options));

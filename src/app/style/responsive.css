@@ -207,6 +207,31 @@
   .profile-image-foreground {
     transform: scale(1.05);
   }
+
+  .repondre-form-container {
+    padding: var(--card-padding-mobile) !important;
+  }
+
+  .glass-card {
+    padding: var(--card-padding-mobile) !important;
+  }
+
+  .glass-card-title {
+    font-size: var(--font-heading-mobile) !important;
+  }
+
+  .glass-card-subtitle {
+    font-size: var(--font-subtitle-mobile) !important;
+  }
+
+  .moment-section {
+    padding: 0 !important;
+  }
+
+  .moment-title {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
 
 /* ========== TABLET (768px - 1023px) ========== */

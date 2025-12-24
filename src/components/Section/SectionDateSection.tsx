@@ -2,7 +2,8 @@ import React from 'react';
 import { ComponentSectionSectionDate } from '@/types/api';
 import SectionDateCard from '@/components/Presentation/SectionDateCard';
 import { NavigationProps } from "@/types/pages";
-import { transformDateToString } from '@/utils/formatters';
+import { transformDateToStringDate, transformDateToStringDay } from '@/utils/formatters';
+import TextWrapper from '../Type/TextWrapper';
 
 interface SectionDateSectionProps {
   section: ComponentSectionSectionDate;
@@ -16,10 +17,14 @@ const SectionDateSection: React.FC<SectionDateSectionProps> = ({ section, navMen
   return (
     <div className="section-date-container">
       <div className="section-date-header">
-        <div className="date-badge">
-          <span className="date-icon">📅</span>
+        <div className="date-event">
           <h2 className="section-date-title">
-            {transformDateToString(new Date(section.Date))}
+            <span className="section-date-weekday">
+              <TextWrapper text={transformDateToStringDate(new Date(section.Date))}></TextWrapper>
+            </span>
+            <span className="section-date-day">
+              <TextWrapper text={transformDateToStringDay(new Date(section.Date))}></TextWrapper>
+            </span>
           </h2>
         </div>
       </div>
