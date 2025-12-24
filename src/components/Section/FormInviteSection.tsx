@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { Invite, Moment, InvitePerson, Allergenes, ComponentSectionFormInvite } from "@/types/api";
 import { formatGroupInvite, getMomentsFromQuand, normalize } from "@/utils/formatters";
 import AllergiesForm, { AllergySelection } from "@/components/Section/AllergiesForm";
+import TextWrapper from "../Type/TextWrapper";
 
 interface Props {
   section: ComponentSectionFormInvite;
@@ -136,7 +137,7 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
 
   if (submitted) {
     return (
-      <div className="repondre-form-container">
+      <div className="repondre-form-container section">
         <div className="confirmation-card">
           <div className="confirmation-icon">🎉</div>
           <h2 className="confirmation-title">Merci pour votre réponse !</h2>
@@ -220,14 +221,14 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
   }
 
   return (
-    <div className="repondre-form-container">
-      <div className="glass-card-header">
-          <h1 className="glass-card-title">{section.Titre}</h1>
-          <p className="glass-card-subtitle">Répondez à votre invitation en quelques étapes</p>
+    <div className="repondre-form-container section">
+      <div className="main-card">
+          <h1 className="main-card-title">
+            <TextWrapper text={section.Titre} />
+          </h1>
+          <p className="main-card-subtitle">Répondez à votre invitation en quelques étapes</p>
       </div>
       <div className="glass-card">
-        
-
         {/* Étape Nom */}
         {currentStep === "Nom" && (
           <div>

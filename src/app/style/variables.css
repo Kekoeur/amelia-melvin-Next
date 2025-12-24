@@ -6,6 +6,8 @@
   --orange: #f75004;
   --rose-pale: #ffb7b6;
   --fuschia: #f40e5e;
+  --vanilla: #EDDFAC;
+  --bisque: #FFC7A7;
   --jaune: #ffdf41;
   --jaune-pale: #fffad5;
   --grey: #949494;
@@ -18,10 +20,53 @@
   /* ========== Transparent color ========== */
 
   --p5-rouge: rgba(224, 10, 38, 0.05);
-  --p5-jaune: rgba(255, 223, 65, 0.05);
-  --p20-orange: rgba(247, 80, 4, 0.2);
+  --p10-rouge: rgba(224, 10, 38, 0.1);
+  --p20-rouge: rgba(224, 10, 38, 0.2);
+  --p50-rouge: rgba(224, 10, 38, 0.5);
+  --p75-rouge: rgba(224, 10, 38, 0.75);
+
+  --p5-orange: rgba(247, 80, 4, 0.05);
   --p10-orange: rgba(247, 80, 4, 0.1);
+  --p20-orange: rgba(247, 80, 4, 0.2);
+  --p50-orange: rgba(247, 80, 4, 0.5);
+  --p75-orange: rgba(247, 80, 4, 0.75);
+  
+  --p5-bisque: rgba(255, 199, 167, 0.05);
+  --p10-bisque: rgba(255, 199, 167, 0.1);
+  --p20-bisque: rgba(255, 199, 167, 0.2);
+  --p50-bisque: rgba(255, 199, 167, 0.5);
+  --p75-bisque: rgba(255, 199, 167, 0.75);
+
+  --p5-vanilla: rgba(237, 223, 172, 0.05);
+  --p10-vanilla: rgba(237, 223, 172, 0.1);
+  --p20-vanilla: rgba(237, 223, 172, 0.2);
+  --p50-vanilla: rgba(237, 223, 172, 0.5);
+  --p75-vanilla: rgba(237, 223, 172, 0.75);
+
+  --p5-salmon: rgba(250, 132, 87, 0.05);
+  --p10-salmon: rgba(250, 132, 87, 0.1);
+  --p20-salmon: rgba(250, 132, 87, 0.2);
+  --p50-salmon: rgba(250, 132, 87, 0.5);
+  --p75-salmon: rgba(250, 132, 87, 0.75);
+
+  --p5-rose: rgba(251, 127, 160, 0.05);
+  --p10-rose: rgba(251, 127, 160, 0.1);
+  --p20-rose: rgba(251, 127, 160, 0.2);
+  --p50-rose: rgba(251, 127, 160, 0.5);
+  --p75-rose: rgba(251, 127, 160, 0.75);
+
+  --p5-jaune: rgba(255, 223, 65, 0.05);
+  --p10-jaune: rgba(255, 223, 65, 0.1);
+  --p20-jaune: rgba(255, 223, 65, 0.2);
+  --p50-jaune: rgba(255, 223, 65, 0.5);
+  --p75-jaune: rgba(255, 223, 65, 0.75);
+
+  --p5-green: rgba(195, 182, 58, 0.05);
+  --p10-green: rgba(195, 182, 58, 0.1);
   --p20-green: rgba(195, 182, 58, 0.2);
+  --p50-green: rgba(195, 182, 58, 0.5);
+  --p75-green: rgba(195, 182, 58, 0.75);
+
    
   /* ========== Effets glass ========== */
   --glass-bg: rgba(255, 255, 255, 0.15);
@@ -79,6 +124,8 @@
   --font-size-3xl: 2.5rem;
   --font-size-4xl: 3rem;
   --font-size-5xl: 3.5rem;
+  --font-size-6xl: 4rem;
+  --font-size-7xl: 5rem;
   
   /* ========== Typographie - Mobile (surcharge en responsive) ========== */
   --font-title-mobile: 1.5rem;
@@ -119,6 +166,23 @@
   --gradient-meteo: linear-gradient(135deg, var(--rose) 0%, var(--fuschia) 100%);
   --gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.4) 100%);
   
+  --gradient-green: linear-gradient(180deg, var(--green) 0%, var(--p75-green) 25%, var(--p50-green) 50%, var(--white) 100%);
+  --gradient-green-divider: linear-gradient(180deg, var(--white) 0%, var(--p50-green) 15%, var(--p75-green) 30%, var(--p50-green) 45%, var(--p20-green) 75%, var(--white) 100%);
+
+  --gradient-bisque: linear-gradient(180deg, var(--bisque) 0%, var(--p75-bisque) 25%, var(--p50-bisque) 50%, var(--white) 100%);
+  --gradient-bisque-divider: linear-gradient(180deg, var(--white) 0%, var(--p50-bisque) 15%, var(--p75-bisque) 30%, var(--p50-bisque) 45%, var(--p20-bisque) 75%, var(--white) 100%);
+
+  --gradient-salmon: linear-gradient(180deg, var(--salmon) 0%, var(--p75-salmon) 25%, var(--p50-salmon) 50%, var(--white) 100%);
+  --gradient-salmon-divider: linear-gradient(180deg, var(--white) 0%, var(--p50-salmon) 15%, var(--p75-salmon) 30%, var(--p50-salmon) 45%, var(--p20-salmon) 75%, var(--white) 100%);
+
+  --gradient-jaune: linear-gradient(180deg, var(--jaune) 0%, var(--p75-jaune) 25%, var(--p50-jaune) 50%, var(--white) 100%);
+  --gradient-jaune-divider: linear-gradient(180deg, var(--white) 0%, var(--p50-jaune) 15%, var(--p75-jaune) 30%, var(--p50-jaune) 45%, var(--p20-jaune) 75%, var(--white) 100%);
+
+  --gradient-vanilla: linear-gradient(180deg, var(--vanilla) 0%, var(--p75-vanilla) 25%, var(--p50-vanilla) 50%, var(--white) 100%);
+  --gradient-vanilla-divider: linear-gradient(180deg, var(--white) 0%, var(--p50-vanilla) 15%, var(--p75-vanilla) 30%, var(--p50-vanilla) 45%, var(--p20-vanilla) 75%, var(--white) 100%);
+
+  --gradient-rose: linear-gradient(180deg, var(--rose) 0%, var(--p75-rose) 25%, var(--p50-rose) 50%, var(--white) 100%);
+  --gradient-rose-divider: linear-gradient(180deg, var(--white) 0%, var(--p50-rose) 15%, var(--p75-rose) 30%, var(--p50-rose) 45%, var(--p20-rose) 75%, var(--white) 100%);
   /* ========== Effets réutilisables ========== */
   --hover-lift: translateY(-4px);
   --hover-lift-small: translateY(-2px);

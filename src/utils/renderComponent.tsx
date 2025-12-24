@@ -9,7 +9,7 @@ import PresentationSection from "@/components/Section/PresentationSection";
 import HistoireSection from "@/components/Section/HistoireSection";
 import SectionDateSection from "@/components/Section/SectionDateSection";
 import TitreTextSection from "@/components/Section/TitreTexteSection";
-import ImageDividerSection from "@/components/Section/ImageDividerSection";
+import ImageDividerSection from "@/components/Type/ImageDividerSection";
 import InfosLieu from "@/components/Infos/Lieu";
 import InfosTrajet from "@/components/Infos/Trajet";
 import InfosContact from "@/components/Infos/Contact";
@@ -36,14 +36,14 @@ interface SectionRendererProps {
 }
 
 const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, invites, allergenes }) => {
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     const cssObj = window.CSS as CSSWithPaintWorklet;
     const paintWorklet = cssObj && (cssObj["paintWorklet"] as CSSPaintWorklet | undefined);
     paintWorklet?.addModule("/js/squircle.min.js");
-  }, []);
+  }, []); */
 
-  console.log('Rendering SectionRenderer with section:', section);
-  console.log('Navigation menu in SectionRenderer:', navMenu);
+  // console.log('Rendering SectionRenderer with section:', section);
+  // console.log('Navigation menu in SectionRenderer:', navMenu);
   
   // Switch sur le __typename pour rendre le bon composant
   switch (section.__typename) {

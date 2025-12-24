@@ -4,6 +4,7 @@
 @import "./responsive.css";
 @import "./reponseForm.css";
 @import "./customSelect.css";
+@import "./programme.css";
 
 /* ========== Animations ========== */
 @keyframes draw {
@@ -88,10 +89,6 @@ body {
   /* background: var(--gradient-bg); */
 }
 
-h2 {
-  font-family: var(--font-lovely-melody);
-}
-
 /* ========== Styles texte manuscrit ========== */
 .svg-handwriting {
   animation: handwriting 2s ease-out forwards;
@@ -122,34 +119,9 @@ h2 {
 
 /* ========== Formulaire de Réponse ========== */
 .repondre-form-container {
-  min-height: 100vh;
   padding: var(--spacing-2xl) var(--spacing-lg);
   position: relative;
   overflow: hidden;
-}
-
-.repondre-form-container::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--rose) 0%, transparent 70%);
-  opacity: 0.2;
-  animation: pulse 6s ease-in-out infinite;
-}
-
-.repondre-form-container::after {
-  content: '';
-  position: absolute;
-  bottom: -30%;
-  left: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, var(--orange) 0%, transparent 70%);
-  opacity: 0.2;
-  animation: pulse 8s ease-in-out infinite;
 }
 
 .glass-card {
@@ -1304,45 +1276,6 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 }
 
 /* ========== Section Date - Timeline ========== */
-.section-date-container {
-  padding: var(--section-padding-desktop);
-  min-height: 100vh;
-  position: relative;
-}
-
-.section-date-header {
-  text-align: center;
-  margin-bottom: var(--spacing-3xl);
-  animation: fadeInUp var(--transition-slow);
-}
-
-.date-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-xl) var(--spacing-3xl);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: var(--border-medium) solid var(--glass-border);
-  border-radius: var(--radius-full);
-  box-shadow: 0 8px 32px 0 var(--shadow-timeline);
-}
-
-.date-icon {
-  font-size: 3rem;
-  filter: drop-shadow(0 2px 4px var(--shadow-soft));
-}
-
-.section-date-title {
-  font-size: var(--font-size-3xl);
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0;
-}
 
 .events-timeline {
   max-width: var(--container-lg);
@@ -1941,4 +1874,86 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
   height: var(--border-medium);
   background: var(--gradient-primary);
   margin: auto;
+}
+
+.main-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-card-title {
+  font-family: var(--font-italianno), cursive;
+  font-size: var(--font-size-5xl);
+}
+
+.main-card-subtitle {
+  font-family: var(--font-anonymous-pro), monospace;
+  font-size: var(--font-size-base);
+  color: var(--grey);
+  opacity: 0.8;
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.text-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.text-outline {
+  position: absolute;
+  inset: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  color: var(--rouge);   /* couleur bordure */
+  z-index: 1;
+}
+
+.text-fill {
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: lighter;
+  color: var(--white);     /* texte principal */
+  z-index: 2;
+}
+
+.section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.image-divider {
+  position: relative;
+  margin-top: -20vh;
+  width: 100%;
+  aspect-ratio: var(--ratio, 16 / 9);
+  z-index: -100;
+  opacity: 0.8;
+}
+
+.image-divider::after {
+  content: "";
+  position: absolute;
+  transform: rotate(180deg);
+  top: calc(100% - 15vh);        
+  left: 0;
+  width: 100%;
+  height: 15vh;
+  background: var(--gradient-green);
+  z-index: -101;
+}
+
+.image-divider img {
+  object-fit: cover;
+}
+
+.gradient-section {
+  animation: fadeInUp 0.5s ease-out;
+  width: 100%;
+  height: 30vh;
+  background: var(--gradient-green);
 }
