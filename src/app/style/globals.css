@@ -1957,3 +1957,27 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
   height: 30vh;
   background: var(--gradient-green);
 }
+
+.mainTitle {
+  font-family: var(--font-italianno), cursive;
+  font-size: var(--font-size-6xl);
+  text-align: center;
+  padding-top: var(--spacing-2xl);
+}
+
+.mainTitleDesc {
+  font-family: var(--font-anonymous-pro), monospace;
+  font-size: var(--font-size-lg);
+  color: var(--grey);
+  opacity: 0.8;
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.notReady {
+  font-family: var(--font-graduate), serif;
+  font-size: var(--font-size-2xl);
+  color: var(--rouge);
+  text-align: center;
+  padding: var(--spacing-3xl);
+}

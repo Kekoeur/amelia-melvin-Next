@@ -5,6 +5,7 @@ import { NavigationProps } from "@/types/pages";
 import SectionRenderer from "@/utils/renderComponent"
 import DefaultPage from "@/components/Page/DefaultPage";
 import ClientStyleWrapper from "@/utils/ClientStyleWrapper";
+import TextWrapper from "@/components/Type/TextWrapper";
 
 const couleur: { [key: string]: string } = {
   'reponses': 'var(--gradient-green)',
@@ -63,23 +64,28 @@ export default async function DynamicPage({
     >
       <DefaultPage navMenu={navMenu}>
         <section className="gradient-section" style={{background: couleur[currentSlug] || 'transparent'}}>
-          {page?.Section?.map((element, index) => {
-            return element.__typename === 'ComponentSectionFormInvite' ? (
-              <SectionRenderer
-                key={index}
-                section={element}
-                navMenu={navMenu}
-                invites={invites}
-                allergenes={allergenes}
-              />
-            ) : (
-              <SectionRenderer
-                key={index}
-                section={element}
-                navMenu={navMenu}
-              />
-            );
-          })}
+          <h2 className="mainTitle"><TextWrapper text={page?.MainTitle?.Titre}></TextWrapper></h2>
+          {page?.MainTitle?.Desc && <p className="mainTitleDesc">{page?.MainTitle?.Desc}</p>}
+          {page?.Visible?.Visibility ?
+            page?.Section?.map((element, index) => {
+              return element.__typename === 'ComponentSectionFormInvite' ? (
+                <SectionRenderer
+                  key={index}
+                  section={element}
+                  navMenu={navMenu}
+                  invites={invites}
+                  allergenes={allergenes}
+                />
+              ) : (
+                <SectionRenderer
+                  key={index}
+                  section={element}
+                  navMenu={navMenu}
+                />
+              );
+            }) :
+            <p className="notReady">{page?.Visible?.AlternatifText || "Cette page n'est pas disponible pour le moment."}</p>
+          }
         </section>
       </DefaultPage>
     </ClientStyleWrapper>

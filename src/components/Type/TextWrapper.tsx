@@ -1,6 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
-import { useRef } from 'react';
 
 interface TextWrapperProps {
   text: string;
