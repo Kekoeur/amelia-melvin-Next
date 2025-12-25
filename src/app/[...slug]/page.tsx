@@ -66,30 +66,32 @@ export default async function DynamicPage({
         <section className="gradient-section" style={{background: gradientBackground}}>
           <h2 className="mainTitle"><TextWrapper text={page?.MainTitle?.Titre}></TextWrapper></h2>
           {page?.MainTitle?.Desc && <p className="mainTitleDesc">{page?.MainTitle?.Desc}</p>}
-          {page?.Visible?.Visibility || process.env.NEXT_PUBLIC_DEV ?
-            page?.Section?.map((element, index) => {
-              return element.__typename === 'ComponentSectionFormInvite' ? (
-                <SectionRenderer
-                  key={index}
-                  section={element}
-                  navMenu={navMenu}
-                  invites={invites}
-                  allergenes={allergenes}
-                  colorGradDivider={gradientDivider}
-                  colorGradBack={gradientBackground}
-                />
-              ) : (
-                <SectionRenderer
-                  key={index}
-                  section={element}
-                  navMenu={navMenu}
-                  colorGradDivider={gradientDivider}
-                  colorGradBack={gradientBackground}
-                />
-              );
-            }) :
-            <p className="notReady">{page?.Visible?.AlternatifText || "Cette page n'est pas disponible pour le moment."}</p>
-          }
+          <div className="all-sections">
+            {page?.Visible?.Visibility || process.env.NEXT_PUBLIC_DEV ?
+              page?.Section?.map((element, index) => {
+                return element.__typename === 'ComponentSectionFormInvite' ? (
+                  <SectionRenderer
+                    key={index}
+                    section={element}
+                    navMenu={navMenu}
+                    invites={invites}
+                    allergenes={allergenes}
+                    colorGradDivider={gradientDivider}
+                    colorGradBack={gradientBackground}
+                  />
+                ) : (
+                  <SectionRenderer
+                    key={index}
+                    section={element}
+                    navMenu={navMenu}
+                    colorGradDivider={gradientDivider}
+                    colorGradBack={gradientBackground}
+                  />
+                );
+              }) :
+              <p className="notReady">{page?.Visible?.AlternatifText || "Cette page n'est pas disponible pour le moment."}</p>
+            }
+          </div>
         </section>
       </DefaultPage>
     </ClientStyleWrapper>
