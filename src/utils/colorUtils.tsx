@@ -1,5 +1,7 @@
 export function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
   // Enlever le # si présent
+
+  console.log('Converting hex color:', hex);
   const cleanHex = hex.replace('#', '');
   
   // Format #RGB

@@ -53,9 +53,9 @@ export default async function DynamicPage({
   if (!invites || !allergenes) return notFound();
   
   // Générer le gradient à partir de la couleur Strapi
-  const gradientBackground = page?.Couleur ? generateGradient(page.Couleur) : 'transparent';
-  const gradientDivider = page?.Couleur ? generateDividerGradient(page.Couleur) : 'transparent';
-  
+  const gradientBackground = page?.Couleur.CouleurBasic ? generateGradient(page.Couleur.CouleurBasic) : 'transparent';
+  const gradientDivider = page?.Couleur.CouleurBasic ? generateDividerGradient(page.Couleur.CouleurBasic) : 'transparent';
+
   return (
     <ClientStyleWrapper
       globalStyles={globalStyles}
