@@ -75,12 +75,16 @@ export default async function DynamicPage({
                   navMenu={navMenu}
                   invites={invites}
                   allergenes={allergenes}
+                  colorGradDivider={gradientDivider}
+                  colorGradBack={gradientBackground}
                 />
               ) : (
                 <SectionRenderer
                   key={index}
                   section={element}
                   navMenu={navMenu}
+                  colorGradDivider={gradientDivider}
+                  colorGradBack={gradientBackground}
                 />
               );
             }) :

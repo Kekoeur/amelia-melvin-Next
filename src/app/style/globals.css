@@ -1,10 +1,13 @@
 @import "tailwindcss";
 @import "./variables.css";
 @import "./navigation.css";
-@import "./responsive.css";
 @import "./reponseForm.css";
 @import "./customSelect.css";
 @import "./programme.css";
+@import "./presentation.css";
+
+@import "./responsive.css";
+
 
 /* ========== Animations ========== */
 @keyframes draw {
@@ -914,366 +917,6 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
   font-weight: 500;
 }
 
-/* ========== Section Présentation ========== */
-.presentation-section-container {
-  padding: var(--section-padding-desktop);
-  min-height: 100vh;
-  position: relative;
-}
-
-.presentation-header {
-  text-align: center;
-  margin-bottom: var(--spacing-3xl);
-  animation: fadeInUp var(--transition-slow);
-}
-
-.presentation-main-title {
-  font-size: var(--font-size-4xl);
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: var(--spacing-lg);
-}
-
-.presentation-subtitle {
-  font-size: var(--font-size-lg);
-  color: var(--foreground);
-  opacity: 0.8;
-}
-
-.presentation-groups {
-  display: grid;
-  gap: var(--spacing-3xl);
-  max-width: var(--container-xl);
-  margin: 0 auto;
-}
-
-.personne-group {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: var(--border-thin) solid var(--glass-border);
-  border-radius: var(--radius-3xl);
-  padding: var(--card-padding-desktop);
-  box-shadow: 0 8px 32px 0 var(--shadow-timeline);
-  animation: fadeInUp var(--transition-slow);
-  transition: all var(--transition-normal);
-}
-
-.personne-group:hover {
-  transform: var(--hover-lift);
-  box-shadow: 0 12px 40px 0 var(--shadow-timeline-hover);
-}
-
-.personne-group-header {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-3xl);
-  padding-bottom: var(--spacing-lg);
-  border-bottom: var(--border-thick) solid var(--rose-pale);
-}
-
-.personne-group-emoji {
-  font-size: 3rem;
-  filter: drop-shadow(0 2px 4px var(--shadow-soft));
-}
-
-.personne-group-titles {
-  flex: 1;
-}
-
-.personne-group-label {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--rouge);
-  font-weight: 700;
-  margin: 0 0 var(--spacing-xs) 0;
-}
-
-.personne-group-titre {
-  font-size: var(--font-size-2xl);
-  font-weight: 800;
-  color: var(--foreground);
-  margin: 0;
-}
-
-.personne-group--maries .personne-group-header {
-  border-bottom-color: var(--rose);
-}
-
-.personne-group--temoins .personne-group-header {
-  border-bottom-color: var(--salmon);
-}
-
-.personne-group--honneur .personne-group-header {
-  border-bottom-color: var(--jaune);
-}
-
-.personne-group--maitre-temps .personne-group-header {
-  border-bottom-color: var(--orange);
-}
-
-.personnes-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-3xl);
-}
-
-.personnes-grid-honneur {
-  display: grid;
-  grid-template-areas:
-    "a a a b b b"
-    "c c d d e e";
-  gap: var(--spacing-3xl);
-}
-
-.personnes-grid-honneur > :nth-child(1) { grid-area: a; }
-.personnes-grid-honneur > :nth-child(2) { grid-area: b; }
-.personnes-grid-honneur > :nth-child(3) { grid-area: c; }
-.personnes-grid-honneur > :nth-child(4) { grid-area: d; }
-.personnes-grid-honneur > :nth-child(5) { grid-area: e; }
-
-.personne-card {
-  position: relative;
-  background: var(--glass-bg-strong);
-  border-radius: var(--radius-2xl);
-  padding: var(--spacing-xl);
-  border: var(--border-medium) solid var(--glass-border);
-  transition: all var(--transition-normal);
-  animation: slideInRight 0.5s ease-out;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  overflow: visible;
-}
-
-.personne-card:hover {
-  transform: var(--hover-lift-large);
-  box-shadow: 0 12px 30px var(--shadow-medium);
-}
-
-.personne-card--maries {
-  border-color: var(--rose);
-}
-
-.personne-card--maries:hover {
-  box-shadow: 0 12px 30px rgba(250, 123, 160, 0.3);
-}
-
-.personne-card--temoins {
-  border-color: var(--salmon);
-}
-
-.personne-card--temoins:hover {
-  box-shadow: 0 12px 30px rgba(250, 132, 87, 0.3);
-}
-
-.personne-card--honneur {
-  border-color: var(--jaune);
-}
-
-.personne-card--honneur:hover {
-  box-shadow: 0 12px 30px rgba(255, 223, 65, 0.3);
-}
-
-.personne-card--maitre-temps {
-  border-color: var(--orange);
-}
-
-.personne-card--maitre-temps:hover {
-  box-shadow: 0 12px 30px rgba(247, 80, 4, 0.3);
-}
-
-.personne-card
-
-.personne-photo-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: 0 4px 12px var(--shadow-soft);
-}
-
-.personne-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-normal);
-}
-
-.personne-card:hover .personne-photo {
-  transform: scale(1.05);
-}
-
-.personne-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.personne-nom {
-  font-size: var(--font-size-xl);
-  font-family: var(--font-lovely-melody);
-  font-weight: 700;
-  color: var(--rouge);
-  margin: 0;
-}
-
-.personne-profession {
-  font-size: 0.95rem;
-  color: var(--foreground);
-  opacity: 0.8;
-  font-style: italic;
-  margin: 0;
-}
-
-.personne-presentation {
-  padding: var(--spacing-md);
-  background: var(--jaune-pale);
-  border-radius: var(--radius-lg);
-  border-left: var(--border-thick) solid var(--rose);
-}
-
-.presentation-text {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--foreground);
-}
-
-.presentation-text p {
-  margin: var(--spacing-sm) 0;
-}
-
-.personne-surnoms,
-.personne-liens {
-  padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--glass-bg-lighter);
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-}
-
-.info-label {
-  color: var(--rouge);
-  font-weight: 600;
-  margin-right: var(--spacing-sm);
-}
-
-.info-value {
-  color: var(--foreground);
-}
-
-/* ========== Photo de profil badge avec parallax ========== */
-.personne-profile-badge {
-  position: absolute;
-  top: -120px;
-  right: 50px;
-  width: 170px;
-  height: 170px;
-  z-index: var(--z-dropdown);
-  pointer-events: auto;
-  cursor: pointer;
-}
-
-.profile-image-background {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow:
-    0 0 0 calc(var(--border-heavy)) var(--background), 
-    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--rose-pale),
-    0 4px 12px var(--shadow-soft);
-  background: var(--background);
-  z-index: 1;
-  will-change: transform;
-}
-
-.profile-img-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.profile-image-background::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.profile-image-foreground {
-  position: absolute;
-  top: 44%;
-  left: 47%;
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  z-index: 2;
-  will-change: transform;
-}
-
-.profile-image-foreground img {
-  width: 103%;
-  height: 103%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.profile-img-fg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.personne-card:hover .profile-image-background {
-  box-shadow: 
-    0 0 0 calc(var(--border-heavy)) var(--background), 
-    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--rose),
-    0 12px 32px rgba(0, 0, 0, 0.35);
-}
-
-.personne-card--maries .profile-image-background {
-  box-shadow: 
-    0 0 0 calc(var(--border-heavy)) var(--background), 
-    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--rose),
-    0 8px 24px rgba(0, 0, 0, 0.25);
-}
-
-.personne-card--temoins .profile-image-background {
-  box-shadow: 
-    0 0 0 calc(var(--border-heavy)) var(--background), 
-    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--salmon),
-    0 8px 24px rgba(0, 0, 0, 0.25);
-}
-
-.personne-card--honneur .profile-image-background {
-  box-shadow: 
-    0 0 0 calc(var(--border-heavy)) var(--background), 
-    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--jaune),
-    0 8px 24px rgba(0, 0, 0, 0.25);
-}
-
-.personne-card--maitre-temps .profile-image-background {
-  box-shadow: 
-    0 0 0 calc(var(--border-heavy)) var(--background), 
-    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--orange),
-    0 8px 24px rgba(0, 0, 0, 0.25);
-}
-
-.personne-card:hover .personne-profile-badge {
-  animation: badgePulse 2s ease-in-out infinite;
-}
-
 /* ========== Infos Lieu ========== */
 .infos-lieu-container {
   padding: var(--section-padding-desktop);
@@ -1745,7 +1388,7 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
   position: relative;
   font-family: inherit;
   font-size: inherit;
-  font-weight: lighter;
+  font-weight: 100;
   color: var(--white);     /* texte principal */
   z-index: 2;
 }
@@ -1758,7 +1401,7 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 
 .image-divider {
   position: relative;
-  margin-top: -20vh;
+  margin-top: -20%;
   width: 100%;
   aspect-ratio: var(--ratio, 16 / 9);
   z-index: -100;
@@ -1769,11 +1412,11 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
   content: "";
   position: absolute;
   transform: rotate(180deg);
-  top: calc(100% - 15vh);        
+  top: calc(100% - 15%);        
   left: 0;
   width: 100%;
-  height: 15vh;
-  background: var(--gradient-green);
+  height: 15%;
+  background: var(--divider-gradient);
   z-index: -101;
 }
 

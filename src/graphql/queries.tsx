@@ -104,17 +104,29 @@ export const GET_PAGE_DATA = gql`
                     Maries {
                         ...PersonneFields
                     }
+                    ImageMaries {
+                        ...ImageFields
+                    }
                     TitreTemoin
                     Temoins {
                         ...PersonneFields
+                    }
+                    ImageTemoins {
+                        ...ImageFields
                     }
                     TitreHonneur
                     Honneur {
                         ...PersonneFields
                     }
+                    ImageHonneur {
+                        ...ImageFields
+                    }
                     TitreMaitreTemps
                     MaitreTemps {
                         ...PersonneFields
+                    }
+                    ImageMaitreTemps {
+                        ...ImageFields
                     }
                 }
 
@@ -146,6 +158,7 @@ export const GET_PAGE_DATA = gql`
                     Image {
                         ...ImageFields
                     }
+                    isLast
                 }
 
                 ... on ComponentInfosLieu {

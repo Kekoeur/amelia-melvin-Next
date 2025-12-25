@@ -53,12 +53,16 @@ export interface ComponentSectionPresentation {
     id: string;
     TitreMaries: string;
     Maries: PresentationPersonne[];
+    ImageMaries: ImageMedia;
     TitreTemoin: string;
     Temoins: PresentationPersonne[];
+    ImageTemoins: ImageMedia;
     TitreHonneur: string;
     Honneur: PresentationPersonne[];
+    ImageHonneur: ImageMedia;
     TitreMaitreTemps: string;
     MaitreTemps: PresentationPersonne;
+    ImageMaitreTemps: ImageMedia;
 }
 
 export interface ComponentSectionHistoire {
@@ -87,6 +91,7 @@ export interface ComponentSectionImageDivider {
     id: string;
     Titre: string;
     Image: ImageMedia;
+    isLast?: boolean;
 }
 
 export interface ComponentInfosLieu {
