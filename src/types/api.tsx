@@ -7,7 +7,9 @@ export interface ListInvites {
 export interface PageData {
     Nom: string;
     Slug: string;
-    Couleur: string;
+    Couleur: {
+      CouleurBasic: string;
+    };
     MainTitle: {
       Titre: string;
       Desc?: string;
