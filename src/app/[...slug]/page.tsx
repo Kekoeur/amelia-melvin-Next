@@ -6,11 +6,7 @@ import SectionRenderer from "@/utils/renderComponent"
 import DefaultPage from "@/components/Page/DefaultPage";
 import ClientStyleWrapper from "@/utils/ClientStyleWrapper";
 import TextWrapper from "@/components/Type/TextWrapper";
-
-const couleur: { [key: string]: string } = {
-  'reponses': 'var(--gradient-green)',
-  'programme': 'var(--gradient-jaune)',
-}
+import { generateGradient, generateDividerGradient } from "@/utils/colorUtils";
 
 // Fonction helper pour récupérer les styles
 async function getPageStyles(slug: string): Promise<ComponentTypeChoixPoliceHtml[]> {
@@ -56,6 +52,10 @@ export default async function DynamicPage({
   
   if (!invites || !allergenes) return notFound();
   
+  // Générer le gradient à partir de la couleur Strapi
+  const gradientBackground = page?.Couleur ? generateGradient(page.Couleur) : 'transparent';
+  const gradientDivider = page?.Couleur ? generateDividerGradient(page.Couleur) : 'transparent';
+  
   return (
     <ClientStyleWrapper
       globalStyles={globalStyles}
@@ -63,7 +63,7 @@ export default async function DynamicPage({
       pageSlug={currentSlug}
     >
       <DefaultPage navMenu={navMenu}>
-        <section className="gradient-section" style={{background: couleur[currentSlug] || 'transparent'}}>
+        <section className="gradient-section" style={{background: gradientBackground}}>
           <h2 className="mainTitle"><TextWrapper text={page?.MainTitle?.Titre}></TextWrapper></h2>
           {page?.MainTitle?.Desc && <p className="mainTitleDesc">{page?.MainTitle?.Desc}</p>}
           {page?.Visible?.Visibility ?
