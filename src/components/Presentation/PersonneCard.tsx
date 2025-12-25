@@ -62,7 +62,7 @@ const PersonneCard: React.FC<PersonneCardProps> = ({ personne, variant = 'maries
   return (
     <div 
       ref={cardRef}
-      className={`personne-card personne-card--${variant}`}
+      className={`personne-card`}
     >
       {/* Photo de profil en haut à droite avec effet parallax */}
       {imageUrl && (
@@ -116,27 +116,29 @@ const PersonneCard: React.FC<PersonneCardProps> = ({ personne, variant = 'maries
       
       <div className="personne-content">
         <h4 className="personne-nom">{personne.Personne}</h4>
-        
-        {personne.Profession && (
-          <p className="personne-profession">💼 {personne.Profession}</p>
-        )}
-        
+                
         {surnoms.length > 0 && (
           <div className="personne-surnoms">
-            <strong className="info-label">Surnoms :</strong>
             <span className="info-value">
               {surnoms.map(s => s.Elt).join(', ')}
             </span>
           </div>
         )}
-        
+      
         {liens.length > 0 && (
           <div className="personne-liens">
-            <strong className="info-label">Liens :</strong>
+            <span className="info-label">🔗</span>
             <span className="info-value">
               {liens.map(l => l.Elt).join(', ')}
             </span>
           </div>
+        )}
+
+        {personne.Profession && (
+          <p className="personne-profession">
+            <span className="info-label">💼</span>
+            <span className="info-value">{personne.Profession}</span>
+          </p>
         )}
 
         {personne.Presentation && (

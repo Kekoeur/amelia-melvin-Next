@@ -33,9 +33,11 @@ interface SectionRendererProps {
   navMenu: NavigationProps;
   invites?: Invite[];
   allergenes?: Allergenes[];
+  colorGradDivider?: string;
+  colorGradBack?: string;
 }
 
-const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, invites, allergenes }) => {
+const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, invites, allergenes, colorGradBack, colorGradDivider }) => {
   /*React.useEffect(() => {
     const cssObj = window.CSS as CSSWithPaintWorklet;
     const paintWorklet = cssObj && (cssObj["paintWorklet"] as CSSPaintWorklet | undefined);
@@ -94,7 +96,7 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, inv
     }
 
     case 'ComponentSectionImageDivider': {
-      return <ImageDividerSection section={section} />;
+      return <ImageDividerSection section={section} colorGradDivider={colorGradDivider} colorGradBack={colorGradBack} />;
     }
 
     default: {

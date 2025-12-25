@@ -1,15 +1,3 @@
-@media (max-width: 600px) {
-  .section-date-weekday {
-    font-size: var(--font-size-2xl) !important;
-  }
-  .section-date-day {
-    font-size: var(--font-size-xl) !important;
-  }
-  .event-card-wrapper {
-    flex-direction: column !important;
-  }
-}
-
 /* ========== MOBILE (<768px) ========== */
 @media (max-width: 767px) {
   /* === Containers & Sections === */
@@ -53,17 +41,6 @@
   .presentation-main-title,
   .heading-fallback-title {
     font-size: var(--font-heading-mobile);
-  }
-  
-  .allergies-title,
-  .event-title,
-  .personne-nom {
-    font-size: 1.25rem;
-  }
-  
-  .section-date-title,
-  .personne-group-titre {
-    font-size: var(--font-title-mobile);
   }
   
   .infos-lieu-title {
@@ -306,6 +283,24 @@
   }
 }
 
+@media (max-width: 880px) {
+  .personnes-grid-honneur {
+    grid-template-areas:
+      "a a a a"
+      "b b b b"
+      "c c c c"
+      "d d d d"
+      "e e e e" !important;
+  }
+
+  .personnes-grid-maitre-temps {
+    grid-template-areas: "m m m m m m m m";
+  }
+  .personne-group-image {
+    width: 100px;
+  }
+}
+
 /* ========== DESKTOP (>=1024px) ========== */
 @media (min-width: 1024px) {
   .contact-list {
@@ -317,10 +312,73 @@
   }
 }
 
+@media (max-width: 1100px) {
+  .personnes-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .personne-profile-badge {
+    top: -75px !important;
+    right: 50px !important;
+    width: 111px !important;
+    height: 111px !important;
+  }
+  
+  .profile-image-foreground {
+    width: 111px !important;
+    height: 111px !important;
+  }
+
+  .profile-image-background {
+    width: 102px !important;
+    height: 102px !important;
+  }
+}
+
 /* ========== DESKTOP (>=1024px) ========== */
 @media (min-width: 1448px) {
   .heading-title-wrapper {
     top: 100px;
     bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-date-weekday {
+    font-size: var(--font-size-2xl) !important;
+  }
+  .section-date-day {
+    font-size: var(--font-size-xl) !important;
+  }
+  .event-card-wrapper {
+    flex-direction: column !important;
+  }
+  .presentation-section-container {
+    padding: var(--spacing-sm) !important;
+  }
+  .personne-group {
+    padding: var(--spacing-sm) !important;
+  }
+  .personne-card {
+    padding: var(--spacing-sm) !important;
+  }
+  .personne-surnoms, .personne-liens, .personne-profession {
+    font-size: var(--font-size-sm);
+    max-width: 70%;
+  }
+  .personne-group-image {
+    width: 60px;
+  }
+  .personne-group-label {
+    font-size: var(--font-size-sm);
+  }
+  .personne-group-titre {
+    font-size: var(--font-size-xl);
+  }
+  .presentation-text {
+    font-size: var(--font-size-sm);
+  }
+  .personne-group-image {
+    width: 80px;
   }
 }

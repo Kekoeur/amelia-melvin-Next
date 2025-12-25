@@ -1,0 +1,322 @@
+/* ========== Section Présentation ========== */
+.presentation-section-container {
+  padding: var(--section-padding-desktop);
+  min-height: 100vh;
+  position: relative;
+}
+
+.presentation-header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+  animation: fadeInUp var(--transition-slow);
+}
+
+.presentation-main-title {
+  font-size: var(--font-size-4xl);
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-lg);
+}
+
+.presentation-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--foreground);
+  opacity: 0.8;
+}
+
+.presentation-groups {
+  display: grid;
+  gap: var(--spacing-3xl);
+  max-width: var(--container-xl);
+  margin: 0 auto;
+}
+
+.personne-group {
+  width: 100%;
+  max-width: var(--container-xl) !important;
+  padding: var(--spacing-sm) var(--spacing-xl) !important;
+  box-shadow: 0 8px 32px 0 var(--shadow-timeline);
+  animation: fadeInUp var(--transition-slow);
+  transition: all var(--transition-normal);
+}
+
+.personne-group:hover {
+  transform: var(--hover-lift);
+  box-shadow: 0 12px 40px 0 var(--shadow-timeline-hover);
+}
+
+.personne-group-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.personne-group-emoji {
+  font-size: 3rem;
+  filter: drop-shadow(0 2px 4px var(--shadow-soft));
+}
+
+.personne-group-titles {
+  flex: 1;
+  border-bottom: var(--border-medium) solid var(--rouge);
+}
+
+.personne-group-label {
+  font-family: var(--font-graduate), serif;
+  font-size: var(--font-size-lg);
+}
+
+.personne-group-titre {
+  font-family: var(--font-italianno), cursive;
+  font-size: var(--font-size-4xl);
+  line-height: var(--font-size-4xl);
+  color: var(--rouge);
+  margin: 0;
+}
+
+.personnes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+}
+
+.personnes-grid-honneur {
+  display: grid;
+  grid-template-areas:
+    "a a a a c c c c"
+    "d d d d e e e e"
+    ". . b b b b . .";
+  gap: var(--spacing-3xl);
+}
+
+.personnes-grid-honneur > :nth-child(1) { grid-area: a; }
+.personnes-grid-honneur > :nth-child(2) { grid-area: b; }
+.personnes-grid-honneur > :nth-child(3) { grid-area: c; }
+.personnes-grid-honneur > :nth-child(4) { grid-area: d; }
+.personnes-grid-honneur > :nth-child(5) { grid-area: e; }
+
+.personnes-grid-maitre-temps {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-areas: ". . m m m m . .";
+  gap: var(--spacing-3xl);
+}
+
+.personnes-grid-maitre-temps > :nth-child(1) { grid-area: m; }
+
+.personne-card {
+  position: relative;
+  background: var(--glass-bg-strong);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-xl);
+  border: var(--border-medium) solid var(--glass-border);
+  transition: all var(--transition-normal);
+  animation: slideInRight 0.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  overflow: visible;
+}
+
+.personne-card:hover {
+  transform: var(--hover-lift-large);
+  box-shadow: 0 12px 30px var(--shadow-medium);
+}
+
+.personne-card--maries {
+  border-color: var(--rose);
+}
+
+.personne-card--maries:hover {
+  box-shadow: 0 12px 30px rgba(250, 123, 160, 0.3);
+}
+
+.personne-card--temoins {
+  border-color: var(--salmon);
+}
+
+.personne-card--temoins:hover {
+  box-shadow: 0 12px 30px rgba(250, 132, 87, 0.3);
+}
+
+.personne-card--honneur {
+  border-color: var(--jaune);
+}
+
+.personne-card--honneur:hover {
+  box-shadow: 0 12px 30px rgba(255, 223, 65, 0.3);
+}
+
+.personne-card--maitre-temps {
+  border-color: var(--orange);
+}
+
+.personne-card--maitre-temps:hover {
+  box-shadow: 0 12px 30px rgba(247, 80, 4, 0.3);
+}
+
+.personne-card
+
+.personne-photo-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 4px 12px var(--shadow-soft);
+}
+
+.personne-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.personne-card:hover .personne-photo {
+  transform: scale(1.05);
+}
+
+.personne-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.personne-nom {
+  font-size: var(--font-size-2xl);
+  font-family: var(--font-italianno), cursive;
+  line-height: var(--font-size-2xl);
+  font-weight: 300;
+  color: var(--rouge);
+  margin: 0;
+}
+
+.personne-profession, .personne-liens {
+  font-family: var(--font-anonymous-pro), serif;
+  font-size: var(--font-size-md);
+  color: var(--grey);
+  margin: 0;
+  max-width: 80%;
+}
+
+.personnes-grid-honneur > :nth-child(3) .personne-profession,
+.personnes-grid-honneur > :nth-child(4) .personne-profession,
+.personnes-grid-honneur > :nth-child(5) .personne-profession {
+  max-width: 75%;
+}
+
+.personne-profession .info-value, .personne-liens .info-value{
+  font-style: italic;
+}
+
+.personne-presentation {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--p20-salmon);
+  border-radius: var(--radius-lg);
+  border-left: var(--border-thick) solid var(--rouge);
+}
+
+.presentation-text {
+  font-family: var(--font-anonymous-pro), serif;
+  font-size: var(--font-size-md);
+  line-height: var(--font-size-md);
+  color: var(--black);
+}
+
+.presentation-text p {
+  margin: var(--spacing-sm) 0;
+}
+.personne-surnoms {
+  margin-left: var(--spacing-2xl);
+  color: var(--fuschia);
+  font-family: var(--font-anonymous-pro), serif;
+}
+
+.info-label {
+  color: var(--rouge);
+  font-weight: 600;
+  margin-right: var(--spacing-sm);
+}
+
+/* ========== Photo de profil badge avec parallax ========== */
+.personne-profile-badge {
+  position: absolute;
+  top: -120px;
+  right: 50px;
+  width: 170px;
+  height: 170px;
+  z-index: var(--z-dropdown);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.profile-image-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 calc(var(--border-heavy)) var(--background), 
+    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--fuschia),
+    0 4px 12px var(--shadow-soft);
+  background: var(--background);
+  z-index: 1;
+  will-change: transform;
+}
+
+.profile-img-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-image-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.profile-image-foreground {
+  position: absolute;
+  top: 44%;
+  left: 47%;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  z-index: 2;
+  will-change: transform;
+}
+
+.profile-image-foreground img {
+  width: 103%;
+  height: 103%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-img-fg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.personne-card:hover .profile-image-background {
+  box-shadow: 
+    0 0 0 calc(var(--border-heavy)) var(--background), 
+    0 0 0 calc(var(--border-heavy) + var(--border-medium)) var(--rouge),
+    0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.personne-card:hover .personne-profile-badge {
+  animation: badgePulse 2s ease-in-out infinite;
+}
