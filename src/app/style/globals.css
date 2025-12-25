@@ -119,7 +119,6 @@ body {
 
 /* ========== Formulaire de Réponse ========== */
 .repondre-form-container {
-  padding: var(--spacing-2xl) var(--spacing-lg);
   position: relative;
   overflow: hidden;
 }
@@ -1275,176 +1274,6 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
   animation: badgePulse 2s ease-in-out infinite;
 }
 
-/* ========== Section Date - Timeline ========== */
-
-.events-timeline {
-  max-width: var(--container-lg);
-  margin: 0 auto;
-  position: relative;
-  padding: var(--spacing-2xl) 0;
-}
-
-.events-timeline::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--gradient-timeline);
-  transform: translateX(-50%);
-  border-radius: 2px;
-  box-shadow: 0 0 10px rgba(250, 123, 160, 0.5);
-}
-
-.event-card-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  padding: var(--spacing-2xl) 0;
-  position: relative;
-  animation: fadeInUp var(--transition-slow);
-}
-
-.event-card-wrapper:nth-child(even) {
-  animation-delay: 0.1s;
-}
-
-.event-card-wrapper:nth-child(odd) {
-  animation-delay: 0.2s;
-}
-
-.event-card--left {
-  justify-content: flex-start;
-}
-
-.event-card--left .event-card {
-  margin-left: 0;
-  margin-right: calc(50% + var(--spacing-2xl));
-}
-
-.event-card--right {
-  justify-content: flex-end;
-}
-
-.event-card--right .event-card {
-  margin-right: 0;
-  margin-left: calc(50% + var(--spacing-2xl));
-}
-
-.event-timeline-dot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background: var(--rouge);
-  border: var(--border-heavy) solid var(--background);
-  border-radius: 50%;
-  box-shadow: 0 0 0 var(--border-heavy) var(--rose-pale);
-  z-index: var(--z-dropdown);
-  animation: timelinePulse 2s ease-in-out infinite;
-}
-
-.glass-card-event {
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: var(--border-medium) solid var(--glass-border);
-  border-radius: var(--radius-2xl);
-  padding: 0;
-  box-shadow: 0 8px 32px 0 var(--shadow-timeline);
-  transition: all var(--transition-normal);
-  overflow: hidden;
-  max-width: 500px;
-  width: 100%;
-}
-
-.glass-card-event:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 40px 0 var(--shadow-timeline-hover);
-  border-color: var(--rose);
-}
-
-.event-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: var(--event-image-height);
-  overflow: hidden;
-  background: var(--rose-pale);
-}
-
-.event-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-normal);
-}
-
-.glass-card-event:hover .event-image {
-  transform: scale(1.1);
-}
-
-.event-content {
-  padding: var(--spacing-xl);
-}
-
-.event-title {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  color: var(--rouge);
-  margin: 0 0 var(--spacing-lg) 0;
-  line-height: 1.3;
-}
-
-.event-time {
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--orange);
-  display: inline-block;
-}
-
-.event-location {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--foreground);
-  margin: 0 0 var(--spacing-lg) 0;
-  padding: var(--spacing-md) var(--spacing-lg);
-  background: var(--jaune-pale);
-  border-radius: var(--radius-md);
-  border-left: var(--border-heavy) solid var(--rose);
-}
-
-.event-time-inline {
-  font-weight: 500;
-  color: var(--orange);
-}
-
-.event-description-wrapper {
-  padding: var(--spacing-lg);
-  background: var(--glass-bg-lighter);
-  border-radius: var(--radius-lg);
-  border-left: var(--border-thick) solid var(--rose);
-}
-
-.event-description {
-  font-size: var(--font-size-base);
-  line-height: 1.7;
-  color: var(--foreground);
-}
-
-.event-description p {
-  margin: var(--spacing-sm) 0;
-}
-
-.event-description p:first-child {
-  margin-top: 0;
-}
-
-.event-description p:last-child {
-  margin-bottom: 0;
-}
-
 /* ========== Infos Lieu ========== */
 .infos-lieu-container {
   padding: var(--section-padding-desktop);
@@ -1922,6 +1751,7 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 }
 
 .section {
+  padding: var(--spacing-2xl) var(--spacing-2xl);
   max-width: 1000px;
   margin: 0 auto;
 }

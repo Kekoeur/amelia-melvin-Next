@@ -1,6 +1,67 @@
+.section-date-header {
+    border-bottom: var(--border-medium) solid var(--fuschia);
+    margin-bottom: var(--spacing-xl);
+}
 .section-date-title {
     font-family: var(--font-anonymous-pro), serif;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: end;
+}
+
+.section-date-weekday {
+    font-size: var(--font-size-5xl);
+    font-weight: bold;
+}
+.section-date-day {
+    font-size: var(--font-size-4xl);
+    font-weight: bold;
+}
+
+.events-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.event-card-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.event-card {
+  padding: var(--spacing-xs) var(--spacing-md) var(--spacing-md) var(--spacing-md) !important;
+  width: 100%;
+}
+
+.event-title {
+  font-family: var(--font-italianno), cursive;
+  font-size: var(--font-size-2xl);
+}
+
+.event-time-inline {
+  font-family: var(--font-anonymous-pro), serif;
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-md) var(--spacing-xs);
+}
+
+.event-location {
+  font-family: var(--font-anonymous-pro), serif;
+  font-size: var(--font-size-md);
+  color: var(--grey);
+}
+
+.event-description {
+  font-family: var(--font-anonymous-pro), serif;
+  font-size: var(--font-size-base);
+  color: var(--orange);
+  padding: var(--spacing-xs) var(--spacing-md) 0 var(--spacing-md);
+}
+
+.event-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 12px 40px 0 var(--shadow-timeline-hover);
+  border-color: var(--rose);
 }
