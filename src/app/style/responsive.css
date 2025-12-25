@@ -1,3 +1,15 @@
+@media (max-width: 600px) {
+  .section-date-weekday {
+    font-size: var(--font-size-2xl) !important;
+  }
+  .section-date-day {
+    font-size: var(--font-size-xl) !important;
+  }
+  .event-card-wrapper {
+    flex-direction: column !important;
+  }
+}
+
 /* ========== MOBILE (<768px) ========== */
 @media (max-width: 767px) {
   /* === Containers & Sections === */
@@ -231,6 +243,15 @@
   .moment-title {
     padding: 0 !important;
     margin: 0 !important;
+  }
+}
+
+@media (min-width:600px) and (max-width: 767px) {
+  .section-date-weekday {
+    font-size: var(--font-size-3xl) !important;
+  }
+  .section-date-day {
+    font-size: var(--font-size-2xl) !important;
   }
 }
 

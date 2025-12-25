@@ -3,22 +3,24 @@ import { HistoireEvenement } from '@/types/api';
 import RichTextRenderer from '@/components/Type/RichTypeRenderer';
 import Image from 'next/image';
 import { transformDateToHourString } from '@/utils/formatters';
+import TextWrapper from '../Type/TextWrapper';
 
 interface SectionDateCardProps {
   event: HistoireEvenement;
   index?: number;
 }
 
-const SectionDateCard: React.FC<SectionDateCardProps> = ({ event, index = 0 }) => {
+const SectionDateCard: React.FC<SectionDateCardProps> = ({ event }) => {
   console.log('Rendering SectionDateCard with event:', event);
   
-  const isEven = index % 2 === 0;
-  
   return (
-    <div className={`event-card-wrapper ${isEven ? 'event-card--left' : 'event-card--right'}`}>
-      <div className="event-timeline-dot" />
-      
-      <div className="event-card glass-card-event">
+    <div className="event-card-wrapper">
+      {event.Date && (
+        <span className="event-time-inline">
+          <TextWrapper text={transformDateToHourString(new Date(event.Date))}></TextWrapper>
+        </span>
+      )}
+      <div className="event-card glass-card">
         {event.Image?.Image?.url && (
           <div className="event-image-wrapper">
             <Image
@@ -34,25 +36,15 @@ const SectionDateCard: React.FC<SectionDateCardProps> = ({ event, index = 0 }) =
         
         <div className="event-content">
           <h3 className="event-title">
-            {event.Titre}
-            {event.Date && !event.Lieu && (
-              <span className="event-time">
-                {' '}⏰ {transformDateToHourString(new Date(event.Date))}
-              </span>
-            )}
+            <TextWrapper text={event.Titre}></TextWrapper>
           </h3>
           
           {event.Lieu && (
             <p className="event-location">
-              📍 {event.Lieu}
-              {event.Date && (
-                <span className="event-time-inline">
-                  {' '}• ⏰ {transformDateToHourString(new Date(event.Date))}
-                </span>
-              )}
+              📍{event.Lieu}
             </p>
           )}
-          
+
           {event.Desc && (
             <div className="event-description-wrapper">
               <RichTextRenderer 

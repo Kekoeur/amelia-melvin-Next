@@ -122,6 +122,6 @@ export function transformDateToStringDate(date: Date): string {
 
 export function transformDateToHourString(date: Date): string {
   const options: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
-  console.log('Transforming date to hour string:', date.toLocaleTimeString('fr-FR', options));
-  return date.toLocaleTimeString('fr-FR', options);
+  // console.log('Transforming date to hour string:', date.toLocaleTimeString('fr-FR', options));
+  return date.toLocaleTimeString('fr-FR', options).replace(':', 'h');
 }

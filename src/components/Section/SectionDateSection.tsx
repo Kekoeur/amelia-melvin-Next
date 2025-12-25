@@ -15,7 +15,7 @@ const SectionDateSection: React.FC<SectionDateSectionProps> = ({ section, navMen
   console.log('Navigation menu in SectionDateSection:', navMenu);
 
   return (
-    <div className="section-date-container">
+    <div className="section-date-container section">
       <div className="section-date-header">
         <div className="date-event">
           <h2 className="section-date-title">
