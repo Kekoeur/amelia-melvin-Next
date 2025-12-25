@@ -65,6 +65,17 @@ export const GET_PAGE_DATA = gql`
             documentId
             Nom
             Slug
+            Couleur {
+                CouleurBasic
+            }
+            MainTitle {
+                Titre
+                Desc
+            }
+            Visible {
+                Visibility
+                AlternatifText
+            }
             Section {
                 ... on ComponentSectionFormInvite {
                     id

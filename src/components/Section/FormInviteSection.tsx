@@ -222,12 +222,11 @@ export default function RepondreForm({ section, invites, allergenes }: Props) {
 
   return (
     <div className="repondre-form-container section">
-      <div className="main-card">
+      {/* <div className="main-card">
           <h1 className="main-card-title">
             <TextWrapper text={section.Titre} />
           </h1>
-          <p className="main-card-subtitle">Répondez à votre invitation en quelques étapes</p>
-      </div>
+      </div> */}
       <div className="glass-card">
         {/* Étape Nom */}
         {currentStep === "Nom" && (

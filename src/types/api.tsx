@@ -7,6 +7,15 @@ export interface ListInvites {
 export interface PageData {
     Nom: string;
     Slug: string;
+    Couleur: string;
+    MainTitle: {
+      Titre: string;
+      Desc?: string;
+    };
+    Visible: {
+      Visibility: boolean;
+      AlternatifText?: string;
+    };
     Section: Section[];
     Style: Style[];
 }
