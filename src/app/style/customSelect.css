@@ -10,7 +10,7 @@
   padding: var(--spacing-md) var(--spacing-lg);
   background: var(--p5-rouge);
   color: var(--grey);
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   font-weight: 500;
   border: var(--border-medium) solid var(--glass-border);
   border-radius: var(--radius-lg);
@@ -106,7 +106,7 @@
   padding: var(--spacing-md) var(--spacing-xl);
   background: var(--background);
   color: var(--grey);
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   font-weight: 500;
   font-size: var(--font-size-base);
   border: none;

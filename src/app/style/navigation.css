@@ -228,7 +228,7 @@
 
 .heading-navigation-wrapper .nav-link {
   position: relative;
-  font-family: var(--font-graduate), serif;
+  font-family: var(--font-impact), serif;
   font-size: var(--font-size-xl);
   display: flex;
   align-items: center;
@@ -341,7 +341,7 @@
 
 .nav-link-mobile {
   font-size: var(--font-size-xl);
-  font-family: var(--font-graduate), serif;
+  font-family: var(--font-impact), serif;
   text-decoration: none;
   text-align: center;
   color: var(--rouge);

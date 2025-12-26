@@ -66,12 +66,20 @@
 }
 
 .personne-group-label {
-  font-family: var(--font-graduate), serif;
+  font-family: var(--font-impact), serif;
   font-size: var(--font-size-lg);
 }
 
+.personne-group-label .text-fill {
+  color: var(--fuschia);
+}
+
+.personne-group-label .text-outline {
+  display: none;
+}
+
 .personne-group-titre {
-  font-family: var(--font-italianno), cursive;
+  font-family: var(--font-titres), cursive;
   font-size: var(--font-size-4xl);
   line-height: var(--font-size-4xl);
   color: var(--rouge);
@@ -188,7 +196,7 @@
 
 .personne-nom {
   font-size: var(--font-size-2xl);
-  font-family: var(--font-italianno), cursive;
+  font-family: var(--font-titres), cursive;
   line-height: var(--font-size-2xl);
   font-weight: 300;
   color: var(--rouge);
@@ -196,7 +204,7 @@
 }
 
 .personne-profession, .personne-liens {
-  font-family: var(--font-anonymous-pro), serif;
+  font-family: var(--font-text), serif;
   font-size: var(--font-size-md);
   color: var(--grey);
   margin: 0;
@@ -221,7 +229,7 @@
 }
 
 .presentation-text {
-  font-family: var(--font-anonymous-pro), serif;
+  font-family: var(--font-text), serif;
   font-size: var(--font-size-md);
   line-height: var(--font-size-md);
   color: var(--black);
@@ -233,7 +241,7 @@
 .personne-surnoms {
   margin-left: var(--spacing-2xl);
   color: var(--fuschia);
-  font-family: var(--font-anonymous-pro), serif;
+  font-family: var(--font-text), serif;
 }
 
 .info-label {

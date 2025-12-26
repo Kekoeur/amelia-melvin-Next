@@ -196,3 +196,9 @@
   --z-navigation: 50;
   --z-modal: 100;
 }
+
+body {
+  --font-text: var(--font-arapey), monospace;
+  --font-impact: var(--font-sunlight-dreams), serif;
+  --font-titres: var(--font-brittany-signature), cursive;
+}
