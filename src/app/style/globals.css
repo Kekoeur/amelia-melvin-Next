@@ -147,7 +147,7 @@ body {
 }
 
 .glass-card-subtitle {
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   color: var(--grey);
   font-size: var(--font-size-md);
   text-align: center;
@@ -157,7 +157,7 @@ body {
 
 /* ========== Inputs & Selects ========== */
 .glass-input {
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   width: 100%;
   padding: var(--spacing-md) var(--spacing-xl);
   background: var(--glass-bg-medium);
@@ -183,7 +183,7 @@ body {
 }
 
 .glass-textarea {
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   color: var(--grey);
   width: 100%;
   padding: var(--spacing-lg) var(--spacing-xl);
@@ -208,7 +208,7 @@ body {
   padding: var(--spacing-md) var(--spacing-lg);
   background: var(--p5-rouge);
   color: var(--grey);
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   font-weight: 500;
   border-radius: var(--radius-lg);
   font-size: var(--font-size-base);
@@ -247,7 +247,7 @@ body {
   padding: var(--spacing-md);
   background: var(--white);
   color: var(--grey);
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   font-weight: 500;
   font-size: var(--font-size-base);
   border: none;
@@ -298,7 +298,7 @@ body {
 .glass-select-custom {
   width: 100%;
   padding: var(--spacing-md) var(--spacing-lg);
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   font-weight: 500;
   font-size: var(--font-size-base);
   color: var(--white);
@@ -337,7 +337,7 @@ body {
   padding: 0.75rem;
   background-color: var(--background);
   color: var(--white);
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
 }
 
 .glass-select-custom option:checked {
@@ -466,7 +466,7 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 
 /* ========== Boutons ========== */
 .glass-button {
-  font-family: var(--font-graduate), serif;
+  font-family: var(--font-impact), serif;
   padding: var(--spacing-md) var(--spacing-2xl);
   border: none;
   border-radius: var(--radius-sm);
@@ -590,7 +590,7 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 }
 
 .confirmation-title {
-  font-family: var(--font-italianno), cursive;
+  font-family: var(--font-titres), cursive;
   font-size: var(--font-size-2xl);
   font-weight: 800;
   color: var(--rouge);
@@ -599,7 +599,7 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 
 .confirmation-message {
   font-size: var(--font-size-base);
-  font-family: var(--font-anonymous-pro) monospace;
+  font-family: var(--font-text) monospace;
   color: var(--grey);
   text-align: center;
 }
@@ -1319,7 +1319,7 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 /* ========== FONT STYLE ========= */
 
 .glass-card-title {
-  font-family: var(--font-italianno), cursive;
+  font-family: var(--font-titres), cursive;
   font-size: var(--font-size-3xl);
   font-weight: 800;
   text-align: left;
@@ -1356,12 +1356,12 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 }
 
 .main-card-title {
-  font-family: var(--font-italianno), cursive;
+  font-family: var(--font-titres), cursive;
   font-size: var(--font-size-5xl);
 }
 
 .main-card-subtitle {
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   font-size: var(--font-size-base);
   color: var(--grey);
   opacity: 0.8;
@@ -1433,14 +1433,14 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 
 .mainTitle {
   position: relative;
-  font-family: var(--font-italianno), cursive;
+  font-family: var(--font-titres), cursive;
   font-size: var(--font-size-6xl);
   text-align: center;
   padding-top: var(--spacing-4xl);
 }
 
 .mainTitleDesc {
-  font-family: var(--font-anonymous-pro), monospace;
+  font-family: var(--font-text), monospace;
   font-size: var(--font-size-lg);
   color: var(--grey);
   opacity: 0.8;
@@ -1449,9 +1449,17 @@ Le CSS ci-dessus applique le maximum de styles possibles avec un select natif.
 }
 
 .notReady {
-  font-family: var(--font-graduate), serif;
+  font-family: var(--font-impact), serif;
   font-size: var(--font-size-2xl);
   color: var(--rouge);
   text-align: center;
   padding: var(--spacing-3xl);
+}
+
+.text-fill {
+  color: var(--fuschia) !important;
+}
+
+.text-outline {
+  display: none !important;
 }

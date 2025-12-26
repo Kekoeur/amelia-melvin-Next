@@ -41,7 +41,7 @@
 }
 
 .moment-title {
-  font-family: var(--font-graduate), serif;
+  font-family: var(--font-impact), serif;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--white);
@@ -79,7 +79,7 @@
   font-weight: 500;
   width: 100%;
   text-align: left;
-  font-family: var(--font-anonymous-pro);
+  font-family: var(--font-text);
   font-size: var(--font-size-base);
   min-width: 0; /* Permet au texte de se tronquer */
 }
@@ -283,7 +283,7 @@
 
 .allergie-card-number {
   padding: 0 10px;
-  font-family: var(--font-graduate), serif;
+  font-family: var(--font-impact), serif;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--white);
@@ -361,7 +361,7 @@
   display: inline-block;
   margin-right: 0.5rem;
   padding: 0.25rem 0.75rem;
-  font-family: var(--font-graduate), serif;
+  font-family: var(--font-impact), serif;
   font-size: 1rem;
   font-weight: 600;
   color: var(--white);
@@ -389,7 +389,7 @@
   display: inline-block;
   width: 100%;
   min-width: 80px;
-  font-family: var(--font-anonymous-pro);
+  font-family: var(--font-text);
   color: var(--rouge);
   font-weight: 600;
   text-align: center;
@@ -411,7 +411,7 @@
   padding: 0.5rem 0.75rem;
   border-radius: var(--radius-xl);
   border: 2px solid;
-  font-family: var(--font-anonymous-pro);
+  font-family: var(--font-text);
   font-size: var(--font-size-sm);
   font-weight: 500;
   width: fit-content;
@@ -455,7 +455,7 @@
   padding: var(--spacing-lg);
   background: var(--p5-jaune);
   border-radius: var(--radius-lg);
-  font-family: var(--font-anonymous-pro);
+  font-family: var(--font-text);
   font-size: var(--font-size-base);
   color: var(--grey);
   white-space: pre-wrap;

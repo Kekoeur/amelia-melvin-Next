@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Italianno, Anonymous_Pro, Graduate } from "next/font/google";
+import { Geist, Geist_Mono, Italianno, Anonymous_Pro, Graduate, Arapey } from "next/font/google";
 import josephSophia from 'next/font/local';
 import lovely_melody from 'next/font/local';
 import autography from 'next/font/local';
@@ -14,7 +14,10 @@ import motterdam from 'next/font/local';
 import sinera from 'next/font/local';
 import velista from 'next/font/local';
 import zestful_christmas from 'next/font/local';
+import sunlight_dreams from 'next/font/local';
+
 import './style/globals.css';
+import path from "path";
 
 const josephsophia = josephSophia({
   src: [
@@ -194,6 +197,18 @@ const zestfulChristmas = zestful_christmas({
   display: 'swap',
 });
 
+const sunlightDreams = sunlight_dreams({
+  src: [
+    {
+      path: './fonts/sunlight_dreams/Sunlight_Dreams.otf',
+      weight: '400',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-sunlight-dreams',
+  display: 'swap'
+})
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -221,6 +236,12 @@ const graduate = Graduate({
   weight: "400",
   subsets: ["latin"],
 });
+
+const arapey = Arapey({
+  variable: "--font-arapey",
+  weight: "400",
+  subsets: ["latin"]
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -255,6 +276,8 @@ export default function RootLayout({
           ${italianno.variable}
           ${anonymousPro.variable}
           ${graduate.variable}
+          ${arapey.variable}
+          ${sunlightDreams.variable}
           antialiased`}
       >
         {children}
