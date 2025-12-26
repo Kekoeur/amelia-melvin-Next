@@ -28,6 +28,31 @@ async function getPageStyles(slug: string): Promise<ComponentTypeChoixPoliceHtml
   }
 }
 
+// Fonction pour récupérer les couleurs de toutes les pages de navigation
+async function getNavigationColors(navItems: any[]): Promise<Record<string, string>> {
+  const colors: Record<string, string> = {};
+  
+  for (const item of navItems) {
+    try {
+      const slug = item.path;
+      const pageData = await getPageData(slug);
+      if (pageData?.pageProps?.Couleur?.CouleurBasic) {
+        colors[slug] = pageData.pageProps.Couleur.CouleurBasic;
+      }
+      
+      // Récupérer aussi les couleurs des enfants
+      if (item.children) {
+        const childColors = await getNavigationColors(item.children);
+        Object.assign(colors, childColors);
+      }
+    } catch (error) {
+      console.error(`Erreur récupération couleur pour ${item.path}:`, error);
+    }
+  }
+  
+  return colors;
+}
+
 export default async function DynamicPage({ 
   params 
 }: { 
@@ -47,7 +72,11 @@ export default async function DynamicPage({
   
   const invites = await getInvites();
   const nav = props?.navProps;
-  const navMenu: NavigationProps = {current: currentSlug, ...nav};
+
+  const navigationColors = nav?.renderNavigation 
+    ? await getNavigationColors(nav.renderNavigation) 
+    : {};
+  const navMenu: NavigationProps = {current: currentSlug, ...nav, colors: navigationColors};
   const allergenes = await getAllergenes();
   
   if (!invites || !allergenes) return notFound();
