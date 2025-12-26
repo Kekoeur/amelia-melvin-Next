@@ -1,4 +1,5 @@
 "use client";
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 import { NavigationProps } from "@/types/pages";
 import { getFullRoute, buildNavigationTree } from "@/utils/navigationUtils";
@@ -7,19 +8,11 @@ import Link from "next/link";
 
 /* ==================== THEME CONFIG ==================== */
 const THEME = {
-  colors: {
-    primary: "var(--rose)",
-    secondary: "var(--jaune-pale)",
-    hover: "var(--rose)",
-    hoverText: "var(--jaune-pale)",
-    border: "var(--rose)",
-    background: "var(--jaune-pale)",
-  },
   logo: {
     size: 96,
     borderWidth: 2,
   },
-  breakpoint: 590,
+  breakpoint: 1000,
 } as const;
 
 /* ==================== TYPES ==================== */
@@ -46,7 +39,7 @@ function IconToggle({ open, onClick, size = 28 }: IconToggleProps) {
       aria-label={open ? "Fermer" : "Ouvrir"}
       onClick={onClick}
       className="p-1 w-8 h-8 relative flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-10"
-      style={{ width: s, height: s, color: THEME.colors.primary }}
+      style={{ width: s, height: s, color: 'inherit' }}
     >
       {/* Close-ish icon (shown when open) */}
       <svg
@@ -80,6 +73,8 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const structuredNav = buildNavigationTree(navprops.renderNavigation || []);
+  const pathname = usePathname();
+  const colors = navprops.colors || {};
 
   useEffect(() => {
     const checkScreenSize = () => setIsMobile(window.innerWidth < THEME.breakpoint);
@@ -94,20 +89,18 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
   const leftItems = structuredNav.slice(0, midPoint);
   const rightItems = structuredNav.slice(midPoint);
 
+  const activeItem = structuredNav.find(item => pathname === '/' + getFullRoute(item));
+  const activeColor = activeItem && colors[activeItem.path] ? colors[activeItem.path] : 'var(--background)';
+
   return (
     <nav
-      className="font-light shadow border-t border-b"
-      style={{
-        backgroundColor: THEME.colors.background,
-        color: THEME.colors.primary,
-        borderColor: THEME.colors.border,
-      }}
+      className="font-light"
     >
-      <div className="container mx-auto px-4">
+      <div className={`nav-container mx-auto ${isMobile ? 'flex-row flex-end' : ''}`} style={isMobile ? { background: activeColor } : {}}>
         {isMobile ? (
           // ==================== MOBILE MENU ====================
           <>
-            <div className="relative flex items-center justify-end py-2">
+            <div className="mobile relative flex items-center justify-end" style={{ background: activeColor}}>
               <div className="absolute left-1/2 -translate-x-1/2 -top-4 z-50">
                 <Link
                   href="/"
@@ -115,7 +108,6 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
                   style={{
                     width: `${THEME.logo.size}px`,
                     height: `${THEME.logo.size}px`,
-                    border: `${THEME.logo.borderWidth}px solid ${THEME.colors.border}`,
                   }}
                 >
                   {logo?.url ? (
@@ -142,74 +134,87 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
             <div
               className="absolute left-0 right-0 top-full transition-all duration-300 ease-in-out overflow-hidden shadow-lg z-25"
               style={{
-                backgroundColor: THEME.colors.background,
                 ...(open
                   ? { maxHeight: "500px", opacity: 1, visibility: "visible" }
                   : { maxHeight: 0, opacity: 0, visibility: "hidden" }),
+                background: activeColor,
               }}
             >
               <nav className="py-4">
-                {structuredNav.map((item) => (
-                  <div key={item.path} className="mb-2">
-                    <a
-                      href={'/' + getFullRoute(item)}
-                      className="block px-4 py-2 rounded-lg transition-all duration-300 hover:bg-[var(--rose)] hover:text-[var(--jaune-pale)] hover:translate-x-1"
-                      style={{ color: THEME.colors.primary }}
-                    >
-                      {item.title}
-                    </a>
-                    {item.children && item.children.length > 0 && (
-                      <div className="pl-6 mt-1 space-y-1">
-                        {item.children.map((child) => (
-                          <a
-                            key={child.path}
-                            href={'/' + getFullRoute(child)}
-                            className="block px-3 py-1 text-sm rounded transition-colors hover:bg-[var(--rose)] hover:text-[var(--jaune-pale)]"
-                            style={{ color: THEME.colors.primary }}
-                          >
-                            {child.title}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                {structuredNav.map((item) => {
+                  const itemRoute = '/' + getFullRoute(item);
+                  const isActive = pathname === itemRoute;
+                  
+                  return (
+                    <div key={item.path} className="mb-2">
+                      <a
+                        href={itemRoute}
+                        className={`block px-4 py-2 rounded-lg transition-all duration-300 hover:translate-x-1 nav-link-mobile ${isActive ? 'active' : ''}`}
+                      >
+                        {item.title}
+                      </a>
+                      {item.children && item.children.length > 0 && (
+                        <div className="pl-6 mt-1 space-y-1">
+                          {item.children.map((child) => (
+                            <a
+                              key={child.path}
+                              href={'/' + getFullRoute(child)}
+                              className="block px-3 py-1 text-sm rounded transition-colors hover:bg-[var(--rose)] hover:text-[var(--jaune-pale)]"
+                            >
+                              {child.title}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                )}
               </nav>
             </div>
           </>
         ) : (
           // ==================== DESKTOP MENU ====================
-          <div className="flex items-center justify-center gap-30 relative">
+          <div className="flex items-center justify-center relative">
             {/* Left Navigation */}
-            <nav className="flex gap-4">
-              {leftItems.map((item) => (
-                <div key={item.path} className="relative group">
-                  <a href={'/' + getFullRoute(item)} className="nav-link" style={{ color: THEME.colors.primary }}>
-                    {item.title}
-                  </a>
+            <nav className="flex">
+              {leftItems.map((item) => {
+                const itemRoute = '/' + getFullRoute(item);
+                const isActive = pathname === itemRoute;
+                const itemColor = colors[item.path] && isActive ? colors[item.path] : 'var(--background)';
 
-                  {item.children && item.children.length > 0 && (
-                    <div className="dropdown-menu">
-                      {item.children.map((child) => (
-                        <Link key={child.path} href={'/' + getFullRoute(child)} className="dropdown-item">
-                          {child.title}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+                return (
+                  <div key={item.path} className={`relative group ${isActive ? 'active' : ''}`}>
+                    <div className="tab-corner-border-left" style={{ background: itemColor }}/>
+                    <div className="tab-corner-border-right" style={{ background: itemColor }}/>
+                    <div className="tab-corner-white-left" />
+                    <div className="tab-corner-white-right" />
+                    <a href={itemRoute} className={`nav-link ${isActive ? 'active' : ''}`} style={{ background: itemColor }}>
+                      {item.title}
+                    </a>
+
+                    {item.children && item.children.length > 0 && (
+                      <div className="dropdown-menu">
+                        {item.children.map((child) => (
+                          <Link key={child.path} href={'/' + getFullRoute(child)} className="dropdown-item">
+                            {child.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              )}
             </nav>
 
             {/* Central Logo */}
-            <div className="absolute -top-8 transform hover:scale-110 transition-transform duration-300">
+            <div className="logo transform hover:scale-110 transition-transform duration-300">
               <Link
                 href="/"
                 className="block rounded-full bg-white shadow-2xl overflow-hidden"
                 style={{
                   width: `${THEME.logo.size}px`,
                   height: `${THEME.logo.size}px`,
-                  border: `${THEME.logo.borderWidth}px solid ${THEME.colors.border}`,
+                  marginBottom: `-${THEME.logo.size / 2}px`,
                 }}
               >
                 {logo?.url ? (
@@ -223,24 +228,34 @@ export const HamburgerMenuPage: React.FC<HamburgerMenuPageProps> = ({ logo, ...n
             </div>
 
             {/* Right Navigation */}
-            <nav className="flex gap-4">
-              {rightItems.map((item) => (
-                <div key={item.path} className="relative group">
-                  <a href={'/' + getFullRoute(item)} className="nav-link" style={{ color: THEME.colors.primary }}>
-                    {item.title}
-                  </a>
+            <nav className="flex">
+              {rightItems.map((item) => {
+                const itemRoute = '/' + getFullRoute(item);
+                const isActive = pathname === itemRoute;
+                const itemColor = colors[item.path] && isActive ? colors[item.path] : 'var(--background)';
 
-                  {item.children && item.children.length > 0 && (
-                    <div className="dropdown-menu">
-                      {item.children.map((child) => (
-                        <a key={child.path} href={'/' + getFullRoute(child)} className="dropdown-item">
-                          {child.title}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+                return (
+                  <div key={item.path} className={`relative group ${isActive ? 'active' : ''}`}>
+                    <div className="tab-corner-border-left" style={{ background: itemColor }}/>
+                    <div className="tab-corner-border-right" style={{ background: itemColor }}/>
+                    <div className="tab-corner-white-left" />
+                    <div className="tab-corner-white-right" />
+                    <a href={itemRoute} className={`nav-link ${isActive ? 'active' : ''}`} style={{ background: itemColor }}>
+                      {item.title}
+                    </a>
+
+                    {item.children && item.children.length > 0 && (
+                      <div className="dropdown-menu">
+                        {item.children.map((child) => (
+                          <a key={child.path} href={'/' + getFullRoute(child)} className="dropdown-item">
+                            {child.title}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              )}
             </nav>
           </div>
         )}

@@ -9,6 +9,7 @@ export interface PageProps {
 export interface NavigationProps {
   current: string;
   renderNavigation: NavigationItem[];
+  colors?: Record<string, string>;
 }
 
 export interface NavigationItem {
