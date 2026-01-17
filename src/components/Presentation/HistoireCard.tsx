@@ -30,7 +30,7 @@ const HistoireCard: React.FC<HistoireCardProps> = ({ event }) => {
         {hasImage && (
           <div className="histoire-card-image-wrapper">
             <Image
-              src={event.Image!.Image!.url}
+              src={process.env.NEXT_PUBLIC_STRAPI_URL + event.Image!.Image!.url}
               alt={event.Image!.ImgAlt || event.Titre || ''}
               title={event.Image!.ImgTitle || event.Titre || ''}
               fill
