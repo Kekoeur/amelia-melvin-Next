@@ -84,6 +84,7 @@ export default async function DynamicPage({
   // Générer le gradient à partir de la couleur Strapi
   const gradientBackground = page?.Couleur.CouleurBasic ? generateGradient(page.Couleur.CouleurBasic) : 'transparent';
   const gradientDivider = page?.Couleur.CouleurBasic ? generateDividerGradient(page.Couleur.CouleurBasic) : 'transparent';
+  const colorBackground = page?.Couleur.CouleurBasic
 
   return (
     <ClientStyleWrapper
@@ -105,6 +106,7 @@ export default async function DynamicPage({
                     navMenu={navMenu}
                     invites={invites}
                     allergenes={allergenes}
+                    colorBackground={colorBackground}
                     colorGradDivider={gradientDivider}
                     colorGradBack={gradientBackground}
                   />
@@ -113,6 +115,7 @@ export default async function DynamicPage({
                     key={index}
                     section={element}
                     navMenu={navMenu}
+                    colorBackground={colorBackground}
                     colorGradDivider={gradientDivider}
                     colorGradBack={gradientBackground}
                   />

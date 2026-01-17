@@ -114,6 +114,12 @@ export function transformDateToStringDay(date: Date): string {
   return capitalizeWords(formatted); // "29 Août 2026"
 }
 
+export function transformDateToDay(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { day: 'numeric' };
+  const formatted = date.toLocaleDateString('fr-FR', options);
+  return capitalizeWords(formatted); // "29"
+}
+
 export function transformDateToStringDate(date: Date): string {
   const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
   const formatted = date.toLocaleDateString('fr-FR', options);

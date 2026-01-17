@@ -1,0 +1,164 @@
+/* ========== All Sections - Layout Parent ========== */
+
+.all-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+  align-items: stretch; /* ✅ Force les enfants à avoir la même hauteur */
+}
+
+/* Par défaut, tous les enfants prennent 100% de largeur */
+.all-sections > * {
+  flex: 1 1 100%;
+}
+
+/* Seulement les .infos-lieu-container prennent 50% */
+.all-sections > .infos-lieu-container {
+  flex: 1 1 calc(50% - var(--spacing-xl) / 2);
+  max-width: none;
+}
+
+/* ========== Infos Lieu - Grid Layout ========== */
+
+.infos-lieu-container {
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  max-width: var(--container-md);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto auto auto minmax(200px, 250px) minmax(200px, 250px) minmax(250px, 300px);
+  grid-template-areas:
+    "title title title title title title"
+    "city city city city city city"
+    "maps maps maps waze waze waze"
+    "photo0 photo0 photo1 photo1 photo1 photo1"
+    "photo0 photo0 topo topo topo topo"
+    "plan plan plan plan plan plan";
+  gap: var(--spacing-xl);
+  align-items: stretch;
+}
+
+/* ========== Header Elements ========== */
+
+.infos-lieu-title {
+  grid-area: title;
+  font-family: var(--font-titres);
+  font-size: var(--font-size-4xl);
+  color: var(--rouge);
+  text-align: center;
+  margin: 0;
+  padding: var(--spacing-lg) 0; /* ✅ Padding pour hauteur uniforme */
+}
+
+.city-label {
+  grid-area: city;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--fuschia);
+  margin: 0;
+  padding: var(--spacing-md) 0; /* ✅ Padding pour hauteur uniforme */
+}
+
+.lieu-icon {
+  font-size: 1.5rem;
+}
+
+/* ========== Map Links ========== */
+
+.map-link-button {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--gradient-primary);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  text-align: center;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 12px var(--shadow-soft);
+  display: flex; /* ✅ Pour centrer le contenu */
+  align-items: center;
+  justify-content: center;
+}
+
+.map-link-button:first-of-type {
+  grid-area: maps;
+}
+
+.map-link-button:nth-of-type(2) {
+  grid-area: waze;
+}
+
+.map-link-button:hover {
+  transform: var(--hover-lift-small);
+  box-shadow: 0 8px 20px rgba(244, 14, 94, 0.4);
+}
+
+/* ========== Images ========== */
+
+.lieu-image {
+  width: 100%;
+  height: 100%; /* ✅ Remplit la hauteur de sa cellule */
+  object-fit: cover;
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 8px 24px var(--shadow-medium);
+  transition: all var(--transition-normal);
+  border: var(--border-medium) solid var(--glass-border);
+}
+
+.lieu-image:hover {
+  transform: var(--hover-lift);
+  box-shadow: 0 12px 32px var(--shadow-timeline-hover);
+}
+
+/* Grid positions */
+.lieu-photo-0 {
+  grid-area: photo0;
+}
+
+.lieu-photo-1 {
+  grid-area: photo1;
+}
+
+.lieu-topo {
+  grid-area: topo;
+  object-fit: contain;
+}
+
+.lieu-plan {
+  grid-area: plan;
+}
+
+/* ========== Responsive ========== */
+
+@media (max-width: 768px) {
+  /* All sections retour à 100% sur mobile */
+  .all-sections > .infos-lieu-container {
+    flex: 1 1 100%;
+  }
+
+  /* Grid simplifié sur mobile */
+  .infos-lieu-container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "title title title"
+      "city city city"
+      "maps . waze"
+      "photo0 photo1 photo1"
+      "photo0 topo topo"
+      "plan plan plan";
+    gap: var(--spacing-lg);
+  }
+
+  .infos-lieu-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .city-label {
+    font-size: var(--font-size-lg);
+  }
+}
