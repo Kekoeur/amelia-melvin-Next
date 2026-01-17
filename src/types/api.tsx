@@ -22,7 +22,7 @@ export interface PageData {
     Style: Style[];
 }
 
-export type Section = ComponentSectionHeading | ComponentSectionFormInvite | ComponentSectionPresentation | ComponentSectionHistoire | ComponentSectionSectionDate | ComponentSectionTitreText | ComponentSectionImageDivider | ComponentInfosLieu | ComponentInfosTrajet | ComponentInfosContact;
+export type Section = ComponentSectionHeading | ComponentSectionFormInvite | ComponentSectionPresentation | ComponentSectionHistoire | ComponentSectionSectionDate | ComponentSectionTitreText | ComponentSectionImageDivider | ComponentInfosLieu | ComponentInfosTrajet | ComponentInfosContact | ComponentInfosTimer | ComponentInfosDiapo;
 
 export type Style = ComponentTypeChoixPoliceHtml;
 
@@ -101,6 +101,17 @@ export interface ComponentInfosLieu {
     Latitude: string;
     Longitude: string;
     Plan: ImageMedia;
+    Ville: string;
+    Photo: ImageMedia[];
+    Topo: ImageMedia;
+    TopoGltf?: FileMedia;
+}
+
+export interface FileMedia {
+  id: string;
+  name: string;
+  url: string;
+  mime?: string;
 }
 
 export interface ComponentInfosTrajet {
@@ -117,6 +128,18 @@ export interface ComponentInfosContact {
     Titre: string;
     Desc: Paragraph[];
     Contact: ListContact[];
+}
+
+export interface ComponentInfosTimer {
+  __typename: 'ComponentInfosTimer';
+  id: string;
+  StartDate: string;
+}
+
+export interface ComponentInfosDiapo {
+  __typename: 'ComponentInfosDiapo';
+  id: string;
+  LienDiapo: string;
 }
 
 // INVITES 
@@ -180,6 +203,8 @@ export interface ImageMedia {
   Image?: {
     url: string;
   };
+  width: number;
+  height: number;
 }
 
 export interface ListeElement {
@@ -225,6 +250,7 @@ export interface ListContact {
   Desc: Paragraph[];
   Contact: Contact[];
 }
+
 
 // ========== Style ==========
 

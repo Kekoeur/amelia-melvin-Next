@@ -14,14 +14,17 @@ interface ContactGroupProps {
   titre: string;
   description?: Paragraph[];
   contacts: Contact[];
+  colorBackground?: string;
+  colorGradDivider?: string;
+  colorGradBack?: string;
 }
 
-const ContactGroup: React.FC<ContactGroupProps> = ({ titre, description, contacts }) => {
+const ContactGroup: React.FC<ContactGroupProps> = ({ titre, description, contacts, colorBackground, colorGradBack, colorGradDivider }) => {
   if (contacts.length === 0) return null;
 
   return (
-    <div className="contact-group">
-      <h4 className="contact-group-titre">{titre}</h4>
+    <div className="contact-group glass-card">
+      <h4 className="contact-group-titre glass-card-title">{titre}</h4>
       
       {description && (
         <RichTextRenderer 
@@ -32,7 +35,7 @@ const ContactGroup: React.FC<ContactGroupProps> = ({ titre, description, contact
       
       <div className="contact-list">
         {contacts.map((contact) => (
-          <ContactCard key={contact.id} contact={contact} />
+          <ContactCard key={contact.id} contact={contact} colorBackground={colorBackground} colorGradDivider={colorGradDivider} colorGradBack={colorGradBack}/>
         ))}
       </div>
     </div>

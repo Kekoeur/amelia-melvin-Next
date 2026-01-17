@@ -229,7 +229,7 @@
 .heading-navigation-wrapper .nav-link {
   position: relative;
   font-family: var(--font-impact), serif;
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   display: flex;
   align-items: center;
   justify-content: center;

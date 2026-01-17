@@ -8,9 +8,12 @@ interface Contact {
 
 interface ContactCardProps {
   contact: Contact;
+  colorBackground?: string;
+  colorGradDivider?: string;
+  colorGradBack?: string;
 }
 
-const ContactCard: React.FC<ContactCardProps> = ({ contact }) => {
+const ContactCard: React.FC<ContactCardProps> = ({ contact, colorBackground, colorGradBack, colorGradDivider }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +46,7 @@ const ContactCard: React.FC<ContactCardProps> = ({ contact }) => {
   };
 
   return (
-    <div className="contact-card">
+    <div className="contact-card" style={{background: colorBackground}}>
       <div className="contact-info">
         <p className="contact-nom">👤 {contact.Nom}</p>
         <div className="contact-tel-list">

@@ -85,7 +85,11 @@
   .meteo-details,
   .contact-list,
   .personnes-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-card {
+    margin: 0 !important;
   }
   
   .personnes-grid {
@@ -144,7 +148,6 @@
   .titre-text-header {
     flex-direction: column;
     text-align: center;
-    gap: var(--spacing-md);
   }
   
   .titre-text-content {

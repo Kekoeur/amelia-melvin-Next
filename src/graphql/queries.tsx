@@ -23,6 +23,8 @@ export const GET_PAGE_DATA = gql`
         ImgAlt
         Image {
             url
+            width
+            height
         }
     }
 
@@ -169,6 +171,13 @@ export const GET_PAGE_DATA = gql`
                     Plan {
                         ...ImageFields
                     }
+                    Ville
+                    Photo {
+                        ...ImageFields
+                    }
+                    Topo {
+                        ...ImageFields
+                    }
                 }
 
                 ... on ComponentInfosTrajet {
@@ -187,6 +196,16 @@ export const GET_PAGE_DATA = gql`
                     Contact {
                         ...ListContactFields
                     }
+                }
+
+                ... on ComponentInfosTimer {
+                    id
+                    StartDate
+                }
+
+                ... on ComponentInfosDiapo {
+                    id
+                    LienDiapo
                 }
             }
         }
@@ -246,22 +265,27 @@ export const GET_INVITES = gql`
             Reponse
             Quand
             Qui {
+                id
                 Nom
                 Prenom
             }
             Matin {
+                id
                 Nom
                 Prenom
             }
             Midi {
+                id
                 Nom
                 Prenom
             }
             Soir {
+                id
                 Nom
                 Prenom
             }
             Retour {
+                id
                 Nom
                 Prenom
             }

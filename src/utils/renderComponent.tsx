@@ -13,6 +13,8 @@ import ImageDividerSection from "@/components/Type/ImageDividerSection";
 import InfosLieu from "@/components/Infos/Lieu";
 import InfosTrajet from "@/components/Infos/Trajet";
 import InfosContact from "@/components/Infos/Contact";
+import Timer from "@/components/Infos/Timer";
+import Diapo from "@/components/Infos/Diapo";
 
 import { NavigationProps } from "@/types/pages";
 import { Section } from "@/types/api";
@@ -33,11 +35,12 @@ interface SectionRendererProps {
   navMenu: NavigationProps;
   invites?: Invite[];
   allergenes?: Allergenes[];
+  colorBackground?: string;
   colorGradDivider?: string;
   colorGradBack?: string;
 }
 
-const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, invites, allergenes, colorGradBack, colorGradDivider }) => {
+const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, invites, allergenes, colorBackground, colorGradBack, colorGradDivider }) => {
   /*React.useEffect(() => {
     const cssObj = window.CSS as CSSWithPaintWorklet;
     const paintWorklet = cssObj && (cssObj["paintWorklet"] as CSSPaintWorklet | undefined);
@@ -88,15 +91,23 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({ section, navMenu, inv
     }
 
     case 'ComponentSectionTitreText': {
-      return <TitreTextSection section={section} />;
+      return <TitreTextSection section={section} colorBackground={colorBackground} colorGradDivider={colorGradDivider} colorGradBack={colorGradBack} />;
     }
 
     case 'ComponentInfosContact': {
-      return <InfosContact section={section} />;
+      return <InfosContact section={section} colorBackground={colorBackground} colorGradDivider={colorGradDivider} colorGradBack={colorGradBack} />;
     }
 
     case 'ComponentSectionImageDivider': {
       return <ImageDividerSection section={section} colorGradDivider={colorGradDivider} colorGradBack={colorGradBack} />;
+    }
+
+    case 'ComponentInfosTimer': {
+      return <Timer section={section} colorGradDivider={colorGradDivider} colorGradBack={colorGradBack} />;
+    }
+
+    case 'ComponentInfosDiapo': {
+      return <Diapo section={section} colorGradDivider={colorGradDivider} colorGradBack={colorGradBack} />;
     }
 
     default: {
